@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset = "utf-8" />
+    <title>Validaciones de Formularios con JavaScript</title>
+    <meta name = "description" content = "Ejercicios para validar formularios y darles presentación con CSS"/>
+    <link rel = "stylesheet" href= "css/estilos.css" />
+    <script src="js/validaciones.js"></script>
+  </head>
+  <body>
+    <!-- action = "" no procesa el formulario, se utilizara JavaScript para hacerlo, con ID se controla desde JavaScript, con "name" se utiliza para procesarlo con un lenguaje Backend, como PHP. -->
+    <form id = "contacto-frm" name = "contacto_frm" action ="" method="get" enctype="application/x-www-form-urlencoded">
+      <!-- Se genera un marco al formulario -->
+      <fieldset>
+        <legend>Contacto</legend>
+        <!-- Cuando se coloca en el id con el texto de Label se enlazan, es decir cuando se hace click en el nombre se pone el foco en la caja nombre (input) -->
+        <label for = "nombre">Nombre :</label>
+        <input type="text" id="nombre" name="nombre_txt" class="cambio"/>
+        <br/><br/>
+        <label for = "edad">Edad :</label>
+        <input type="text" id="edad" name="edad_txt" class="cambio"/>
+        <br/><br/>
+        <label for = "email">Email :</label>
+        <input type="text" id="email" name="email_txt" class="cambio"/>
+        <br/><br/>
+        <label for = "sexo">Sexo :</label>
+        <!-- Se debe colocar el campo "name" el mismo nombre para que sean un solo atributo, cuando se seleccione solo uno funcione .-->
+        <input type="radio" id="M" name = "sexo_rdo" value = "M"/> <label for = "Masculino">Masculino</label>
+        <input type="radio" id="F" name = "sexo_rdo" value = "F"/> <label for = "Femenino">Femenino</label>
+        <br/><br/>
+        <label for = "asunto">Asunto :</label>
+        <input type="text" id="asunto" name="asunto_txt"class="cambio" />
+        <br/><br/>
+        <label for ="comentarios">Comentarios :</label>
+        <br/>
+        <textarea name="comentario_txt" id="comentarios" cols="50" rows="10" class="cambio"></textarea>
+        <br />
+
+        <!-- Se les cambia el tipo de "submit" y "reset" a Button porque se utilizara JavaScript para cambiar el comportamiento.-->
+        <input type = "button" id = "enviar" class = "cambio" name = "enviar_btn" value = "Enviar" />
+        <input type = "button" id = "limpiar" class = "cambio" name = "limpiar_btn" value = "Limpiar" />
+      </fieldset>
+
+    </form>
+  </body>
+</html>
