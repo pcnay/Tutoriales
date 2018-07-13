@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>Métodos y Funciones para arreglos, Cadenas y números en JS </title>
+	</head>
+	<body>
+		<script>
+			// Declarando arreglos.
+			var semana = ['Domingo','Lunes','Martes','Miercoles','Jueves','Viernes','Sabado'],
+					meses = new Array('Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre')
+			var convertirEncadena,convertirEnArreglo,
+					nuevoArreglo, mensaje, mensaje2,division
+
+
+			console.log(semana, meses.length,semana[3])
+			// Desplegando el contenido del arreglo, utilizando "for"
+			for (var n=0;n<semana.length; n++)
+			{
+				document.write('<p>'+semana[n]+'</p>')
+			}
+
+
+			// Imprime los nombres del mes en otra forma del "for"
+			for (num_mes in meses)
+			{
+				document.write('<p>'+meses[num_mes]+'</p>')
+			}
+			
+			semana.pop() // Elimina el último elemento del arreglo semana.
+			console.log ('Despues del .pop()'+semana)
+			
+			semana.push('Sábado') // Agrega un elemento al arreglo pero hasta el final.
+			console.log ('Despues de .push()'+semana)
+			
+			semana.shift() // Quita el primero elemento del arreglo.
+			console.log ('Ejecutar .shift()'+semana)
+			
+			semana.unshift('Domingo') // Agrega el primer elemento del arreglo.
+			console.log ('Ejecutar .unshift()'+semana)
+
+			semana.reverse() // Invierte el orden de los elementos 
+			console.log ('Despues del .reverse()'+semana)
+
+			// Uniendo los arreglos, se unen los arreglos Semana y Meses
+			nuevoArreglo = semana.concat(meses)
+			console.log ('Después de .concat'+nuevoArreglo)
+
+			// Convertir a cadena de texto un Arreglo.
+			// NOs indica con "typeof" de que tipo es la variable.
+			// Por defecto lo separa por , pero se puede modicar con solo .join(-)
+			convertirEncadena = nuevoArreglo.join()
+			console.log ('Después de .join'+convertirEncadena,
+				'Que Tipo Es la Variable '+typeof(convertirEncadena),
+				'Numerocaracteres =  '+convertirEncadena.length)
+			
+			// Se puede partir una cadena de texto que a su vez se convierte en arreglo por defecto
+			// Indicarle que separa por comas cada uno de los elementos.
+			convertirEnarreglo = convertirEncadena.split(',')
+			console.log ('Después de .split()'+convertirEnarreglo,
+				'Que Tipo Es la Variable '+typeof(convertirEnarreglo),
+				'Numerocaracteres =  '+convertirEnarreglo.length)
+			
+
+			// Usando CADENAS DE TEXTOS
+			mensaje = 'Hola Javascript'
+			console.log(mensaje.length)
+
+			//Agregando mas texto a la linea.
+			mensaje += ', el lenguaje que dominara el Mundo.'
+			console.log(mensaje)
+
+			mensaje2 = mensaje.concat(' incluyendo el hardware tambien')
+			console.log(mensaje2)
+
+			console.log(mensaje2.toUpperCase())
+			
+			console.log(mensaje2.toLowerCase())
+
+			// Nos indica el caracter que corresponde de la posicion que se pase como paramentro caracter.
+			console.log (mensaje.charAt('5'))
+
+			// Nos indica la posicion del cadena o caracter que se pasa como parámetro.
+			// Cuando no encuentra un caracter devuelve -1
+			console.log (mensaje.indexOf('Ja'))
+			
+			// Nos indica la posicion de la cadena comenzo desde el último caracter en reversa 
+			// Para este caso se encuentra en la posicion 40 la última "a"
+			console.log (mensaje.lastIndexOf('a'))
+
+
+			// Comienza a extraer desde la posicion 5 en adelante.			
+			console.log (mensaje2.substring(5))
+
+			// Una parte de las cadena
+			// Es desde la posicion 5 hasta la 10 solamente. Es decir "Javascrip"
+			console.log (mensaje2.substring(5,15))
+
+			// Manejando números.
+			// isNaN Las iniciales son : No es Un Numero 
+			division = 19/3
+
+			console.log(division,			
+				isNaN(division))
+
+			if (isNaN(division))
+			{
+				alert("NO es un numero  ")
+			}
+			else
+			{
+				alert('Si es un numero ')
+			}
+
+			// Para redondear a dos posiciones.
+			console.log(division.toFixed(2))
+
+		</script>			
+	</body>
+</html>
