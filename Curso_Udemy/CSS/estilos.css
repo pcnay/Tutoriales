@@ -1,0 +1,22 @@
+/*
+Estructura del CSS:
+h2 ...= Selectores que son las etiquetas de HTML.
+color = Atributos
+pink = propiedades
+
+Se puede accesar a las etiquetas del HTML aparte del nombre, por el ID (#nombre), Class (.nombre) 
+*/
+
+h2
+{
+	color:white;
+	text-transform:uppercase;
+	background-color:red;
+	padding:20px;
+}
+
+p
+{
+	font-size:15px;
+}
+
