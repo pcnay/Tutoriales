@@ -19,7 +19,7 @@ ol_list.removeChildren(ol_listchildren[0])
 var li_Fundamentos = document.createElement('li')
 var li_H2_fundamentos = document.createElement('h2')
 var li_H2_A_fundamentos = document.createElement('a') // Es un enlace href
-var aTexto = document.createTextNode('Fundamentos')
+var aTexto = document.createTextNode('Metodos para el nodo del DOM')
 
 // Agregando los atributos que contiene este enlace, como los es "href" y "_blank"
 li_H2_A_fundamentos.href = 'https://www.google.com'
@@ -30,4 +30,7 @@ li_H2_A_fundamentos.appendChild(aTexto)
 li_H2_fundamentos.appendChild(li_H2_A_fundamentos)
 li_Fundamentos.appendChild(li_H2_fundamentos)
 ol_list.appendChild(li_Fundamentos)
+// Reemplazando un elemento.
+ol_list.replaceChild(ol_listChildren[0],ol_listChildren[5));
 
+ol_list.insertBefore(li_Fundamentos,ol_listChildren[7])	
