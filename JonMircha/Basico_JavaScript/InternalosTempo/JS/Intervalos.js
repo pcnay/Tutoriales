@@ -4,6 +4,7 @@
 
 // Definiendo las variables como globales.
 // Para que pueda funcionar los eventos del Internvalos de Tiempo.
+// Se agrega variables de ejemplo
 
 var unaVez,muchasVeces;
 
