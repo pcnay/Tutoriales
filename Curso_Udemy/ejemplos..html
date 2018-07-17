@@ -20,17 +20,13 @@
       Es importante el orden en que colocan, ya que se reemplazan.
     -->
     <link rel = "stylesheet" href= "./css/normalize.css">
-    <link rel = "stylesheet" href= "./css/texto.css">
+    <link rel = "stylesheet" href= "./css/estilos.css">
 
 
 </head>
   <body>
     <!-- Se utilizan los "DIV" para separar las estructura de HTML-->
     <!-- Se le asigna "ID", "CLASS", son para identificarlos se utilizan en JavaScript (ID), CCS (class), Lenguajes Backend (Class) -->
-
-    <div class ="ofertaMayo" >
-      <h2>Esta oferta vence en 2 Días </h2>      
-    </div>
 
     <div class = "contenedor">
       <!-- La etiqueta "Header" se utiliza para indicar el encabezado de la página Web -->
@@ -68,22 +64,22 @@
         <section class = "cursos">
           <!-- Por lo general se colocan como primer etiqueta los encabezados h1 .. h6 
             Estos son los grupos de contenido. -->
-            <h2 class = "azul titulocurso">Nuestros Cursos</h2>
+            <h2>Nuestros Cursos</h2>
             <div>
               <h3 id= "titulo" class = "titulo">HTML 5</h3>
               <img src = "./img/html5.png" height = "200"/>
               <!-- Descargar un archivo, por defecto abre el archivo con el programa Adobe Reader, si se agrega el atributo "download" los descarga  a la computadora -->
               <a href = "./Recursos/Pruebas.pdf" download>Descaregar Archivos </a>
 
-              <p>Ventajas de Este Curso</p>
-              <ul id = "menu1">
+              <p class = "azul titulocurso">Ventajas de Este Curso</p>
+              <ul class= "menu1">
                 <li>Lo puedes tomar en línea</li> 
                   <ul> <!-- Lista anidadas -->
                     <li class = "opcion1">En Udemy</li>
                     <li>A cualquier hora del día</li>
                   </ul>
                 <li>Podemos avanzar a tu ritmo</li> 
-                <li><em>Puedes preguntar al instructor</em></li> 
+                <li>Puedes preguntar al instructor</li> 
               </ul>
               <p class = "parrafo">Tamario del Curso</p>
               
@@ -101,7 +97,6 @@
                   <li>Crear Enlaces HTML</li>                                    
                 </ol>
                 <p class = "parrafo" >Lo que debes aprender para ser desarrollador Web.</p>
-                <p class="oferta">Todos los cursos de <span>$99</span>a $20 </p>
 
                 <!-- Menu de definicion. Se puede utilizar en aplicaciones como Menus en los Restauranes, Portafolios de Trabajos, etc. -->
                 <dl>
@@ -121,8 +116,7 @@
             <div>
               <h3>JavaScript</h3>
               <img src = "./img/js.jpg" height = "200"/>
-            </div>  
-            <p><span>Pruebas de Span</span></p>  
+            </div>    
         </section>
 
         <!-- Se coloca "ID" para poder accesar desde el menu de arriba -->
@@ -132,13 +126,6 @@
             <h3>Aprender a programar es importante</h3>
               <p>Texto de pruebas para este encabezado </p>
           </div>
-          <div class = "noticia">
-            <h3>Aprender a programar es importante</h3>
-              <p>Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos
-                  Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos,\Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos, 
-              </p>
-          </div>
-
           <!-- La etiqueta "Articule" incluye informacion referente a lo que se trata e l sitio Web, entrada para los foros,  -->
           <article role = "article">
             <h3>Aprender a programar en el siglo 21 es muy importante.</h3>

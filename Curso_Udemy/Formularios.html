@@ -1,0 +1,142 @@
+<!DOCTYPE>
+<html>
+	<head>
+		<meta charset = "utf-8">
+		<title>Usando Formularios</title>
+	</head>
+	<body>
+		<h2>Creando los formularios</h2>
+		<!-- Con el atributo "novalidate" no realiza las validaciones que se le indiquen -->
+		<form class = "formulario" action ="" novalidete >
+
+			<!-- Esta etiqueta ayuda a agrugar contenido en la etiqueta "Form"-->
+			<fieldset>
+				<legend>Tus Datos Personales</legend> <!-- EL titulo del recuadro dibujado -->
+				
+				<!-- En el "for" de Label y "name" de Input se llaman igual , para que cuando se hace click en la etiqueta Label "Nombre" ponga el foco en el Input "Nombre"
+				con el atributo "required" no se permite que quede en blanco
+				-->
+				<label for = "nombre">Nombre :</label>
+				<input type = "text" name = "nombre" id ="nombre" placeholder = "Tu Nombre" autocomplete = "on" required />
+				<br />
+
+				<label for = "apellido">Apellido :</label>
+				<input type = "text" name = "apellido" id ="apellido" placeholder = "Tu Apellido" autocomplete = "on" required />
+				<br/>
+
+				<label for = "sexo">Sexo : </label>
+				<!-- Se coloca el mismo "name" para que se consideren como uno solo, es decir que solo se seleccione uno a la vez 
+				El atributo "checked" es para que se seleccione automaticamente .
+				-->
+				<input type = "radio" id="sexo" name = "sexo" value = "Hombre" checked >Hombre
+				<input type = "radio" id="sexo" name = "sexo" value = "Mujer" autofocus = "Mujer" >Mujer
+				<input type = "radio" id="sexo" name = "sexo" value = "Otro">Otro
+
+				<br><br>
+				<label>Fecha de Cumpleaños</label>
+				<!-- Esta etiqueta despliega un recuadro de fecha.-->
+				<input type = "date" name = "fecha" />
+				<br>
+
+				<label>Escribe tu correo electronico :</label>
+				<!-- Validaciones para email desde HTML-->
+				<input type = "email"  class = "email" name = "email" id = "emial" placeholder = "nombre@dominio.com">
+
+				<br>
+				<label>Introduce tu URL </label>
+				<input type = "url" name = "sitioweb" placeholder = "http://www.nombresitio.com">
+
+				<br>
+				<label>Cuanto Sabes De HTML</label>
+				<!-- Esta etiqueta muestra una barra de desplazamiento para indicar el rango.-->
+				<input type = "range" name = "puntaje" min = "0" max = "10">
+
+				<br>
+				<label>Cuantas personas vienen contigo</label>
+				<!-- Esta etiqueta nos válida un rango de números .-->
+				<input type = "number" name = "camisetas" min = "1" max = "5">
+
+			</fieldset>
+			
+			<fieldset>
+				<legend>Información del Curso</legend>
+				<label for = "turno">Turno :</label>
+				<!-- Esta etiqueta es un ComboBox -->
+				<select id = "turno" name = "turno" class = "turno">Turno
+					<option value = "matutino">Matutino</option>
+					<option value = "vespertino">Vespertino</option>
+					<option value = "nocturno" selected>Nocturno</option> <!-- Lo asigna por defecto.-->
+				</select>
+				<br/><br/>
+				<label>Que curso te gustariamos que agregaramos</label>
+
+				<!-- Tiene la apariencia de un "ComboBox"-->
+				<input list= "propuesta" name = "encuesta">
+				<datalist id ="propuesta">
+					<option value = "Jquery"></option>
+					<option value = "NodeJS"></option>
+					<option value = "Angular"></option>
+				</datalist>
+				<br/><br/>
+				<!-- Usando el CheckBox-->
+				<label>Eleige tus cursos</label>
+				<br/>
+				<input type ="checkbox" value = "PHP">PHP
+				<br/>
+				<input type ="checkbox" value = "Laravel">Laravel
+				<br/>
+				<input type ="checkbox" value = "GitHub">GitHub
+				<br/>
+				<label>Fechas cuando deseas iniciar el curso</label>
+				<input type="month" name = "fecha">
+
+
+
+			</fieldset>
+
+			<fieldset>
+				<legend>Extra</legend>
+				<label>Las primeras 10 personas reciben camisa gratis, elige color </label>
+				<!-- Esta etiqueta despliega una franja con el color por defecto el negro.-->
+				<input type = "color" name ="color">
+			</fieldset>
+			<fieldset>
+				<legend>Manejando Fechas en HTL</legend>
+				<label>Mostrando la fecha con la hora incluida </label>
+				<!-- Muestra la hoja además de la fecha -->
+				<input type = "datetime-local" name = "fecha" />
+
+				<br>
+				<label>Mostrando solamente el Mes: </label>
+				<input type="month" name = "fecha"> <!-- Despliega el mes-->
+				<br>
+				<label>Mostrando solamente La hora: </label>
+				<input type = "time" name "tiempo"> <!-- Muestra la hora -->
+				<br>
+				<label>Mostrando Las Semanas : </label>
+				<input type = "week" name "tiempo"> <!-- Muestra las semanas -->
+
+			</fieldset>
+		<br/>
+		<br/>
+			<fieldset>
+				<legend>Introduce el usuario :</legend>
+				<label>Usuario :</label>
+				<input type = "text" name = "usuario" placeholder = "Introduce el nombre de usuario">
+				<br>
+				<label>Password :</label>
+				<input type = "password" name = "password" placeholder = "Introduce la contraseña" required >
+				<br>
+			</fieldset>
+
+		<!-- Etiqueta "Boton" para los formularios, para este caso es para borrar el contenido de las etiquetas Text, y restura por defecto las etiquetas. -->
+		<button type = "reset" disabled >Borrar</button>
+		<!-- SE utilizar para enviar información del formulario para un lenguaje del Backend	-->
+		<input type = "submit" value = "Enviar">
+
+
+		</form>
+
+	</body>
+
+</html>

@@ -1,0 +1,86 @@
+/* Background
+	Para agregar un color de Fondo en la página
+	Para evitar los margenes Collapse (Cuando se sopan los margenes), es mejor utilizar el "padding-bottom:??px
+
+*/ 
+body
+{
+	background:gray;
+}
+
+div.contenedor
+{
+	background:white;
+	/* Este tamaño cuando se define menor todos los componentes internos se reajustan */ 
+	width:1000px; 
+	margin-top:10px;
+	margin-left:auto;
+	margin-right:auto;
+	/* 	margin: arriba, derecha, abajo, Izq = Forma en una sola linea 
+	margin :10px auto 0 auto
+	*/
+}
+
+header
+{
+	background:orange;
+	margin-bottom:30px;
+		/* Espacio interno de la etiqueta, es decir son 40 pixeles del texto al limite de la etiqueta. */
+
+	padding-top:30px;
+	/* padding: 20px 0 0 0*/
+	/* padding: arriba, derecha, abajo, Izq = Forma en una sola linea */
+}
+	padding-bottom:30px;
+ 
+	/*  Este se refiere a la altura del header.
+	 height:100vh; 
+			height:100vw;
+	*/
+}
+
+nav
+{
+	background:purple;
+	height:130px; /* Altura de la etiqueta NAV */
+	padding-top :40px /* Espacio interno de la etiqueta, es decir son 40 pixeles del texto al limite de la etiqueta. */
+
+}
+
+table
+{
+	background:cyan;	
+	/* width:600px;*/
+	width:50%; /* Del ancho definido en el DIV principal "Contenedor" */
+}
+
+tbody tr td
+{
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+footer
+{
+	background:orange;
+	margin-top:30px;
+	padding-top:20px;
+}
+
+footer nav
+{
+	background:red;
+	/* background:transparent; = desactiva el color de fondo */
+}
+
+img.logocss
+{
+	width:120px;
+}
+
+h2
+{
+	margin-bottom:10px;
+	/* Se puede manejar por % en lugar de pixels px */
+}
+
