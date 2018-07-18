@@ -1,0 +1,65 @@
+/* Box-sizing es una de las mejoras de Layout en CSS 
+Cuando se agrega un "padding" a una etiqueta crece, con box-sizing:border-box; lo corrige
+Esta es soportada por la mayoria de los navegadores
+https://www.canuse.com
+
+Estos se aplica a la etiqueta que aplique solamente, la fuente es de Paul Irish es uno de los programadores Frontend de Google Crome
+
+
+
+*/
+
+/* Codigo para aplicar a la hoja de estilos :*/
+html
+{
+  box-sizing:border-box;  
+} 
+
+
+/* Lo aplica solo a las etiquetas que lo requieran, por lo que se borran en las etiquetas que se agrego. */ 
+*, *:before, *:after
+{
+    box-sizing:inherit; /* Hereda a las etiquetas que lo requieran */  
+}
+
+body {
+     background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+     font-family: Arial, Helvetica, sans-serif;
+      /* box-sizing: border-box;*/
+ }
+ .container {
+     max-width: 1100px;
+     margin: 0 auto;
+     width: 90%;
+     background-color: #ffffff;
+     margin-top: 60px;
+     padding: 10px;
+ }
+ h1 {
+     text-align: center;
+     text-transform: uppercase;
+     font-weight: lighter;
+ }
+
+ .padding {
+     height: 100px;
+     width: 300px;
+     background-color: cornflowerblue;
+     color: white;
+     /* Con esta modificación e; tamaño d ela clase ".padding" tiene mas longuit a la definida anteriormente */
+     padding:30px; /* Se agregara a todas los lados, se cambia el valor, el tamaño del DIV no se altera. */
+      /* box-sizing:border-box; /* Hace que respete la Altura y Anchura de la clase "padding", aplicando el padding de 40px 
+      mantiene la misma altura de la caja "Border"
+      */ 
+ }
+ .border {
+     height: 100px;
+     width: 300px;
+     background-color:coral;
+     color: white;
+     border:20px solid black; /* Afecta el tamaño del DIV, se agrega 20 px por lado, por lo que ahora mide 340px de ancho */ 
+     padding: 20px; /* El tamaño del DIV es de 380 px de Ancho */
+     /* box-sizing:border-box; /* Con esta instrucción quedan del mismo tamaño las dos etiquetas, es decir respetando el Ancho de la etiqueta y solo modificnado lo interno */ 
+     
+ }
+
