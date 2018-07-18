@@ -2,6 +2,11 @@
 	Para agregar un color de Fondo en la página
 	Para evitar los margenes Collapse (Cuando se sopan los margenes), es mejor utilizar el "padding-bottom:??px
 
+	/* Para evitar el colapso de imagenes, se eescribe esta instrucción , ahora se puede visualizar el recuadro blanco, con la asignacion en el Footer */
+	overflow:hidden;
+	
+	/* Para el colapso de margenes se recomiendo margin a para los lados y arriba, pero abajo usar "padding-bottom" */
+
 */ 
 body
 {
@@ -19,6 +24,11 @@ div.contenedor
 	/* 	margin: arriba, derecha, abajo, Izq = Forma en una sola linea 
 	margin :10px auto 0 auto
 	*/
+	/* Para evitar el colapso de imagenes, se eescribe esta instrucción , ahora se puede visualizar el recuadro blanco, con la asignacion en el Footer */
+	overflow:hidden;
+
+	/* Para el colapso de margenes se recomiendo margin a para los lados y arriba, pero abajo usar "padding-bottom" */
+
 }
 
 header
@@ -27,24 +37,30 @@ header
 	margin-bottom:30px;
 		/* Espacio interno de la etiqueta, es decir son 40 pixeles del texto al limite de la etiqueta. */
 
-	padding-top:30px;
+	padding-top:20px;
+	padding-bottom:20px;
 	/* padding: 20px 0 0 0*/
-	/* padding: arriba, derecha, abajo, Izq = Forma en una sola linea */
-}
-	padding-bottom:30px;
+	/* padding: arriba, derecha, abajo, Izq = Forma en una sola linea */	
  
 	/*  Este se refiere a la altura del header.
 	 height:100vh; 
 			height:100vw;
 	*/
+
 }
 
-nav
+nav.navegacion
 {
 	background:purple;
 	height:130px; /* Altura de la etiqueta NAV */
-	padding-top :40px /* Espacio interno de la etiqueta, es decir son 40 pixeles del texto al limite de la etiqueta. */
+	padding-top :90px; /* Espacio interno de la etiqueta, es decir son 40 pixeles del texto al limite de la etiqueta. */
+	margin-top:40px; /* Margen exterior, comienza a partir de la etiqueta "NAV" */
+}
 
+/* Se utiliza para remover el padding asignado anteriormente */ 
+nav ul
+{
+	padding:0;
 }
 
 table
@@ -52,8 +68,11 @@ table
 	background:cyan;	
 	/* width:600px;*/
 	width:50%; /* Del ancho definido en el DIV principal "Contenedor" */
+	/* La separación la realliza con el Footer no con el contenidor, se debe ver Blanco que es el "Contenedor", lo que esta pasando se le llama COLAPSO DE MARGENES. */
+	margin-bottom:100px;
 }
 
+/* Separacion entre los renglones de las tablas. */
 tbody tr td
 {
 	padding-top:5px;
