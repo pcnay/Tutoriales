@@ -64,103 +64,105 @@
         La etiqueta "SECCION" se utiliza para generar grupos de Contenido 
     
       -->
-      <main class = "contenido-principal" role = "main">
-        <section class = "cursos">
-          <!-- Por lo general se colocan como primer etiqueta los encabezados h1 .. h6 
-            Estos son los grupos de contenido. -->
-            <h2 class = "azul titulocurso">Nuestros Cursos</h2>
-            <div>
-              <h3 id= "titulo" class = "titulo">HTML 5</h3>
-              <img src = "./img/html5.png" height = "200"/>
-              <!-- Descargar un archivo, por defecto abre el archivo con el programa Adobe Reader, si se agrega el atributo "download" los descarga  a la computadora -->
-              <a href = "./Recursos/Pruebas.pdf" download>Descaregar Archivos </a>
+      <div class = "contenido clearfix"></div>
+        <main class = "contenido-principal" role = "main">
+          <section class = "contenido" id = "cursos">
+            <!-- Por lo general se colocan como primer etiqueta los encabezados h1 .. h6 
+              Estos son los grupos de contenido. -->
+              <h2 class = "azul titulocurso">Nuestros Cursos</h2>
+              <div>
+                <h3 id= "titulo" class = "titulo">HTML 5</h3>
+                <img src = "./img/html5.png" height = "200"/>
+                <!-- Descargar un archivo, por defecto abre el archivo con el programa Adobe Reader, si se agrega el atributo "download" los descarga  a la computadora -->
+                <a href = "./Recursos/Pruebas.pdf" download>Descaregar Archivos </a>
 
-              <p>Ventajas de Este Curso</p>
-              <ul id = "menu1">
-                <li>Lo puedes tomar en línea</li> 
-                  <ul> <!-- Lista anidadas -->
-                    <li class = "opcion1">En Udemy</li>
-                    <li>A cualquier hora del día</li>
-                  </ul>
-                <li>Podemos avanzar a tu ritmo</li> 
-                <li><em>Puedes preguntar al instructor</em></li> 
-              </ul>
-              <p class = "parrafo">Tamario del Curso</p>
-              
-              <!-- <ol> = Listas ordenas, las opciones les agrega un número en orden ascendentes.  
-                Se pueden mezclar las listas ordenas con desordenadas.  
-              -->
-
-                <ol>
-                  <li>Básicos HTML</li>
-                    <ul>
-                      <li>Elementos Semanticos</li>
-                      <li>Header</li>
+                <p>Ventajas de Este Curso</p>
+                <ul id = "menu1">
+                  <li>Lo puedes tomar en línea</li> 
+                    <ul> <!-- Lista anidadas -->
+                      <li class = "opcion1">En Udemy</li>
+                      <li>A cualquier hora del día</li>
                     </ul>
-                  <li>Etiquetas HTML</li>                  
-                  <li>Crear Enlaces HTML</li>                                    
-                </ol>
-                <p class = "parrafo" >Lo que debes aprender para ser desarrollador Web.</p>
-                <p class="oferta">Todos los cursos de <span>$99</span>a $20 </p>
+                  <li>Podemos avanzar a tu ritmo</li> 
+                  <li><em>Puedes preguntar al instructor</em></li> 
+                </ul>
+                <p class = "parrafo">Tamario del Curso</p>
+                
+                <!-- <ol> = Listas ordenas, las opciones les agrega un número en orden ascendentes.  
+                  Se pueden mezclar las listas ordenas con desordenadas.  
+                -->
 
-                <!-- Menu de definicion. Se puede utilizar en aplicaciones como Menus en los Restauranes, Portafolios de Trabajos, etc. -->
-                <dl>
-                  <dt>HTML</dt> <!-- Defincion del termino -->
-                  <dd>Agrega estructura a tus desarrollos</dd>
-                  <dt> CSS </dt>
-                  <dd>Agrega Presentación </dd>
-                  <dt>JavaScript </dt>
-                  <dd>Agrega Interactividad </dd>
+                  <ol>
+                    <li>Básicos HTML</li>
+                      <ul>
+                        <li>Elementos Semanticos</li>
+                        <li>Header</li>
+                      </ul>
+                    <li>Etiquetas HTML</li>                  
+                    <li>Crear Enlaces HTML</li>                                    
+                  </ol>
+                  <p class = "parrafo" >Lo que debes aprender para ser desarrollador Web.</p>
+                  <p class="oferta">Todos los cursos de <span>$99</span>a $20 </p>
 
-                </dl>
+                  <!-- Menu de definicion. Se puede utilizar en aplicaciones como Menus en los Restauranes, Portafolios de Trabajos, etc. -->
+                  <dl>
+                    <dt>HTML</dt> <!-- Defincion del termino -->
+                    <dd>Agrega estructura a tus desarrollos</dd>
+                    <dt> CSS </dt>
+                    <dd>Agrega Presentación </dd>
+                    <dt>JavaScript </dt>
+                    <dd>Agrega Interactividad </dd>
+
+                  </dl>
+              </div>
+              <div>
+                <h3>CSS 3</h3>
+                <img class = "logocss"  src = "./img/css3.png" height = "200"/>
+              </div>
+              <div>
+                <h3>JavaScript</h3>
+                <img src = "./img/js.jpg" height = "200"/>
+              </div>  
+              <p><span>Pruebas de Span</span></p>  
+          </section>
+
+          <!-- Se coloca "ID" para poder accesar desde el menu de arriba -->
+          <section id = "noticias" class = "seccion">
+            <h2>Ultimas noticias</h2>
+            <div class = "noticia">
+              <h3>Aprender a programar es importante</h3>
+                <p>Texto de pruebas para este encabezado </p>
             </div>
-            <div>
-              <h3>CSS 3</h3>
-              <img class = "logocss"  src = "./img/css3.png" height = "200"/>
+            <div class = "noticia">
+              <h3>Aprender a programar es importante</h3>
+                <p>Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos
+                    Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos,\Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos, 
+                </p>
             </div>
-            <div>
-              <h3>JavaScript</h3>
-              <img src = "./img/js.jpg" height = "200"/>
-            </div>  
-            <p><span>Pruebas de Span</span></p>  
-        </section>
 
-        <!-- Se coloca "ID" para poder accesar desde el menu de arriba -->
-        <section id = "noticias" class = "seccion">
-          <h2>Ultimas noticias</h2>
-          <div class = "noticia">
-            <h3>Aprender a programar es importante</h3>
-              <p>Texto de pruebas para este encabezado </p>
-          </div>
-          <div class = "noticia">
-            <h3>Aprender a programar es importante</h3>
-              <p>Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos
-                  Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos,\Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos, 
-              </p>
-          </div>
-
-          <!-- La etiqueta "Articule" incluye informacion referente a lo que se trata e l sitio Web, entrada para los foros,  -->
-          <article role = "article">
-            <h3>Aprender a programar en el siglo 21 es muy importante.</h3>
-            <p> Se agrega mas texto para el tema en cuestion, se repite para llenar el espacio
-                Se agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacio
-            </p>
-          </article>
-          <article role = "article">
+            <!-- La etiqueta "Articule" incluye informacion referente a lo que se trata e l sitio Web, entrada para los foros,  -->
+            <article role = "article">
               <h3>Aprender a programar en el siglo 21 es muy importante.</h3>
               <p> Se agrega mas texto para el tema en cuestion, se repite para llenar el espacio
                   Se agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacio
               </p>
             </article>
-            
-        </section>
+            <article role = "article">
+                <h3>Aprender a programar en el siglo 21 es muy importante.</h3>
+                <p> Se agrega mas texto para el tema en cuestion, se repite para llenar el espacio
+                    Se agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacio
+                </p>
+              </article>
+              
+          </section>
 
-      </main>
-
-      <!-- 
+        </main>
+        <!-- 
         "Aside" = Elemento lateral (Lado izq. de la pantalla) al contenido principal, lo realiza el CSS, pero esta forma de escribirlo es la correcta. 
         Algunas ocaciones se colocan las entradas a Facebook, Blogs, Twitters , etc.
       -->
+
+      
       <aside role = "complementary">
         
         <h2>Próximo cursos</h2>
@@ -237,6 +239,8 @@
         </table>
   
       </aside>
+    </div> <!-- Class = "contenido" -->
+
     </div>
     <!-- Se agrega la etiqueta "Footer", no se debe agregar fuera de la etiqueta "Body"
       porque no serie visible.
@@ -265,6 +269,19 @@
       </div>
       <p>Todos los derechos reservados CopyRigth &copy; </p>
     </footer>
+    <!-- Para Position Relative, Absolute 
+      Es importante que el padre tenga activado "
+      position Relative", y el hijo con position Absolute, se puede mover en donde se desea. "
+      Con la opción position:fixed queja fija la etiqueta "DIV,header,nav, .. ", aun cuando se haga scroll no se mueve.
+      Resumiendo se utilizan para posicionar un elemento en la pagina Web
+    -->
+            
+    <div class = "padre rojo">
+      <div class = "hijo azul">
+
+      </div>
+    </div>
+
 
   </body>
 

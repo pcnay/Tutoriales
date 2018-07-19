@@ -154,7 +154,7 @@ nav.navegacion ul li a
 /* Selector con hijos, soloca ">" para seleccionar solamente el hijo, ya que hay otro arriba (padre)  */
 section ul.menu1
 {
-	border: 1px solid black;*/
+	border: 1px solid black;
 }
 
 section ul.menu1 > li
@@ -165,7 +165,7 @@ section ul.menu1 > li
 /* Selector adyacente es decir que despues de la etiqueta ul con el nombre clase "menu1" y esta etiqueta se encuentra a un lado .*/
 section.cursos > ul.menu1 + p
 {
-	background-color:red!import;
+	background-color:red!important;
 }
 
 /* Selectores para enlace externos, se utilizan para cuando se esta diseñando los accesos para las redes sociales se incluye un icono que corresponde a cada red 
