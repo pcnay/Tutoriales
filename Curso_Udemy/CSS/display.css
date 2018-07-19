@@ -1,0 +1,96 @@
+/* Cada Elemento en HTML es un rectangulo 
+	Todos los elementos en HTML son -> Display:inLine
+	En los encabezados el navegador les asigna "Inline Inblock"
+	Display:Inline: Se aplica margin, padding, Ancho y Alto pero no se mueve verticalmente.
+	Display:inline Block, Se aplica todo lo anterior.
+	Display:Block = Toman todo el espacio disponible y se colocan uno al lado del otro, se aplica el alto, ancho, margin, padding
+	Display:none = Solo se elimina de l aprte visual, peros sigue apareciencdo en el DOM
+	Display:Flex = Desplazamiento de las etiquetas mas fácil en la página Web
+	
+*/ 
+html {
+	box-sizing: border-box;
+	}
+	*, *:before, *:after {
+	box-sizing: inherit;
+	}
+	body {
+    background-image: linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%);
+    font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+}
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    width: 90%;
+    background-color: #ffffff;
+    margin-top: 60px;
+    padding: 10px;
+}
+h1 {
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: lighter;
+}
+
+
+.inline span, 
+.inline em, 
+.inline b {
+    border: 1px solid red;
+    width:200px;
+    height:200px;
+}
+
+
+/* Se les puede aplciar un Alto y Ancho */
+.inline-block span,
+.inline-block em, 
+.inline-block b{
+    display: inline-block;
+    height: 50px; 
+    width:250px;
+    padding: 20px;
+}
+
+/* Lo tienen los contenedores por defecto  */ 
+.block p {
+    border: 1px solid red;
+}
+
+/* Coloca los recuadros en foma contigua */ 
+.contenedor-flex {
+    display: flex;
+    flex-direction: row;
+		flex-wrap: wrap;
+		/* Mueve los recuadros */ 
+    justify-content: flex-start;
+    justify-content: flex-end;
+    justify-content: center;
+    justify-content: space-around;
+    justify-content: space-between;
+
+}
+.contenedor-flex div {
+    width: 200px;
+    height:200px;
+}
+.contenedor-flex div:nth-child(1),
+.contenedor-flex div:nth-child(9) {
+    background-color:aqua;
+}
+.contenedor-flex div:nth-child(2),
+.contenedor-flex div:nth-child(8)  {
+    background-color:blueviolet;
+}
+.contenedor-flex div:nth-child(3),
+.contenedor-flex div:nth-child(7) {
+    background-color:brown;
+}
+.contenedor-flex div:nth-child(4), 
+.contenedor-flex div:nth-child(6) {
+    background-color:forestgreen;
+}
+.contenedor-flex div:nth-child(5) {
+    background-color:darkslategray;
+}
