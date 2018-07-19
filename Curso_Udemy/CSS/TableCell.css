@@ -170,6 +170,11 @@ div.padre
 	width:400px;
 	height:400px;
 	position:relative; /* Es importante que se coloque cuando se manaje DIV Padre e Hijo */
+	border-top-left-radius: 20px;
+	border-top-right-radius: 40px;
+	border-bottom-right-radius: 40px;
+	/* border-radius:20px; Version corta */
+
 }
 /* Moviendo el recuadro hijo  en Reacuadro Padre.
 	Se puede utilizar valores negativos para los lados también.
@@ -181,6 +186,7 @@ div.hijo
 	position:absolute;
 	bottom:100px; /* Centrado en el recuadro */
 	left:100px;
+	border-radius:50%; /* Crea ciruclos en CSS*/
 	/*
 	right:0;
 	bottom:0;
