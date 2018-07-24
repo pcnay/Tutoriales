@@ -1,0 +1,11 @@
+D:\Xampp\htdocs\Tutoriales\ASP_NET_MVC\JuanCarlosArcila\Programa1\Programa1\bin\Debug\netcoreapp2.0\Programa1.deps.json
+D:\Xampp\htdocs\Tutoriales\ASP_NET_MVC\JuanCarlosArcila\Programa1\Programa1\bin\Debug\netcoreapp2.0\Programa1.runtimeconfig.json
+D:\Xampp\htdocs\Tutoriales\ASP_NET_MVC\JuanCarlosArcila\Programa1\Programa1\bin\Debug\netcoreapp2.0\Programa1.runtimeconfig.dev.json
+D:\Xampp\htdocs\Tutoriales\ASP_NET_MVC\JuanCarlosArcila\Programa1\Programa1\bin\Debug\netcoreapp2.0\Programa1.dll
+D:\Xampp\htdocs\Tutoriales\ASP_NET_MVC\JuanCarlosArcila\Programa1\Programa1\bin\Debug\netcoreapp2.0\Programa1.pdb
+D:\Xampp\htdocs\Tutoriales\ASP_NET_MVC\JuanCarlosArcila\Programa1\Programa1\obj\Debug\netcoreapp2.0\Programa1.csprojAssemblyReference.cache
+D:\Xampp\htdocs\Tutoriales\ASP_NET_MVC\JuanCarlosArcila\Programa1\Programa1\obj\Debug\netcoreapp2.0\Programa1.csproj.CoreCompileInputs.cache
+D:\Xampp\htdocs\Tutoriales\ASP_NET_MVC\JuanCarlosArcila\Programa1\Programa1\obj\Debug\netcoreapp2.0\Programa1.AssemblyInfoInputs.cache
+D:\Xampp\htdocs\Tutoriales\ASP_NET_MVC\JuanCarlosArcila\Programa1\Programa1\obj\Debug\netcoreapp2.0\Programa1.AssemblyInfo.cs
+D:\Xampp\htdocs\Tutoriales\ASP_NET_MVC\JuanCarlosArcila\Programa1\Programa1\obj\Debug\netcoreapp2.0\Programa1.dll
+D:\Xampp\htdocs\Tutoriales\ASP_NET_MVC\JuanCarlosArcila\Programa1\Programa1\obj\Debug\netcoreapp2.0\Programa1.pdb
