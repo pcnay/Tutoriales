@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -12,7 +12,12 @@ namespace MiPrimeraAplicacion
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-
+            routes.MapRoute(
+                "Procesos",
+                "Procesos/{action}/{id}",
+                /* Definiendo el objeto de la ruta. */
+                defaults: new { controller = "procesos", action = "listado", id = UrlParameter.Optional }
+                );
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
