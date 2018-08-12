@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf8">
+		<title>Video y Audio en HTML5</title>
+
+	</head>
+	<body>
+
+		<!-- El atributo "controls" agrega los controles para avanzar, regresar, play ...-->
+		<h2>Video para HTML</h2>
+		<!-- 
+			preload = "none" : Solo muestra los controles pero no aparece el video 
+			preload = "auto" : Lo reproduce al cargar la páagina, pero en los celulares no se reproduce hasta oprimir el play
+			preload = "metadata" : Muestra los controles pero lo empieza a descargar hasta se oprime el play.
+			Por defecto es "auto"
+
+			autoplay = Lo reproduce automaticamente, pero en el caso de Chrome se tiene que colocar muted para eliminar el audio.
+			debido por las quejas de los videos de publicidad.
+
+			Poster = Se agrega la imagen al video es úutil cunado no se reproduce automaticamente.
+
+			loop = Para reproducir el video indefinidamente
+
+			Para la etiqueta "Audio" son las mismas opciones.
+		-->
+
+		<video width ="200" height = "800" controls preload = "none" autoplay muted poster = "./img/poster.jpg" loop > 
+			<!-- Para cargar los formatos de videos, se agregan varios tipos ya que no todos los navegadores lo puede hacer. -->
+			<!-- Para el caso de Iphone y Ipad debe leer primero el formato "mp4" para reproducirlo.-->
+				<source src = "./Recursos/Video/codigo.mp4" type = "video/mp4">
+				<source src = "./Recursos/Video/codigo.webm" type = "video/webm">
+				<source src = "./Recursos/Video/codigo.ogv" type = "video/ogv">
+				
+			<p>Tu Navegador no soporte Video </p>
+
+		</video>
+
+		<h2>Audio para HTML </h2>
+		<audio controls preload = "none" loop >
+				<source src = "./Recursos/audio/audio.m4a" type = "audio/mp4">					
+				<source src = "./Recursos/audio/audio.oga" type = "audio/oga">
+				
+		</audio>
+
+	</body>
+
+</html>

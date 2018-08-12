@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<html>
+<!-- Se tiene que utilizar las etiqueta de HTML para un mejor Ranqueo de Posicionamiento -->
+<head>
+    <meta charset = "utf-8">
+    <meta name= "description" content="Explorando y aprendiendo HTML ">
+    <title>Mi primer página Web</title>     
+    <!-- Agregando estilos al HTML
+      <style>
+        h2
+        {
+          color:blue;
+        }
+      </style>
+    -->
+
+    <!-- Agregando una hoja de estilos externa es la forma correcta de realizarlo
+      Se agrega primero la de "Normalize.css" es externa y contiene config. para la compatabilidad con todos los navegadores.
+      Es importante el orden en que colocan, ya que se reemplazan.
+    -->
+    <link rel = "stylesheet" href= "./css/normalize.css">
+    <link rel = "stylesheet" href= "./css/texto.css">
+
+
+</head>
+  <body>
+    <!-- Se utilizan los "DIV" para separar las estructura de HTML-->
+    <!-- Se le asigna "ID", "CLASS", son para identificarlos se utilizan en JavaScript (ID), CCS (class), Lenguajes Backend (Class) -->
+
+    <div class ="ofertaMayo" >
+      <h2>Esta oferta vence en 2 Días </h2>      
+    </div>
+
+    <div class = "contenedor">
+      <!-- La etiqueta "Header" se utiliza para indicar el encabezado de la página Web -->
+      <header role = "banner">
+        <div class = "logo">
+          <img src = "./img/logo.png" alt = "Logo De La Empresa" id = "logo" />
+        </div>
+        <nav class = "navegacion" role = "navegacion">
+          <!-- Crean enlaces en HTML
+            En la descripcion del enlace se puede incluir imagenes y funciona igual:
+            <img src = "./img/html5.png" height = "200"/> (Ir a Naipes)
+          -->
+          <a href ="naipes.html" >Ir a Naipes </a>
+
+          <!-- Agregando un menu en esta etiqueta
+            # = Simula que se tiene un enlace.
+          -->
+          <ul> <!-- Significa una lista sin orden -->
+            <!-- <li> = Lista de items -->
+            <li><a href ="nosotros.html">Sobre nosotros </a></li>
+            <li><a href ="#">Cursos</a></li>
+            <!-- target = Nos genera un etiqueta TAB, en el navegador-->
+            <li><a href ="https://www.google.com" target = "_blank" >Ir a Google </a></li>
+            <!-- Para accear a una sección del HTML-->
+            <li><a href ="http://www.twitter.com">Ir a Noticias </a></li>
+          </ul>
+
+        </nav>
+      </header>
+      <!-- La etiqueta "MAIN" se utiliza para contenido principal de la pagina Web 
+        La etiqueta "SECCION" se utiliza para generar grupos de Contenido 
+    
+      -->
+      <main class = "contenido-principal" role = "main">
+        <section class = "cursos">
+          <!-- Por lo general se colocan como primer etiqueta los encabezados h1 .. h6 
+            Estos son los grupos de contenido. -->
+            <h2 class = "azul titulocurso">Nuestros Cursos</h2>
+            <div>
+              <h3 id= "titulo" class = "titulo">HTML 5</h3>
+              <img src = "./img/html5.png" height = "200"/>
+              <!-- Descargar un archivo, por defecto abre el archivo con el programa Adobe Reader, si se agrega el atributo "download" los descarga  a la computadora -->
+              <a href = "./Recursos/Pruebas.pdf" download>Descaregar Archivos </a>
+
+              <p>Ventajas de Este Curso</p>
+              <ul id = "menu1">
+                <li>Lo puedes tomar en línea</li> 
+                  <ul> <!-- Lista anidadas -->
+                    <li class = "opcion1">En Udemy</li>
+                    <li>A cualquier hora del día</li>
+                  </ul>
+                <li>Podemos avanzar a tu ritmo</li> 
+                <li><em>Puedes preguntar al instructor</em></li> 
+              </ul>
+              <p class = "parrafo">Tamario del Curso</p>
+              
+              <!-- <ol> = Listas ordenas, las opciones les agrega un número en orden ascendentes.  
+                Se pueden mezclar las listas ordenas con desordenadas.  
+              -->
+
+                <ol>
+                  <li>Básicos HTML</li>
+                    <ul>
+                      <li>Elementos Semanticos</li>
+                      <li>Header</li>
+                    </ul>
+                  <li>Etiquetas HTML</li>                  
+                  <li>Crear Enlaces HTML</li>                                    
+                </ol>
+                <p class = "parrafo" >Lo que debes aprender para ser desarrollador Web.</p>
+                <p class="oferta">Todos los cursos de <span>$99</span>a $20 </p>
+
+                <!-- Menu de definicion. Se puede utilizar en aplicaciones como Menus en los Restauranes, Portafolios de Trabajos, etc. -->
+                <dl>
+                  <dt>HTML</dt> <!-- Defincion del termino -->
+                  <dd>Agrega estructura a tus desarrollos</dd>
+                  <dt> CSS </dt>
+                  <dd>Agrega Presentación </dd>
+                  <dt>JavaScript </dt>
+                  <dd>Agrega Interactividad </dd>
+
+                </dl>
+            </div>
+            <div>
+              <h3>CSS 3</h3>
+              <img src = "./img/css3.png" height = "200"/>
+            </div>
+            <div>
+              <h3>JavaScript</h3>
+              <img src = "./img/js.jpg" height = "200"/>
+            </div>  
+            <p><span>Pruebas de Span</span></p>  
+        </section>
+
+        <!-- Se coloca "ID" para poder accesar desde el menu de arriba -->
+        <section id = "noticias" class = "seccion">
+          <h2>Ultimas noticias</h2>
+          <div class = "noticia">
+            <h3>Aprender a programar es importante</h3>
+              <p>Texto de pruebas para este encabezado </p>
+          </div>
+          <div class = "noticia">
+            <h3>Aprender a programar es importante</h3>
+              <p>Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos
+                  Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos,\Se agrega texto para realizar las pruebas de textos, Se agrega texto para realizar las pruebas de textos, 
+              </p>
+          </div>
+
+          <!-- La etiqueta "Articule" incluye informacion referente a lo que se trata e l sitio Web, entrada para los foros,  -->
+          <article role = "article">
+            <h3>Aprender a programar en el siglo 21 es muy importante.</h3>
+            <p> Se agrega mas texto para el tema en cuestion, se repite para llenar el espacio
+                Se agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacio
+            </p>
+          </article>
+          <article role = "article">
+              <h3>Aprender a programar en el siglo 21 es muy importante.</h3>
+              <p> Se agrega mas texto para el tema en cuestion, se repite para llenar el espacio
+                  Se agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacioSe agrega mas texto para el tema en cuestion, se repite para llenar el espacio
+              </p>
+            </article>
+            
+        </section>
+
+      </main>
+
+      <!-- 
+        "Aside" = Elemento lateral (Lado izq. de la pantalla) al contenido principal, lo realiza el CSS, pero esta forma de escribirlo es la correcta. 
+        Algunas ocaciones se colocan las entradas a Facebook, Blogs, Twitters , etc.
+      -->
+      <aside role = "complementary">
+        
+        <h2>Próximo cursos</h2>
+        <div>
+          <h3>PHP</h3> 
+          <p>Informacion referente al Curso en custion</p>
+        </div>
+        <div>
+          <h3>Angular</h3> 
+          <p>Informacion referente al Curso en custion</p>
+        </div>
+        <div>
+            <h3>Vue.js</h3> 
+            <p>Informacion referente al Curso en custion</p>
+        </div>
+
+        <!-- Tablas, se utilizan para mostrar información en pantalla
+          Consta de 3 partes : <thead>, <tbody>, 
+        -->
+        <table width = "300" >
+          <caption><h2>Proximos Cursos</h2></caption> <!-- Descripcion de la tabla, centrando el texto para este caso 300 px-->
+          
+          <thead> <!-- Encabezado de la tabla-->
+            <p>Partes Superior</p>
+            <tr>  <!-- Es el renglon de la tabla-->
+              <th>Curso </th> <!-- Es el encabezado del renglon-->
+              <th>Precio </th>
+              <th>Fecha </th>
+            </tr>
+          </thead>
+
+          <tbody>   <!-- Agregando el cuerpo de la tabla-->
+            <tr>
+              <!-- rowspasn = Se utiliza para repetir un renglon de la tabla, y se centra.-->
+              <td rowspan = "3"3>PHP</td>
+              <td>$99</td>
+            </tr>
+            <tr>
+              <td>$99</td>
+            </tr>
+            <tr>
+              <td>$99</td>
+            </tr>
+            <tr>
+              <td>$99</td>
+            </tr> 
+            <tr>
+
+              <td>Laravell</td>
+              <td>$250</td>
+            </tr>
+            <tr>
+              <td>JavaScript</td>
+              <td>$500</td>
+            </tr>
+            <td>Laravell</td>
+              <td>$250</td>
+            </tr>
+            <tr>
+              <td>JavaScript</td>
+              <td>$500</td>
+            </tr>
+ 
+          </tbody>
+          
+          <tfoot>   <!-- Parte inferior de la tabla-->
+            <tr>
+              <td colspan = "2" align = "center"> <!-- Lo centra entre dos columnas ya que se le indico 2-->
+                <p>No te los puedes perder</p>
+              </td>
+            </tr>
+          </tfoot>
+
+        </table>
+  
+      </aside>
+    </div>
+    <!-- Se agrega la etiqueta "Footer", no se debe agregar fuera de la etiqueta "Body"
+      porque no serie visible.
+      Siempre se coloca en la parte de abajo de la página.
+    -->
+    <footer role = "contentinfo">
+
+      <div class = "nosotros">
+        <h3>Información de la escuela</h3>
+        <p>
+          Descripción de la escuela,   adsn asd  ad asd ad ad amnsd mna dmn admn amnd ansd mnad 
+          Descripción de la escuela,   adsn asd  ad asd ad ad amnsd mna dmn admn amnd ansd mnad 
+          Descripción de la escuela,   adsn asd  ad asd ad ad amnsd mna dmn admn amnd ansd mnad 
+          Descripción de la escuela,   adsn asd  ad asd ad ad amnsd mna dmn admn amnd ansd mnad 
+        </p>
+      </div>
+      <div class="menu">
+        <nav> <!-- </nav>class = "navegacion" role = "navigation"> -->
+            <ul>
+              <li><a href = "#" >InicioS</a></li>
+              <li><a href = "#" >Nosotros</a></li>
+              <li><a href = "#" >Cursos</a></li>
+              <li><a href = "#" >Contactos</a></li>
+            </ul>
+        </nav>   
+      </div>
+      <p>Todos los derechos reservados CopyRigth &copy; </p>
+    </footer>
+
+  </body>
+
+</html>

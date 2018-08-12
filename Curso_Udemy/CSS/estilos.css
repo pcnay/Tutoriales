@@ -1,0 +1,250 @@
+/*
+Estructura del CSS:
+h2 ...= Selectores que son las etiquetas de HTML.
+color = Atributos
+pink = propiedades
+
+Se puede accesar a las etiquetas del HTML aparte del nombre, por el ID (#nombre), Class (.nombre)
+Existe archivos de CSS que hacen que el CSS del programa sean mas consiste en los navegadores.
+Este archivo se llama "Normaliza.css", se baja del portal : https://necolas.github.io/normalize.css/8.0.0/normalize.css
+Constantemente se esta actualizando.
+
+
+
+*/
+
+/* Utilizando selectores en CSS 
+	Para este caso utilizando el ID, pero por estandares este solo se utiliza una vez.
+	Para seleccionar mas de una etiqueta se utilizan las clases, la cual se identifica con un " . "
+
+
+*/
+
+h2
+{
+	color:white;
+	text-transform:uppercase;
+	background-color:red;
+	padding:20px;
+}
+
+p
+{
+	font-size:15px;
+}
+ /* Selector con ID */
+#logo
+{
+	margin-top:200px;
+}
+
+/* Selector con Clases */
+.parrafo
+{
+	color:pink;	
+}
+
+/* Selector con ID y Clases */
+#titulo.titulo
+{
+	font-size:60px;
+}
+
+/* No realiza el cambio debido a que el ID tiene mas peso que la clase. */ 
+.titulo
+{
+	font-size:10px;
+}
+
+/* Selectores con dos clases*/ 
+.azul.titulocurso
+{
+	color:yellow;
+}
+
+/* Selectores con etiquetas HTML */
+p
+{
+	color:brown;	
+}
+
+h3
+{
+	color:green;
+}
+img
+{
+	width:400px;
+}
+/* Selector para una etiqueta de HTML y ID */
+img#logo
+{
+	width:50px;
+}
+/* Selector para una etiqueta de HTML y clases */
+section.seccion
+{
+	background:orange;	
+}
+
+/* Se puede manejar subsecciones  de secciones completas, es útil en los diseños */
+div.noticia
+{
+	background:blue;
+}
+
+
+/* Selector universal, "!important" realiza que se aplique a todo el Documento HTML  */
+*
+{
+	color:red!important;
+
+}
+
+/* Si se quiere aplicar un Identificador con una etiqueta HTML el selector universal, solo es aplicable solo a esta seccion. */
+ul#cursos *
+{
+	color:black;
+}
+
+h3
+{
+	text-transform:uppercase;
+}
+
+p
+{
+	text-transform:uppercase;
+}
+
+/* Realiza lo mismo del anterior
+h3, p
+{
+	text-transform:uppercase
+}
+
+*/
+
+h2,h3
+{
+	text-align:center;
+}
+
+/*Selector descendiente */
+nav.navegacion
+{
+	background-color:pink;
+}
+
+nav.navegacion ul
+{
+	list-style:none;
+}
+
+nav.navegacion ul li
+{
+	display:inline; /* Coloca las opciones del menu en línea */
+}
+
+nav.navegacion ul li a
+{
+	color:orange;
+}
+
+/* Selector con hijos, soloca ">" para seleccionar solamente el hijo, ya que hay otro arriba (padre)  */
+section ul.menu1
+{
+	border: 1px solid black;
+}
+
+section ul.menu1 > li
+{
+	color:black;
+}
+
+/* Selector adyacente es decir que despues de la etiqueta ul con el nombre clase "menu1" y esta etiqueta se encuentra a un lado .*/
+section.cursos > ul.menu1 + p
+{
+	background-color:red!important;
+}
+
+/* Selectores para enlace externos, se utilizan para cuando se esta diseñando los accesos para las redes sociales se incluye un icono que corresponde a cada red 
+* = Que seleccione todo.
+*/
+
+a[href*="google.com"]
+{
+	background-color:yellow;
+}
+
+a[href*="twitter.com"]
+{
+	background-color:blue;
+}
+
+/* Selectores de atributos */
+img[id="logo"]
+{
+	margin-top:0px;
+}
+
+[class="cursos"]
+{
+	background-color:blue;
+}
+
+/* Selectores con pseudoclases */
+div.menu nav ul li a:focus,
+div.menu nav ul li a:visited,
+div.menu nav ul li a:active
+{
+	color:yellow;
+}
+/* Selectores con pseudoclases se aplica el atributo
+!important ya que con las configuraciones que se estan realizando no se aplica. */
+div.menu nav ul li a:hover
+{
+	color:orange!important;
+	background-color:blue;
+}
+
+h3:hover
+{
+	color:white;
+}
+
+/* Elimina el subrayado del texto del primer hijo de las opciones del Menú. */
+div.menu nav ul li:first-child a
+{
+	text-decoration:none;
+}
+
+/* Selectores con pseudo clases y NTD-CHILD
+	Agrega color rojo en la franja  de la primera opcion del menu
+*/
+div.menu nav ul li:nth-child(1)
+{
+	background-color:red;
+}
+
+div.menu nav ul li:nth-child(2)
+{
+	background-color:yellow;
+}	
+
+div.menu nav ul li:nth-child(3)
+{
+	background-color:purple;
+}	
+
+/* coloca franja de color anaranjado en los renglones impares de la tabla */
+table tbody tr:nth-child(odd)
+{
+	background-color:orange;	
+}
+
+/* Colores a renglones pares */ 
+table tbody tr:nth-child(even)
+{
+	background-color:purple;	
+}

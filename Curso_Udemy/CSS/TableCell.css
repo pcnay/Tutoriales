@@ -1,0 +1,226 @@
+/* Background
+	Para agregar un color de Fondo en la página
+	Para evitar los margenes Collapse (Cuando se sopan los margenes), es mejor utilizar el "padding-bottom:??px
+
+	/* Para evitar el colapso de imagenes, se eescribe esta instrucción , ahora se puede visualizar el recuadro blanco, con la asignacion en el Footer 
+	overflow:hidden;
+	
+	/* Para el colapso de margenes se recomiendo margin a para los lados y arriba, pero abajo usar "padding-bottom" */
+
+*/ 
+body
+{
+	background:gray;
+}
+
+div.contenedor
+{
+	background:white;
+	/* Este tamaño cuando se define menor todos los componentes internos se reajustan */ 
+	width:1000px; 
+	margin-top:10px;
+	margin-left:auto;
+	margin-right:auto;
+	/* 	margin: arriba, derecha, abajo, Izq = Forma en una sola linea 
+	margin :10px auto 0 auto
+	*/
+	/* Para evitar el colapso de imagenes, se eescribe esta instrucción , ahora se puede visualizar el recuadro blanco, con la asignacion en el Footer */
+	overflow:hidden;
+
+	/* Para el colapso de margenes se recomiendo margin a para los lados y arriba, pero abajo usar "padding-bottom" */
+
+}
+
+header
+{
+	background:orange;
+	margin-bottom:30px;
+		/* Espacio interno de la etiqueta, es decir son 40 pixeles del texto al limite de la etiqueta. */
+
+	padding-top:20px;
+	padding-bottom:20px;
+	/* padding: 20px 0 0 0*/
+	/* padding: arriba, derecha, abajo, Izq = Forma en una sola linea */	
+ 
+	/*  Este se refiere a la altura del header.
+	 height:100vh; 
+			height:100vw;
+	*/
+
+}
+
+/* Seccion : 15, Clase 104 - Float 
+	Como el contenedor principal es de 1000px, se ddive entre los dos el "main" y "aside"
+*/
+main 
+{
+	width:700px;
+	float:left;
+}
+aside 
+{
+	width:300px;
+	float:right;
+}
+
+nav.navegacion
+{
+	background:purple;
+	height:130px; /* Altura de la etiqueta NAV */
+	/* padding-top :90px; /* Espacio interno de la etiqueta, es decir son 40 pixeles del texto al limite de la etiqueta. */
+	/* margin-top:40px; /* Margen exterior, comienza a partir de la etiqueta "NAV" */
+}
+
+/* Se utiliza para remover el padding asignado anteriormente */ 
+nav ul
+{
+	padding:0;
+}
+
+/* Las opciones del menu se alinean de forma vertical */ 
+nav ul li
+{
+	float:left; 
+	list-style:none;  /* Suprime los puntos negros de las opciones de la etiqueta NAV */ 
+}
+
+nav ul li a
+{
+	margin-right:10px;
+	color:white;
+	 /* Suprime los puntos negros de las opciones de la etiqueta NAV */ 
+}
+
+table
+{
+	background:cyan;	
+	/* width:600px;*/
+	width:50%; /* Del ancho definido en el DIV principal "Contenedor" */
+	/* La separación la realliza con el Footer no con el contenidor, se debe ver Blanco que es el "Contenedor", lo que esta pasando se le llama COLAPSO DE MARGENES. */
+	margin-bottom:100px;
+	/* float:right; /* Se desplaza a la derecha */
+}
+
+/* Separacion entre los renglones de las tablas. */
+tbody tr td
+{
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+footer
+{
+	background:orange;
+	margin-top:30px;
+	padding-top:20px;
+}
+
+footer nav
+{
+	background:red;
+	/* background:transparent; = desactiva el color de fondo */
+}
+
+img.logocss
+{
+	width:120px;
+}
+
+h2
+{
+	margin-bottom:10px;
+	/* Se puede manejar por % en lugar de pixels px */
+}
+
+
+/* Agregado para la clase Seccion 15 103 
+	Cuando se utiliza Float se utiliza una clase que se llama : clearfix
+*/
+section.contenido
+{
+	width:400px;
+	background:orange;
+	border:40px dashed black; /* dashed = linea punteadas */
+	/*  La forma larga de escribirlo, al sentido de las manesillas del reloj
+		border-top: 30px;
+		border-right:30px;
+		border-bottom:30px;
+		border-left:30px;
+		border-style:solid;
+		border-color:black;
+	*/ 
+	/* float:right; /* Desplaza el la etiqueta "Section" a la derecha */
+}
+
+.clearfix:before,
+.clearfix:after
+{
+	content:'';
+	display:table;
+}
+.clear:after
+{
+	clear:both;
+
+}
+
+/* Seccion 15 clase 105 */
+div.padre
+{
+	width:400px;
+	height:400px;
+	position:relative; /* Es importante que se coloque cuando se manaje DIV Padre e Hijo */
+	border-top-left-radius: 20px;
+	border-top-right-radius: 40px;
+	border-bottom-right-radius: 40px;
+	/* border-radius:20px; Version corta */
+
+}
+/* Moviendo el recuadro hijo  en Reacuadro Padre.
+	Se puede utilizar valores negativos para los lados también.
+*/
+div.hijo
+{
+	width:200px;
+	height:200px;
+	position:absolute;
+	bottom:100px; /* Centrado en el recuadro */
+	left:100px;
+	border-radius:50%; /* Crea ciruclos en CSS*/
+	/*
+	right:0;
+	bottom:0;
+	left:0;
+	top:0;
+	*/
+}
+
+.rojo
+{
+	background-color:red;
+}
+.azul
+{
+	background-color:blue;
+}
+
+/* Display : Table Cell
+	Es adecuado para centrar parrafos de textos 
+	Se maneja con Padre - Hijo 
+*/
+
+.g-promocion /* Div Padre */ 
+{
+	display:table;
+	width:100%;
+	background-color:yellow;
+	height:300px;
+}
+
+/* Centra el texto en este recuadro, no importa el contenido siempre lo centra. */ 
+.texto-promocion /* Div Hijo */
+{
+	display:table-cell;
+	text-align:center;
+	vertical-align:middle;
+}
