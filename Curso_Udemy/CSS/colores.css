@@ -1,0 +1,78 @@
+/* Definiendo los colores en CSS3 */
+/* http://www.caniuse.com
+Indica el soporta para ciertas etiquetas en los navegadores
+El formato de Hexadecimal es soportado por todos los navegadores.
+*/
+
+body
+{
+	background-color:chartreuse; /* Color Verde, se puede agregar muchos colores */
+}
+
+img.logo 
+{
+	opacity:.3; /* Opacidad de 70% */ 
+}
+
+.contenedor
+{
+	margin:0 auto; /* Centrando */
+	background-color:gray;
+	width:300px;
+
+}
+h2
+{	
+	color:#fe4918; /* Color por valor Hexadecimal, se puede utilizar photoshop */
+	/* Estos colores se pueden extraer desde el inspector de elementos del navegador, de la herramienta de "Seleccionar" y buscar la sección con su respecito combinacion de colores.
+	rgb = Red, Gray, Blue */
+
+}
+
+section#noticias
+{
+
+	background-color:rgb(242,242,242); /* Este código para rgb se obtienen del programa de photoshop. */
+}
+nav
+{
+	background-color:rgb(53,53,53);
+	/* hsl = Matiz, Saturacion,Ilumicidad */
+	background-color:hsl(13,99%,55%,1); /* Se puede obtener desde la página web con el inspector de elementos del navegador */ 
+	/* Opacidad, conforme el número sea pequeño va bajando hasta no verse */
+	opacity:.6; /* 60 % */
+	background-image:url(../img/html5.png);
+	background-repeat:no-repeat;
+
+}
+nav ul li a
+{
+	color:hsl(0,0%,100%); /* Color Blanco */
+}
+
+div.gran-promocion
+
+{
+	background-color:rgb(161,203,255);
+}
+
+footer
+{
+	background-color:#353535;
+}
+aside
+{
+	background-color:#a1cbff;	
+}
+
+/* RGBA y HSLA */
+#noticias h2
+{
+	/* .7 es la transparencia, se manaje igual que el "rgb"  */
+	backgropund-color:rgba(254,73,24,.7); /* Color Rojo */
+	padding:10px;
+	color:white;
+	border-bottom:10px solid rgba(254,73,24,1); /* Color Rojo, que es la franja que esta en la parte de abajo. 
+		para manejar la transparencia personalziada, se utiliza la inspección de elementos del navegador y seleccionar el selector, se utiliza la caja de los colores para ver la opacidad*/
+}	  
+ 
