@@ -76,3 +76,26 @@ aside
 		para manejar la transparencia personalziada, se utiliza la inspección de elementos del navegador y seleccionar el selector, se utiliza la caja de los colores para ver la opacidad*/
 }	  
  
+/* Sombras en CSS3, existen dos tipos para contenedores (DIV, Li, Section, etc...)
+la otra para todos los textos.
+http://www.ccs3.me
+Escala gráfica de las sombras
+
+
+*/
+
+/* Text Shadow y Box Shadow */
+
+h2
+{
+	/* 10px = Horizontal, 10px = Vertical 10px = Distorcion de la sombra */ 	
+	text-shadow:10px 10px 10px rgba(254,73,24,1); /* black;*/
+}
+
+/* Sombra para un contenedor */ 
+ul#listado
+{
+	/* V, H, Degradado, Estiramiento, Color */ 
+	box-shadow:2px 2px 10px 10px black;
+	box-shadow:0px 20px 30px -20px rgba(0,0,0,0.5); /* Acabado tipo papel al final */
+}
