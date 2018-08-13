@@ -38,7 +38,21 @@ header
 		/* Espacio interno de la etiqueta, es decir son 40 pixeles del texto al limite de la etiqueta. */
 
 	padding-top:20px;
-	padding-bottom:20px;
+	padding-bottom:20px;	
+	/* Para agregar mas de dos imagenes */
+	background:url(../img/css3.png),url(../img/html5.png); /* Muestra una imagenn, pero esta repetida */
+	background-repeat:no-repeat, repeat-x; /* Cancela la repeticion, existen varias opciones  */
+	background-size:cover; /* Muestra la imagen en todo lo ancho y alto donde esta contenido */
+	background-size: 80px, 120px; /* Tamaño fijo */
+	/* Se ubica en base a las medidas del contenedor, tiene varias opciones:	
+					bottom right, center center, bottom left, top center, 10px(x) 100px(y),  */
+	background-position:top center, bottom center; 
+	background-position:400px 50px 490px 50px  /* Lo coloca a un lado de cada uno */
+
+
+
+
+
 	/* padding: 20px 0 0 0*/
 	/* padding: arriba, derecha, abajo, Izq = Forma en una sola linea */	
  
