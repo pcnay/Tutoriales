@@ -99,3 +99,22 @@ ul#listado
 	box-shadow:2px 2px 10px 10px black;
 	box-shadow:0px 20px 30px -20px rgba(0,0,0,0.5); /* Acabado tipo papel al final */
 }
+
+/* DEGRADADOS */ 
+#noticias
+{
+	/* Se pueden pasar los formatos de colores anteriormente vistos
+	Existe la página http://www.colorzilla.com, genera el código del degradado 
+	*/ 
+	
+	background:linear-gradient(red,blue);
+	background:linear-gradient(to right, red,blue);
+	background:linear-gradient(to left, red,blue);
+	background:linear-gradient(to bottom, gray,yellow);
+	background:linear-gradient(to top, red,blue);
+	background:linear-gradient(125deg, red,blue);
+	background:linear-gradient(-125deg, red,blue);
+	/* Degradado del centro hacia afuera */ 
+	background:radial-gradient(red,blue);
+	background:radial-gradient(red 10% , blue 20%);
+} 
