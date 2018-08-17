@@ -1,0 +1,34 @@
+html
+{
+	/*PAra que se mantenga el ancho definido, los "padding" no se altera su medidas
+	forma recomendada de trabajar con el border-box
+	*/
+
+	box-sizing:border-box; 	
+
+}
+*, *:before, *::after
+{
+	box-sizing:inherit
+}
+*
+{
+	/* REseteando los margenes en el navegador.*/ 
+	margin:0;
+	padding:0;
+}
+body
+{
+	font-family:verdana,geneva,serif;
+}
+header
+{
+	padding: 20px 0;
+}
+
+/* Centrando el contenido principal */ 
+div.contenedor
+{
+	width:900px;
+	margin:0 auto; /* Centrado */
+}
