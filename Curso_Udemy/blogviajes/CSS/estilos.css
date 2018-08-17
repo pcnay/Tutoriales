@@ -29,7 +29,7 @@ header
 /* 2.- Centrando el contenido principal */ 
 div.contenedor
 {
-	width:1200px;
+	width:900px;
 	margin:0 auto; /* Centrado */
 }
 
@@ -42,7 +42,7 @@ div.contenedor
 }
 nav
 {
-	width:1200px;
+	width:900px;
 	margin: 0 auto;
 	position:relative;
 }
@@ -97,10 +97,11 @@ nav ul li:hover
 }
 
 /* **************************************************************/
-/* Contenido principal
- Se divide la pantalla en dos columnas, la columna dos es aside  */
+/* 	4.- Contenido principal
+
+ 		Se divide la pantalla en dos columnas, la columna dos es aside  */
 /* **************************************************************/
-/* Se divide el selector "main" con "aside" */
+/*	 Se divide el selector "main" con "aside" */
 main
 {
 	width:70%;
@@ -118,4 +119,43 @@ div.contenido::after
 	content:'';
 	display:block;
 	clear:both;
+}
+
+/* ********************************* */ 
+/* 5.- Entradas del Blog - Articulos */ 
+/* ********************************* */ 
+article
+{
+	margin-top:30px;	
+}
+h2
+{
+	color:#00b8e4;
+	margin-bottom:20px;
+}
+/* Moviendo las imagenes al lado izquierdo */
+article img
+{
+	/* Al mover las imagenes, se desplaza parte del texto a la derecha y continua a la parte de abajo*/
+	float:left;	
+	width:300px;
+	margin-right:30px;
+}
+article p
+{
+	line-height:2; /* Espacio entre renglones del articulo*/
+	text-align:justify;
+}
+/* se forma un rectangulo de color azul en los enlaces con clase "boton"*/ 
+.boton
+{
+	background-color:#00b8e4;
+	padding:10px 30px;
+	display:inline-block;
+	margin-top:10px;
+	font-weight:bold;
+	color:#ffffff; /* Color Blanco */
+	text-transform:uppercase;
+	text-decoration:none;
+
 }
