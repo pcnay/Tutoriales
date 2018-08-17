@@ -95,3 +95,27 @@ nav ul li:hover
 {
 	background-color:rgba(0,184,228,0.7);
 }
+
+/* **************************************************************/
+/* Contenido principal
+ Se divide la pantalla en dos columnas, la columna dos es aside  */
+/* **************************************************************/
+/* Se divide el selector "main" con "aside" */
+main
+{
+	width:70%;
+	float:left;
+	padding-right:40px;
+}
+aside 
+{
+	width:30%;
+	float:right;
+}
+div.contenido::after
+{
+	/* Se limpia el efecto float, para que "footer" quede en la parte de abajo */
+	content:'';
+	display:block;
+	clear:both;
+}
