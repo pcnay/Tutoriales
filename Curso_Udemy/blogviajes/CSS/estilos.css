@@ -29,7 +29,7 @@ header
 /* 2.- Centrando el contenido principal */ 
 div.contenedor
 {
-	width:900px;
+	width:1200px;
 	margin:0 auto; /* Centrado */
 }
 
@@ -42,7 +42,7 @@ div.contenedor
 }
 nav
 {
-	width:900px;
+	width:1200px;
 	margin: 0 auto;
 	position:relative;
 }
@@ -76,4 +76,22 @@ nav ul li a
 nav ul li a:hover
 {
 	background-color:#00b8e4; /* Color Azul */
+}
+
+/* Segundo nivel del menu */
+nav ul ul
+{
+	position:absolute;
+	top:100%;
+	background-color:rgba(0,184,228,0.7);
+	display:none; /* Desaparecen las opciones del sub menu */
+}
+/* Cuando se pase en raton encima de las opciones del submenu se despliege, que se active el primer hijo de la siguiente subopción */ 
+nav ul li:hover > ul 
+{
+	display:block;
+}
+nav ul li:hover
+{
+	background-color:rgba(0,184,228,0.7);
 }
