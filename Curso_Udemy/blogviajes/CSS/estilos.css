@@ -1,6 +1,6 @@
 html
 {
-	/*PAra que se mantenga el ancho definido, los "padding" no se altera su medidas
+	/* 1.- Para que se mantenga el ancho definido, los "padding" no se altera su medidas
 	forma recomendada de trabajar con el border-box
 	*/
 
@@ -26,9 +26,54 @@ header
 	padding: 20px 0;
 }
 
-/* Centrando el contenido principal */ 
+/* 2.- Centrando el contenido principal */ 
 div.contenedor
 {
 	width:900px;
 	margin:0 auto; /* Centrado */
+}
+
+/* 3.- Estilo de Navegación */
+
+/* Se lo aplica al "DIV de navegacion " */
+.navegacion
+{
+	background-color:#db008d;
+}
+nav
+{
+	width:900px;
+	margin: 0 auto;
+	position:relative;
+}
+nav ul
+{
+	list-style:none; /* Elimina los circulos de alado */
+}
+nav > ul > li /*Seleccionar el primer nivel de UL y LI solamente*se crea el primer nivel del menú */
+{
+	float:left;
+}
+
+/* Ahora acomdando la imagen que se altero al utilizar "float" */
+nav ul::after
+{
+	content:'';
+	display:block;
+	clear:both;
+}
+/* Estableciendo el ancho para cada opción del menú */
+nav ul li a
+{
+	display:inline-block; /* Para aplicar el ancho a la opción del menu */
+	width:200px;
+	color:white; 
+	text-decoration:none; /* Se elimina los subrayados a las opciones del menu */
+	text-align:center; /* Centrar (dependiendo de la medidas del ancho del contenedor ) las opciones del menu */
+	padding:20px; /* 20px por cada lado de las opciones del menu */
+}
+/* Cuando se pasa el raton en las opciones principales del menu, despliega un recuadro azul */
+nav ul li a:hover
+{
+	background-color:#00b8e4; /* Color Azul */
 }
