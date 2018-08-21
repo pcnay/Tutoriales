@@ -13,7 +13,7 @@ html
 }
 *
 {
-	/* REseteando los margenes en el navegador.*/ 
+	/* Reseteando los margenes en el navegador.*/ 
 	margin:0;
 	padding:0;
 }
@@ -29,7 +29,7 @@ header
 /* 2.- Centrando el contenido principal */ 
 div.contenedor
 {
-	width:1100px;
+	width:1000px;
 	margin:0 auto; /* Centrado */
 }
 
@@ -42,7 +42,7 @@ div.contenedor
 }
 nav
 {
-	width:1100px;
+	width:1000px;
 	margin: 0 auto;
 	position:relative;
 }
@@ -156,7 +156,7 @@ article p
 }
 
 /*****************************************/
-/* 5.- Aplicando estilos al "aside" */
+/* 6.- Aplicando estilos al "aside" */
 /***************************************/
 aside 
 {
@@ -167,7 +167,7 @@ aside
 
 aside ul
 {
-	list-style:none;	
+	list-style:none;	/* Suprimiendo los circulos de alado */
 }
 aside ul li
 {
@@ -190,3 +190,54 @@ aside ul li:hover a
 	color:#ffffff; /* Color de las fuentes de las opciones del menu */
 }
 
+/*****************************************/
+/* 7.- Aplicando estilos al "footer" */
+/***************************************/
+footer
+{
+	background-color:#db088d;
+	padding-top:40px; /* Margen interno */
+	margin-top:30px; /* Margen Externo */
+}
+footer h2
+{
+	/* Seleccionado solamente el encabezado h2 de solo la sección del "footer" */
+	color:#ffffff;
+}
+/* Se realiza la limpieza para el reacomodo de los float Izq. y Derecha */ 
+footer .contenedor::after
+{
+	content:'';
+	display:block;
+	clear:both;
+}
+/* Alinea a la izquierda el texto del parrafo "Nosotros" */
+footer div.nosotros
+{
+	float:left;
+	width:30%;
+	color:#ffffff;
+}
+footer div.menu
+{
+	float:right;
+	width:40%;
+	text-align:right;
+}
+/* Ahora se ajusta el margen del "nav" para la sección del footer */
+footer nav
+{
+	width:auto; /* Para que centre las opciones del menu */
+}
+/* Elimina el ancho definido para el menú principal de la seccion Encebazado
+	se realiza la selección mas especifica   */
+footer nav ul li a
+{
+	width:auto;
+}
+p.copyright
+{
+	padding:20px 0;
+	text-align:center;
+	color:white;
+}
