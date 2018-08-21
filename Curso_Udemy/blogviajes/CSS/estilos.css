@@ -29,7 +29,7 @@ header
 /* 2.- Centrando el contenido principal */ 
 div.contenedor
 {
-	width:900px;
+	width:1100px;
 	margin:0 auto; /* Centrado */
 }
 
@@ -42,7 +42,7 @@ div.contenedor
 }
 nav
 {
-	width:900px;
+	width:1100px;
 	margin: 0 auto;
 	position:relative;
 }
@@ -108,11 +108,6 @@ main
 	float:left;
 	padding-right:40px;
 }
-aside 
-{
-	width:30%;
-	float:right;
-}
 div.contenido::after
 {
 	/* Se limpia el efecto float, para que "footer" quede en la parte de abajo */
@@ -159,3 +154,39 @@ article p
 	text-decoration:none;
 
 }
+
+/*****************************************/
+/* 5.- Aplicando estilos al "aside" */
+/***************************************/
+aside 
+{
+	margin-top:30px;
+	width:30%;
+	float:right;	
+}
+
+aside ul
+{
+	list-style:none;	
+}
+aside ul li
+{
+	padding: 10px 0 10px 10px;
+}
+aside ul li:hover
+{
+	background-color:#00b8e4;
+	cursor:pointer; /* Cursor de forma de mano*/
+}
+aside ul li a
+{
+	color:#00b8e4;
+	text-decoration:none; /* Elimina el subrayado de las opciones del menu */
+}
+
+/* Cuando se pase el cursos en las opciones del menu (li), le asigna el color blanco */ 
+aside ul li:hover a
+{
+	color:#ffffff; /* Color de las fuentes de las opciones del menu */
+}
+
