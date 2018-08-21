@@ -29,7 +29,7 @@ header
 /* 2.- Centrando el contenido principal */ 
 div.contenedor
 {
-	width:1000px;
+	width:1200px;
 	margin:0 auto; /* Centrado */
 }
 
@@ -221,7 +221,7 @@ footer div.nosotros
 footer div.menu
 {
 	float:right;
-	width:40%;
+	width:60%; /* Se coloca este valor para ajustar al menu de footer */
 	text-align:right;
 }
 /* Ahora se ajusta el margen del "nav" para la sección del footer */
