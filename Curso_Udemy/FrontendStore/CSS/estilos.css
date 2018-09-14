@@ -64,3 +64,60 @@ ul.lista-productos
 	margin:0;
 	padding:0;
 }
+
+/* Para desplazar la imagen una a lado de la otra, pero tiene huecos entre las fotos,*/
+ul.lista-productos li
+{
+	float:left;
+	width:50%; 
+	padding:20px;
+	text-align:center;
+}
+
+/* 2n, n=0,1,2,3,4,---- selecciona los impares, se utiliza para evitar los huecos en los rengloness impares, ya queda una a lado de la otro*/
+ul.lista-productos li:nth-child(2n+1)
+{
+	clear:both;
+}
+
+/* Agregando border a las imagenes de los productos */ 
+ul.lista-productos li img
+{
+	border:10px solid rgba(128,1,195,.45);
+}
+ul.lista-productos li img:hover
+{
+	border:10px solid rgba(128,1,195,1);
+}
+
+ul.lista-productos li p
+{
+	font-size:28px;
+	font-weight:bold;
+	color:#ffffff;
+	margin-top:10px;
+}
+
+ul.lista-productos li p span
+{
+	font-size:40px;
+	color:#ffce00;
+	
+}
+.boton
+{
+	background-color:#ffce00;
+	font-size:18px;
+	padding:10px 40px;
+	display:inline-block;
+	margin-top:10px;
+	text-decoration:none;
+	font-weight:bold;
+	text-transform:uppercase;
+	color:#ffffff;
+}
+
+.boton:hover
+{
+	color:rgba(128,1,195,1);
+}
