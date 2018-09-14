@@ -1,57 +1,67 @@
-html {
-  box-sizing: border-box;
+body
+{
+  font-family:'Raleway', sans-serif;
+  font-weight:700;
 }
-*, *:before, *:after {
-  box-sizing: inherit;
-}
-body {
-  font-family: 'Raleway', sans-serif;
-}
-h1 {
-  font-size: 50px;
-  font-weight: 700;
-}
-div.contenedor {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-.contenido-inferior::after {
-  clear: both;
-  display: block;
-  content: '';
-}
-div.caja {
-  width: 33.3%;
-  float: left;
-  padding:0 20px;
-}
-div.caja div.contenido {
-  background-color: yellow;
-  padding: 20px;
+p
+{
+  font-weight: 400px;
 }
 
-@media only screen and (max-width:800px) {
-  body {
-    background-color: purple;
+/* Cuando se trabaje con sitios utilizando Responsive Design se utilizan las imagenes al 100% */
+img
+{
+  max-width:100%
+}
+
+/* Aplicando el primer Media Query, ewste color de fondo se activa cuando la pantalla esta en 599px */
+@media only screen and (max-width: 599px)
+{
+  body
+  {
+    background-color:orange;
   }
-  h1 {
-    color: white;
-    font-size: 30px;
+  h1 
+  {
+    color:#ffffff;
   }
-  p {
-    color: white;
+  p 
+  {
+    text-align:justify;
+  }    
+  
+}
+/* Manejando un rango de anchura de pantalla */
+@media only screen and (min-width:600px) and (max-width:799px)
+{
+  body
+  {
+    background-color:purple;        
+  }
+  h1 
+  {
+    text-align:center;
+  }
+  img
+  {
+    float:right;
   }
 }
-@media only screen and (max-width:500px) {
-  body {
-    background-color: orange;
+
+@media only screen and (min-width:800px)
+{
+  body 
+  {
+    background-color:blue;  
   }
-  h1 {
-    font-size: 50px;
+  h1 
+  {
+    color:red;
   }
-  div.caja {
-    width: 100%;
-    margin: 0  0 20px 0;
-    padding:0;
+  .contenedor
+  {
+    max-width:800px;
+    margin:0 auto;    
   }
+  
 }
