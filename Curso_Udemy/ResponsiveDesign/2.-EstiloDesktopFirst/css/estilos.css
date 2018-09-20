@@ -30,28 +30,37 @@ div.caja div.contenido {
   padding: 20px;
 }
 
-@media only screen and (max-width:800px) {
-  body {
-    background-color: purple;
+/* Cuando se escriba la palabra : "max-width" es Desktop First*/
+/* De 0 a 800px tendrá un fondo morado */
+@media only screen and (max-width:800px)
+{
+  body 
+  {
+    background-color:purple;
   }
-  h1 {
-    color: white;
-    font-size: 30px;
+  h1
+  {
+    font-size:30px;
+    color:white;
   }
-  p {
-    color: white;
+  p 
+  {
+    color:white;
   }
 }
-@media only screen and (max-width:500px) {
-  body {
-    background-color: orange;
+/* Aplicando otra regla  de 0 a 700px */
+@media only screen and (max-width:500px)
+{
+  body 
+  {
+    background-color:pink;
   }
-  h1 {
-    font-size: 50px;
-  }
-  div.caja {
-    width: 100%;
-    margin: 0  0 20px 0;
+  /* Para que las cajas midan todo el ancho de la pantalla de 500 px */
+  div.caja
+  {
+    width:100%;
+    margin:0 0 20px 0;
     padding:0;
   }
+
 }
