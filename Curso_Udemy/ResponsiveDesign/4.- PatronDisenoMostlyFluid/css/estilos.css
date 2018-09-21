@@ -1,0 +1,30 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: arial, helvetica;
+}
+div.contenido-superior {
+  padding: 20px;
+}
+div.contenido-inferior > div {
+  padding:20px;
+}
+
+/* Para utilizarlo en MobilFisrt */
+
+
+@media only screen and (min-width:768px)
+{
+  /* > div Selector hijo, pero en este caso selecciona los dos "div" */
+  div.contenido-inferior > div
+  {
+    width:50%;
+    float:left;
+  }
+  div.contenedor
+  {
+    max-width:1100px;
+    margin:0 auto; /* para que centre los margenes */ 
+  }
+}
