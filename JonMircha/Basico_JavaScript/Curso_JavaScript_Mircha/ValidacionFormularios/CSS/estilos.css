@@ -1,0 +1,96 @@
+*
+{
+  border:0;
+  margin:0;
+  padding:0;  
+}
+body
+{
+  background:lavender;
+  font-family:Helvetica;
+  font-size: 16px;
+  text-align:center;
+}
+fieldset
+{
+  background:white;
+  border: thin solid skyblue;
+  border-radius:1em;
+  padding:1em;
+}
+legend
+{
+  color:#F60;
+  font-size:2em;
+  font-weight:bold;  
+}
+
+form
+{
+  margin:0.5em auto; /* Se centra en la pantalla */
+  width:80%;
+}
+
+input[type="button"]
+{
+  background:#F60;
+  border: thin solid transparent;
+  border-radius: 0.5em;
+  color:white;
+  cursor:pointer;
+  font-size:1em;
+  padding:0.5em;
+}
+
+input[type="button"]:hover
+{
+  background:skyblue;
+  border: thin solid #F60;
+  border-radius: 0em;
+  color:#F60;    
+}
+/* Agregando efectos de desvaneser., es el nombre del la clase de los botones. */
+.cambio
+{
+  /* Se colocan todos los navegadores ya que no es aun estandard. */
+  -ms-transition: all 1s ease-in-out;
+  -mz-transition: all 1s ease-in-out;
+  -o-transition: all 1s ease-in-out;
+  -webkit-transition: all 1s ease-in-out; /* Chrome Safari */
+  transition: all 1s ease-in-out;
+}
+
+input[type="radio"],label
+{
+  cursor:pointer; 
+}
+
+/* Cambiando los cajas de Input , y cuadro grande con lados redondos con color de fondo diferente para que resalten.*/
+input[type="text"],textarea
+{
+  background: #dddddd;
+  border:thin solid skyblue;
+  border-radius:1em;
+  color:#F60;
+  font-size:1em;
+  padding:0.25em;
+}
+
+/* Se aplica una transición, ya que se define en la parte :focus */
+input[type="text"]:focus ,textarea:focus
+{
+  background: aliceblue; 
+}
+
+textarea
+{
+  /*Desactivando la opción que agranda el area de este componente */
+  resize:none;
+}
+
+/* Aplica para cualquier elemento de type input text del formulario es una pseudoclase, dibuja un recuadro de color naranja  */
+:focus
+{
+  box-shadow: .1em .1em .5em rgba(255,102,0,.5);
+  outline:thin solid #F60;
+}
