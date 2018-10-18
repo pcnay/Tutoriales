@@ -43,6 +43,8 @@ CREATE TABLE movieseries
   genres VARCHAR(50) NOT NULL,
   estatus INTEGER UNSIGNED NOT NULL,
   category ENUM('Movie','Serie') NOT NULL,
+  /* Define el campo para buscar en la tabla, sea por titulo,autor,actores, generonombre; los campos tipo TEXT no aplican en FullText */
+  FULLTEXT KEY search (title, author, actors, genres), 
   /* Se debe crear primero la tabla de "estatus" */
   FOREIGN KEY (estatus) REFERENCES estatus(estatus_id) ON DELETE RESTRICT ON UPDATE CASCADE
   /* Revisar esta pagina :  https://blog.openalfa.com/como-trabajar-con-restricciones-de-clave-externa-en-mysql 
