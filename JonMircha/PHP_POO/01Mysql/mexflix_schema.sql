@@ -63,10 +63,22 @@ CREATE TABLE users
   roles ENUM ('Admin','User') NOT NULL
 );
 
+/* Precargando los datos */
+INSERT INTO estatus (estatus_id,estatus) VALUES
+  (1,'coming Soon'),
+  (2,'Release'),
+  (3,'In Issue'),
+  (4,'Finish'),
+  (5,'Canceled');
+
+INSERT INTO users (user,email,name,birthday,pass,roles) VALUES
+  ('@jonmircha','jonmircha@bextlan.com','Jonathan Mircha','1984-05-23',MD5('chafo'),'Admin'),
+  ('@user','usuario@bextlan.com','Usuario Mortal','2000-12-19',MD5('chimichangas'),'User');
 
 
 
-/* 'coming Soon','Release','In Issue','Finished','Canceled' */
+/* Para rellenar la tabla de "MovieSeries, se puede utilizar esta página Web. > 
+http://www.omdbapi.com/ 
+http://www.imdb.com
 
-/* TIEMPO  25:55 Min */
-
+*/ 
