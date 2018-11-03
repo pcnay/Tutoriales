@@ -75,13 +75,17 @@ CREATE TABLE users
 
 /* Precargando Datos */
 
-INSERT INTO contactos(contacto_id,nombre,sucursal,direccion,referencia,telefono,email) VALUES
-  (1,'Banamex','0003','Calle Reyrson No. 1079, Ensenada B.C.N.','Subir por la calle 9na desde la central','616-384-40-30','suc_reysorn@banamex.com'),
-  (2,'Banamex','0002','Calle Constitucion No. 10843, Col. Centro, Tijuana B.C.N.','Se encuentra entre las calles 4ta y 5ta ','664-994-20-50','suc_cuarta@banamex.com'),  
-  (3,'Banamex','4357','Calzada Tecnólogico No. 2050 Col. Otay Universidad Tijuana, B.C.','Se encuentra enfrente de la UABC','664-970-40-90','suc_otay@banamex.com');
-
 INSERT INTO articulos(articulo_id,descripcion,marca,modelo,num_serial,num_parte,existencia) VALUES
   (1,'Impresora','Lexmark','MX511','701531HH03YZG','N/A',0),
   (2,'Impresora','Lexmark','MX711','79039484DSSDS','N/A',0),
   (3,'Impresora','Lexmark','MX611','78492323JHDHG','N/A',0);
   
+INSERT INTO users (user,email,names,birthday,pass,roles) VALUES
+  ('@administrador','administrador@correo.com','Administrador','1984-05-23',MD5('clave'),'Admin'),
+  ('@user','usuario@correo.com','Usuario Mortal','2000-12-19',MD5('usuario'),'User');
+
+INSERT INTO contactos(contacto_id,nombre,sucursal,direccion,referencia,telefono,email) VALUES
+  (1,'Banamex','0003','Calle Reyrson No. 1079, Ensenada B.C.N.','Subir por la calle 9na desde la central','616-384-40-30','suc_reysorn@banamex.com'),
+  (2,'Banamex','0002','Calle Constitucion No. 10843, Col. Centro, Tijuana B.C.N.','Se encuentra entre las calles 4ta y 5ta ','664-994-20-50','suc_cuarta@banamex.com'),  
+  (3,'Banamex','4357','Calzada Tecnólogico No. 2050 Col. Otay Universidad Tijuana, B.C.','Se encuentra enfrente de la UABC','664-970-40-90','suc_otay@banamex.com');
+

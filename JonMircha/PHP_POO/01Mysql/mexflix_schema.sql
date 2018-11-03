@@ -30,7 +30,7 @@ CREATE TABLE estatus
 
 CREATE TABLE movieseries
 (  
-  imdb_char CHAR(9) PRIMARY KEY,  
+  imdb_id CHAR(9) PRIMARY KEY,  
   title VARCHAR(80) NOT NULL,
   plott TEXT NULL,
   author VARCHAR(100) DEFAULT 'Pending',
@@ -71,14 +71,76 @@ INSERT INTO estatus (estatus_id,estatus) VALUES
   (4,'Finish'),
   (5,'Canceled');
 
-INSERT INTO users (user,email,name,birthday,pass,roles) VALUES
+INSERT INTO users (user,email,names,birthday,pass,roles) VALUES
   ('@jonmircha','jonmircha@bextlan.com','Jonathan Mircha','1984-05-23',MD5('chafo'),'Admin'),
   ('@user','usuario@bextlan.com','Usuario Mortal','2000-12-19',MD5('chimichangas'),'User');
 
+/* Con las comillas no afecta la colocación de apostrofes. Con apostrofes se tiene que colocar el caracter \ 
+\'The line \'  para que grabe en la base de datos 'The Line'
+Cuando se tenga tenga una oración que inicia con "", pero en medio de la misma tenga comillas se tiene que escribir \"Mr. Robot \"
 
+*/
+
+INSERT INTO movieseries(imdb_id,title,plott,genres,author,actors,country,premiere,trailer,poster,rating,estatus,category) VALUES 
+('tt0903747','Breaking Bad',"man dnmadnm adnm adnm anmd asnd as dnmsa dmsad ad anmds nmas dnma sdnm anmd 's anmd adnm asnmd mann dmnas dmna dnd amdn",'Crime, Drama,Trailer','Vince Gallent', 'Bryan Cranston','USA','2008','https://ia.media-imdb.com','posters //////////',9.5,4,'Serie'),
+('tt0943547','Breaking Bad','man dnmadnm adnm adnm anmd asnd as dnmsa dmsad ad anmds nmas dnma sdnm anmd anmd adnm \'The line \' asnmd mann dmnas dmna dnd amdn','Crime, Drama,Trailer','Vince Gallent', 'Bryan Cranston','USA','2008','https://ia.media-imdb.com','posrtes ///////////',8.5,2,'Serie'),
+('tt0949087','Breaking Bad','man dnmadnm adnm adnm anmd asnd as dnmsa dmsad ad anmds nmas dnma sdnm anmd anmd adnm asnmd mann dmnas dmna dnd amdn','Crime, Drama,Trailer','Vince Gallent', 'Bryan Cranston','USA','2010','https://ia.media-imdb.com','posrtes ///////////',7.5,1,'Movie'),
+('tt0947645','Breaking Bad',"man dnmadnm adnm adnm anmd asnd as dnmsa dmsad ad anmds nmas dnma sdnm anmd anmd \"Mr. Robot \" adnm asnmd mann dmnas dmna dnd amdn",'Crime, Drama,Trailer','Vince Gallent', 'Bryan Cranston','USA','2015','https://ia.media-imdb.com','posrtes ///////////',8.5,4,'Movie');
 
 /* Para rellenar la tabla de "MovieSeries, se puede utilizar esta página Web. > 
 http://www.omdbapi.com/ 
 http://www.imdb.com
 
-*/ 
+*/
+
+INSERT INTO movieseries SET 
+  imdb_id = 'tt3749900', 
+  title = 'Titulo película', 
+  plott = 'Plott ///////', 
+  genres = 'Genres ////////',
+  author = 'Autores ###################',
+  actors = 'Actorres ##################',
+  country = "Pais $###################",
+  premiere = 2015,
+  trailer = 'Trailer ))))))))))))))))))))))))))))))))))',
+  poster = 'Poster )))))))))))))))))))))))))))))))))))))',
+  rating = 8.2,
+  estatus = 2,
+  category = 'Movie';
+
+UPDATE movieseries SET 
+  author = 'autores ===============================',
+  actors = 'actores &&&&&&&&&&&&&&&&&&&&&',
+  country = 'México',
+  poster = 'poster )))))))))))))))))))))))))))))',
+  trailer = 'trailer ==============================',
+  rating = 9.2,
+  plott = 'plott ////////////////////////////',
+  category = 'Serie',
+  estatus = 1
+  WHERE imdb_id = 'tt0903747';
+
+DELETE FROM movieseries WHERE imdb_id = 'tt0947645';
+
+SELECT * FROM movieseries;
+
+SELECT COUNT(*) FROM movieseries; 
+
+SELECT * FROM movieseries WHERE category = 'Serie';
+
+SELECT category,category,country,estatus FROM movieseries WHERE category = 'Serie';
+
+SELECT category,category,country,estatus,premiere FROM movieseries WHERE category = 'Serie' ORDER BY premiere;
+SELECT category,category,country,estatus,premiere FROM movieseries WHERE category = 'Serie' AND country = 'USA' ORDER BY premiere;
+
+/* NO importa como inicia el texto "%" */
+SELECT category,category,country,estatus,premiere FROM movieseries WHERE category = 'Serie' AND country LIKE '%USA' ORDER BY premiere;
+
+/* NO importa como termina el texto "%" */
+SELECT category,category,country,estatus,premiere FROM movieseries WHERE category = 'Serie' AND country LIKE 'USA%' ORDER BY premiere;
+
+/* NO importa como inicie y termina el texto "%" , que solo contenga la palabra "USA"*/
+SELECT category,category,country,estatus,premiere FROM movieseries WHERE category = 'Serie' AND country LIKE '%USA%' ORDER BY premiere;
+
+SELECT category,category,country,estatus,premiere FROM movieseries WHERE category = 'Serie' OR estatus = 1  ORDER BY premiere;
+
