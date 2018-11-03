@@ -184,3 +184,16 @@ SELECT ms.title,ms.category,ms.country,ms.genres,ms.premiere,s.estatus
   WHERE MATCH(ms.title, ms.author, ms.actors, ms.genres)  
   AGAINST('Drama' IN BOOLEAN MODE)
   ORDER BY ms.premiere;
+
+/* Integridad referencial */
+/* Con este valor de "0" se incrementa automaticamente */
+INSERT INTO estatus  
+  SET estatus_id = 0,
+      estatus = 'Otro Estatus';
+
+/* Actualizando en Cascada */
+UPDATE estatus 
+  SET estatus_id = 7,
+      estatus = 'Estrenada'
+  WHERE estatus_id = 2;
+    
