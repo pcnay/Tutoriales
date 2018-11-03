@@ -144,3 +144,43 @@ SELECT category,category,country,estatus,premiere FROM movieseries WHERE categor
 
 SELECT category,category,country,estatus,premiere FROM movieseries WHERE category = 'Serie' OR estatus = 1  ORDER BY premiere;
 
+/* Consultas Múltiplex */
+
+/* En Wikipedia se encuentra el tema de Join con mas detalles */
+/* Realiza una multiplicación de matrices, por cada registro de la tabla "MovieSeries" agrega todos los registros de la tabla  "Estatus", por lo que no es correcta la consulta multiple, se obtiene esta por no agregar una condicional  */
+SELECT * FROM movieseries AS ms INNER JOIN estatus AS s
+
+/* Consulta multiple correcta, por cada registro de la tabla "MovieSeries" se agre un registro de la tabla "Estatus" pero que existen el "id estatus" en ambas tablas que es como debe funcionar */
+SELECT * FROM movieseries AS ms INNER JOIN estatus AS s
+  ON ms.estatus = s.estatus_id;
+
+SELECT ms.title,ms.category,ms.premiere,s.estatus 
+  FROM movieseries AS ms INNER JOIN estatus AS s
+  ON ms.estatus = s.estatus_id
+  ORDER BY ms.premiere;
+
+SELECT ms.title,ms.category,ms.premiere,s.estatus 
+  FROM movieseries AS ms INNER JOIN estatus AS s
+  ON ms.estatus = s.estatus_id
+  WHERE s.estatus = 'Release'
+  ORDER BY ms.premiere;
+
+SELECT ms.title,ms.category,ms.premiere,s.estatus 
+  FROM movieseries AS ms INNER JOIN estatus AS s
+  ON ms.estatus = s.estatus_id
+  WHERE (s.estatus = 'Release' OR s.estatus = 'coming Soon') AND ms.category = 'Serie'
+  ORDER BY ms.premiere;
+
+/* Consulta FullText */
+/* La palabra "Vince" se buscara en los campos : "title, author, actors, genres" */
+SELECT * FROM movieseries
+  WHERE MATCH(title, author, actors, genres)  
+  AGAINST('Vince' IN BOOLEAN MODE);
+
+SELECT ms.title,ms.category,ms.country,ms.genres,ms.premiere,s.estatus
+  FROM movieseries AS ms
+  INNER JOIN estatus AS s
+  ON ms.estatus = s.estatus_id
+  WHERE MATCH(ms.title, ms.author, ms.actors, ms.genres)  
+  AGAINST('Drama' IN BOOLEAN MODE)
+  ORDER BY ms.premiere;
