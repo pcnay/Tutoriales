@@ -19,9 +19,20 @@
     }
 
     // Se tiene que definir los métodos abstractos de la clase Padre que se definio.
-   public function create()
+    // Recibe un arreglo.
+   public function create($estatus_data = array())
    {
+     foreach ($estatus_data as $nombreCampo => $contenidoCampo)
+      {
+        // Para convertir de valor arreglo a variable, se le llama Variable a Variable
+        // $key = Exrae el nombre de la posición asociativa.
+        // $$key = Esta posición la convierte a una variable de PHP.
+        // http://php.net/manual/es/language.variables.variable.php
+        $$nombreCampo = $contenidoCampo;
+      }
 
+      $this->query = "INSERT INTO estatus (estatus_id,estatus) VALUES ($estatus_id,'$estatus')";
+      $this->set_query();
    }
    //si no se manda valor alguno, se asigna espacio en blanco
    public function read($buscar_estatus_id = '')
@@ -67,13 +78,25 @@
 
       return $datos;
    }
-   public function update()
-   {
 
+   public function update($estatus_data = array())
+   {
+    foreach ($estatus_data as $nombreCampo => $contenidoCampo)
+    {
+      $$nombreCampo = $contenidoCampo;
+    }
+
+    // El valor de la variable $estatus_id, $estatus, se original del ciclo anterior.
+    $this->query = "UPDATE estatus SET estatus_id = $estatus_id ,
+                            estatus = '$estatus' WHERE estatus_id = $estatus_id";
+
+    $this->set_query();
    }
-   public function delete()
-   {
 
+   public function delete($estatus_id = '')
+   {
+      $this->query = "DELETE FROM estatus WHERE estatus_id = $estatus_id";
+      $this->set_query();
    }
 
   }

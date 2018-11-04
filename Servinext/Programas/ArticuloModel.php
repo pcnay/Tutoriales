@@ -25,8 +25,21 @@
     }
 
     // Se tiene que definir los métodos abstractos de la clase Padre que se definio.
-   public function create()
+   public function create($articulo_dato=array())
    {
+    
+    foreach ($articulo_dato as $nombreCampo => $contenidoCampo)
+    {
+      // Para convertir de valor arreglo a variable, se le llama Variable a Variable
+      // $key = Exrae el nombre de la posición asociativa.
+      // $$key = Esta posición la convierte a una variable de PHP.
+      // http://php.net/manual/es/language.variables.variable.php
+      $$nombreCampo = $contenidoCampo;
+    }
+    
+
+    $this->query = "INSERT INTO articulos (articulo_id,descripcion,marca,modelo,num_serial,num_parte,existencia) VALUES ($articulo_id,'$descripcion','$marca','$modelo','$num_serial','$num_parte',$existencia)";
+    $this->set_query();
 
    }
    //si no se manda valor alguno, se asigna espacio en blanco
@@ -73,12 +86,29 @@
 
       return $datos;
    }
-   public function update()
+   public function update($actualizar_articulo=array())
    {
+    foreach ($actualizar_articulo as $nombreCampo => $contenidoCampo)
+    {
+      $$nombreCampo = $contenidoCampo;
+    }
+
+    // El valor de la variable $estatus_id, $estatus, se original del ciclo anterior.
+    $this->query = "UPDATE articulos SET articulo_id = $articulo_id ,
+                            descripcion = '$descripcion',
+                            marca = '$marca',
+                            num_serial = '$num_serial',
+                            num_parte = '$num_parte',
+                            existencia = $existencia
+                             WHERE articulo_id = $articulo_id";
+
+    $this->set_query();
 
    }
-   public function delete()
+   public function delete($articulo_id = '')
    {
+    $this->query = "DELETE FROM articulos WHERE articulo_id = $articulo_id";
+    $this->set_query();
 
    }
 
