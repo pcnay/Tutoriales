@@ -42,9 +42,9 @@ abstract class Model
       self::$db_host,
       self::$db_user,
       self::$db_pass,
-      $this->$db_name);
+      $this->db_name);
 
-      $this->conn->set_charset($this->$db_charset);
+      $this->conn->set_charset(self::$db_charset);
        
   }
   // Método privado para desconectarse en de la base de datos.
@@ -80,7 +80,9 @@ abstract class Model
 
     $this->db_close();    
 
-    return $this->rows;
+    // array_pop =  se utiliza para suprimir el último valor del arreglo, ya que siempre es NULL.
+    // http://php.net/manual/es/function.array-pop.php
+    return array_pop($this->rows);
   }
  
 }
