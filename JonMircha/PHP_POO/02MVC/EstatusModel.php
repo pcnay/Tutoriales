@@ -2,7 +2,7 @@
   require_once('Model.php');
 
   // ORM es mapear una tabla de la base de datos para despues utilizarla como objeto.
-  
+  // Esta clase no tiene relación con la capa +Model+ en lo referente a la conexión de la base de datos, ya que solo accesa a un método de la clase +Model+
   class EstatusModel extends Model
   {
     // Campos de la tabla de "Estatus", se definen como atributos en esta clase.
@@ -100,4 +100,4 @@
    }
 
   }
-?>"
+?>

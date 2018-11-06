@@ -1,9 +1,11 @@
 <?php
-  require('EstatusModel.php');
+  require_once('EstatusController.php');
 
   echo '<h1>CRUD con MVC de la tabla * Estatus * </h1>';
 
-  $estatus = new EstatusModel();
+  $estatus = new EstatusController();
+
+  // Con esta instancia del objeto "$estatus" se tiene acceso al +Controller+ de la Arquitectura "MVC" sin tener relacion con el +Model+. Sin embargo en el capa de +Controller+ si tiene acceso a la capa +Model+
 
   // para mostrar lo que retorna la consulta en el arreglo que se asigno.
   // $estatus->read();
@@ -32,26 +34,33 @@
           };
   echo  '</table>';
 
-  //echo 'Insertando registros';
+  /*
+  echo 'Insertando registros';
   // En el modelo se define que se pasara como parametro un arreglo ques será asociativo
   $new_estatus = array(
     'estatus_id' => 0, // Automaticamente se le asigna el siguiente número.
-    'estatus' => 'Otro Estatus'
+    'estatus' => 'Otro Estatus Nov5'
   );
 
-  // Invocando el método para insertar registros del modelo.php
-  // $estatus->create($new_estatus);
 
+  // Invocando el método para insertar registros del modelo.php
+   $estatus->create($new_estatus);
+*/
+
+/*
   echo '<h2>ACTUALIZANDO UN REGISTRO </h2>';
 
   $actualizar_estatus = array(
-    'estatus_id' => 3, // Automaticamente se le asigna el siguiente número.
-    'estatus' => ' Otro Estatus cambiado a 3'
+    'estatus_id' => 12, // Automaticamente se le asigna el siguiente número.
+    'estatus' => ' Cambia Estatus'
   );
   
   $estatus->update($actualizar_estatus);
 
+*/
+
   echo '<h2>Eliminando un Registro</h2>';
-  $estatus->delete(6);
-  
+  $estatus->delete(12);
+
+
 ?>

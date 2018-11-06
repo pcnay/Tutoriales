@@ -1,7 +1,9 @@
 <?php
-  require('ArticuloModel.php');
+  require('ArticuloController.php');
 
   echo '<h1>CRUD con MVC de la tabla * Articulos * </h1>';
+
+  // Con esta instancia del objeto "$articulo" se tiene acceso al +Controller+ de la Arquitectura "MVC" sin tener relacion con el +Model+. Sin embargo en el capa de +Controller+ si tiene acceso a la capa +Model+
 
   $articulo = new ArticuloModel();
 
@@ -63,8 +65,8 @@ echo 'Insertando registros';
   echo '<h2>ACTUALIZANDO UN REGISTRO </h2>';
 
   $actualizar_articulo = array(
-    'articulo_id' => 3, 
-    'descripcion' => 'Cambiado Reg. 3',
+    'articulo_id' => 17, 
+    'descripcion' => 'CambReg. 17',
     'marca' => 'HP',
     'modelo' => 'c3456',
     'num_serial' => 'MKJFJDE930',
@@ -75,6 +77,6 @@ echo 'Insertando registros';
   $articulo->update($actualizar_articulo);
 
   echo '<h2>Eliminando un Registro</h2>';
-  $articulo->delete(9);
+  $articulo->delete(10);
 
 ?>
