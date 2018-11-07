@@ -1,5 +1,7 @@
 <?php
-  require_once('ArticuloModel.php');
+  // Se comenta esta línea porque en el "Controller" se va crear una función que va autocargar las archivos que requiera cada modulo que se utilize en el sisteme de MexFlix.
+  
+  // require_once('ArticuloModel.php');
   class ArticuloController
   {
     private $model;
@@ -18,24 +20,26 @@
       //unset($this);
     }
 
-    public function create($articulo_data = array())
+    public function set($articulo_data = array())
     {
-      return $this->model->create($articulo_data);
+      return $this->model->set($articulo_data);
     }
 
+    /*
     public function update($articulo_data = array())
     {
       return $this->model->update($articulo_data);
     }
+    */
 
-    public function delete ($articulo_id  = '')
+    public function del ($articulo_id  = '')
     {
-      return $this->model->delete($articulo_id);
+      return $this->model->del($articulo_id);
     }
 
-    public function read($articulo = '')
+    public function get($articulo = '')
     {
-      return $this->model->read($articulo_id);
+      return $this->model->get($articulo_id);
     }
     
   }

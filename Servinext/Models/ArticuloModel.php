@@ -1,5 +1,7 @@
 <?php
-  require_once('Model.php');
+  // Se comenta esta línea porque en el "Controller" se va crear una función que va autocargar las archivos que requiera cada modulo que se utilize en el sisteme de MexFlix.
+
+  // require_once('Model.php');
 
   // ORM es mapear una tabla de la base de datos para despues utilizarla como objeto.
   // Esta clase no tiene relación con la capa +Model+ en lo referente a la conexión de la base de datos, ya que solo accesa a un método de la clase +Model+
@@ -26,7 +28,7 @@
     }
 
     // Se tiene que definir los métodos abstractos de la clase Padre que se definio.
-   public function create($articulo_dato=array())
+   public function set($articulo_dato=array())
    {
     
     foreach ($articulo_dato as $nombreCampo => $contenidoCampo)
@@ -39,12 +41,12 @@
     }
     
 
-    $this->query = "INSERT INTO articulos (articulo_id,descripcion,marca,modelo,num_serial,num_parte,existencia) VALUES ($articulo_id,'$descripcion','$marca','$modelo','$num_serial','$num_parte',$existencia)";
+    $this->query = "REPLACE INTO articulos (articulo_id,descripcion,marca,modelo,num_serial,num_parte,existencia) VALUES ($articulo_id,'$descripcion','$marca','$modelo','$num_serial','$num_parte',$existencia)";
     $this->set_query();
 
    }
    //si no se manda valor alguno, se asigna espacio en blanco
-   public function read($buscar_articulo_id = '')
+   public function get($buscar_articulo_id = '')
    { 
     // se manajen dos formas para obtener los datos:
       // Se coloca "" para que tome el valor de la variable "$buscar_articulo_id"
@@ -87,6 +89,7 @@
 
       return $datos;
    }
+   /*
    public function update($actualizar_articulo=array())
    {
     foreach ($actualizar_articulo as $nombreCampo => $contenidoCampo)
@@ -106,7 +109,9 @@
     $this->set_query();
 
    }
-   public function delete($articulo_id = '')
+   */ 
+
+   public function del($articulo_id = '')
    {
     $this->query = "DELETE FROM articulos WHERE articulo_id = $articulo_id";
     $this->set_query();
@@ -114,4 +119,4 @@
    }
 
   }
-?>"
+?>
