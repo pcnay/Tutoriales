@@ -64,15 +64,14 @@
 <body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
 <!-- Site wrapper -->  
 <div class = "wrapper">
-  <!-- =============================================== -->
-  <!-- =============================================== -->
-  <!-- Content Wrapper. Contains page content -->
-  <!-- /.content-wrapper -->
-  <!-- Control Sidebar -->
+  <?php
+    include "dist/modulos/cabezote.php";
+  ?>
+
 </div>  
 <!-- ./wrapper -->
 
 <!-- Se guardan las funciones que se encuentran de JavaScript en los archivos del sistema POS -->
-<script src="js/plantilla.js"></script>
+<script src="vistas/js/plantilla.js"></script>
 </body>
 </html>
