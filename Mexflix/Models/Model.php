@@ -26,10 +26,17 @@ abstract class Model
   // Definiendo los métodos
   // Abstracto para el CRUD de clases que hereden
   // Se definen en otra clase que es heredada.
+  // Se modifican las dos funciones "create" y "update" por la  función "replace" ya que esta contiene un comando que realiza las dos tareas de Insertar y Actualizar.
+  /*
   abstract protected function create();
   abstract protected function read();
-  abstract protected function update();
   abstract protected function delete();
+  abstract protected function update();
+  */
+
+  abstract protected function set(); // Establecer un valor, si existe Actualiza, sino Agrega.
+  abstract protected function get(); // Para leer registros
+  abstract protected function del(); // Borrar los registros.
 
 
   // Método privado para conectarse en de la base de datos.
