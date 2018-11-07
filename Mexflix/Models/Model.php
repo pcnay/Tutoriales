@@ -12,6 +12,7 @@ abstract class Model
   private static $db_pass = '';
   // Para indicar el nombre de la base de datos, se defienen en las clases hijas (donde se define el método en la sección de Constructor ), ya que cuando se tiene aplicaciones grandes se utilizan mas de una base de datos. No se puede utilizar de maneja pública.
   protected $db_name = 'mexflix';
+  //private static $db_name = 'mexflix';
   // Permite establecer el juego de caracteres para el ideoma de Español.
   private static $db_charset = 'utf8';
   // Variable para guardar la conexión a MySQL

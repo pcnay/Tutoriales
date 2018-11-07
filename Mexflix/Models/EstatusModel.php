@@ -1,13 +1,16 @@
 <?php
-  require_once('Model.php');
+  // Se comenta esta línea porque en el "Controller" se va crear una función que va autocargar las archivos que requiera cada modulo que se utilize en el sisteme de MexFlix.
+  
+  // require_once('Model.php');
 
   // ORM es mapear una tabla de la base de datos para despues utilizarla como objeto.
   // Esta clase no tiene relación con la capa +Model+ en lo referente a la conexión de la base de datos, ya que solo accesa a un método de la clase +Model+
   class EstatusModel extends Model
   {
     // Campos de la tabla de "Estatus", se definen como atributos en esta clase.
-    public $estatus_id;
-    public $estatus;
+    //public $estatus_id;
+    //public $estatus;
+    // Se tiene que indicar en el constructor en cada clase que se cree a cual base de datos se conectara.
     public function __construct()
     {
       $this->db_name = 'mexflix';
@@ -20,7 +23,8 @@
 
     // Se tiene que definir los métodos abstractos de la clase Padre que se definio.
     // Recibe un arreglo.
-   public function create($estatus_data = array())
+   //public function create($estatus_data = array())
+   public function set($estatus_data = array())
    {
      foreach ($estatus_data as $nombreCampo => $contenidoCampo)
       {
@@ -31,11 +35,14 @@
         $$nombreCampo = $contenidoCampo;
       }
 
-      $this->query = "INSERT INTO estatus (estatus_id,estatus) VALUES ($estatus_id,'$estatus')";
+      $this->query = "REPLACE INTO estatus (estatus_id,estatus) VALUES ($estatus_id,'$estatus')";
       $this->set_query();
    }
+
+
+   
    //si no se manda valor alguno, se asigna espacio en blanco
-   public function read($buscar_estatus_id = '')
+   public function get($buscar_estatus_id = '')
    { 
     // se manajen dos formas para obtener los datos:
       // Se coloca "" para que tome el valor de la variable "$buscar_estatus_id"
@@ -79,6 +86,15 @@
       return $datos;
    }
 
+
+   public function del($estatus_id = '')
+   {
+      $this->query = "DELETE FROM estatus WHERE estatus_id = $estatus_id";
+      $this->set_query();
+   }
+
+/*
+   // Esta función no se requiere por la modificacion de "Create" que ahora es "Set"
    public function update($estatus_data = array())
    {
     foreach ($estatus_data as $nombreCampo => $contenidoCampo)
@@ -92,12 +108,9 @@
 
     $this->set_query();
    }
+   */
 
-   public function delete($estatus_id = '')
-   {
-      $this->query = "DELETE FROM estatus WHERE estatus_id = $estatus_id";
-      $this->set_query();
-   }
 
-  }
+  } // class EstatusModel    
+
 ?>
