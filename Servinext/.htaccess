@@ -1,0 +1,26 @@
+#  Para que todos los links que tengan URL amigables puedan funcionar de acuerdo a como se configuran 
+Options +FollowSymlinks
+
+#  Que active toda la programación que se introducira 
+RewriteEngine On
+#  Cual es la base de la aplicación en el servidor, depende de como este estructurada la carpeta 
+#  Los accesos seran : http://localhost/tutoriales/mexflix/usuarios, estatus, users, 
+
+RewriteBase /Tutoriales/Servinext
+
+# Son condicionales en .htaccess, validando que la carpeta y archivos que se consulte 
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+# Es la que permite el paso de las variables como URL en la aplicación. 
+# ^ = Inicio de como se estructura la URL.
+# (.*) = Es el que se reemplazara la variable que pase por la URL. Para este caso es una variable # solamente "r"(ruta), pasado por $_GET 
+# Si se utilizara url amigables separadas por diagonal sería: (.*)/(.*)
+# $ = Indica final
+# index.php = Es el archivo que va estar escuchando.
+# r = Es la variable que va estar escucha por la URL. Si se tuviera otra variable seria 
+# ?r=$1&q=$2
+# [L] = Indica que se reemplaze el valor de la variable por el de $_GET en (.*)
+
+RewriteRule ^(.*)$ index.php?r=$1 [L]
+
