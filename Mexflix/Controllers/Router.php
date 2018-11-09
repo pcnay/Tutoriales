@@ -49,7 +49,7 @@
       }
 
     }
-    public function __destroy()
+    public function __destruct()
     {
       //unset($this);
     }
