@@ -24,16 +24,15 @@
         // require = Error y no contunua la ejecución
         if (file_exists($models_path))
         {
-          require_once($models_path);
+          require_once($models_path);          
         }
+        
         if (file_exists($controllers_path))
         {
-          require_once($controllers_path);
+          require_once($controllers_path);          
         }
 
       } );
-
-
     }
 
     public function __destruct()
