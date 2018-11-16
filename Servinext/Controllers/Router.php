@@ -33,7 +33,11 @@
           */
 
         ]);
-        $_SESSION['ok'] = false;
+
+        if (!isset($_SESSION['ok']))
+        {
+          $_SESSION['ok'] = false;
+        }
 
       }
 
@@ -45,6 +49,10 @@
       else
       {
         // Se desplegará un formulario de autenticación.
+
+        // Esta clase es para mostrar las vistas en la aplicación Mexflix, se pasara como parámetro la vista que se desea mostrar.
+        $login_form = new ViewControllers();
+        $login_form->load_view('login');
 
       }
 
