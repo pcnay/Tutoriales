@@ -33,14 +33,16 @@
           */
 
         ]);
-
-        if (!isset($_SESSION['ok']))
-        {
-          $_SESSION['ok'] = false;
-        }
-
+        
+      }
+      
+      if (!isset($_SESSION['ok']))
+      {
+        $_SESSION['ok'] = false;        
       }
 
+      
+      
       // cuando se crea la sesion se asignara a la variable sesion "ok" el valor de true
       if ($_SESSION['ok']==true)
       {
@@ -49,7 +51,6 @@
       else
       {
         // Se desplegará un formulario de autenticación.
-
         // Esta clase es para mostrar las vistas en la aplicación Mexflix, se pasara como parámetro la vista que se desea mostrar.
         $login_form = new ViewControllers();
         $login_form->load_view('login');
