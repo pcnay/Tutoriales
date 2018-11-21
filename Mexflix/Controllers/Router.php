@@ -47,13 +47,60 @@
       if ($_SESSION['ok']==true)
       {
         // Abarcara toda la programación perminente de la aplicación
+        // Se manejan las rutas que maneja la aplicación.
+        $controller = new ViewControllers();
+        $controller->load_view('home');
       }
       else
       {
-        // Se desplegará un formulario de autenticación.
-        // Esta clase es para mostrar las vistas en la aplicación Mexflix, se pasara como parámetro la vista que se desea mostrar.
-        $login_form = new ViewControllers();
-        $login_form->load_view('login');
+        if(!isset($_POST['user']) && !isset($_POST['pass']))
+        {
+          // Se desplegará un formulario de autenticación.
+          // Esta clase es para mostrar las vistas en la aplicación Mexflix, se pasara como parámetro la vista que se desea mostrar.
+          $login_form = new ViewControllers();
+          $login_form->load_view('login');
+
+        } 
+        else
+        { 
+          // La clave para dar acceso al sistema
+          // Se crea un nuevo controlador "Sesion de usuario"
+          $user_session = new SessionController();
+          $session = $user_session->login($_POST['user'],$_POST['pass']);
+          if (empty($session))
+          {
+            // echo "El usuario y el password son incorrectos";
+
+            $login_form = new ViewControllers();
+            $login_form->load_view('login');
+            // Se redirije el flujo de la aplicación. Al raíz de la aplicación.
+            header('Location: ./?error=El usuario '.$_POST['user']. ' y el password proporcionado no coinciden');
+          }
+          else
+          {
+            // echo "El usuario y password son correctos";
+            $_SESSION['ok'] = true;
+
+            // Se crean las variables de session, estas permanecen aun cuando se cambian las rutas.
+            // En esta config. del Foreach se cambia para valor unidimencional
+            foreach ($session as $row)
+            {
+              $_SESSION['user'] = $row['user'];
+              $_SESSION['email'] = $row['email'];
+              $_SESSION['name'] = $row['name'];
+              $_SESSION['birthday'] = $row['birthday'];
+              $_SESSION['pass'] = $row['pass'];
+              $_SESSION['role'] = $row['role'];
+            }
+
+
+            //Redirige el flujo de la aplicación al directorio raíz y vuelve a comenzar la ejecución de la aplicación. "HOME" de la aplicación.
+            header('Location: ./'); 
+            
+          }
+          
+
+        }
 
       }
 
