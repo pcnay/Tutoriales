@@ -1,12 +1,12 @@
 <?php 
   $template = '
     <article class = "item">
-      <h2>Hola %s Bienvenido a MexFlix </h2>
-      <h3>Tus películas y series favoritas</h3>
-      <p>Tu nombre es <b>%s</b></p>
-      <p>Tu email es <b>%s</b></p>
-      <p>Tu cumpleaños es <b>%s</b></p>
-      <p>Tu perfil de usuario tiene el nivel de <b>%s</b></p>
+      <h2 class = "p1">Hola %s Bienvenido a MexFlix </h2>
+      <h3 class = "p1">Tus películas y series favoritas</h3>
+      <p class = "p1 f1_25">Tu nombre es <b>%s</b></p>
+      <p class = "p1 f1_25">Tu email es <b>%s</b></p>
+      <p class = "p1 f1_25">Tu cumpleaños es <b>%s</b></p>
+      <p class = "p1 f1_25">Tu perfil de usuario tiene el nivel de <b>%s</b></p>
     </article>
     ';
   printf (

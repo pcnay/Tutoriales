@@ -44,12 +44,36 @@
       
       
       // cuando se crea la sesion se asignara a la variable sesion "ok" el valor de true
-      if ($_SESSION['ok']==true)
+      if ($_SESSION['ok'])
       {
         // Abarcara toda la programación perminente de la aplicación
         // Se manejan las rutas que maneja la aplicación.
+        // Selecciona de acuerdo los seleccionado en el menú.
+        $this->route = isset($_GET['r']) ? $_GET['r']:'home';
         $controller = new ViewControllers();
-        $controller->load_view('home');
+
+          switch ($this->route)
+          {
+            case 'home':                      
+              $controller->load_view('home');
+              break;
+            case 'movieseries':
+              $controller->load_view('movieseries');              
+              break;           
+            case 'users':
+              $controller->load_view('users');
+              break;
+            case 'estatus':
+              $controller->load_view('estatus');
+              break;
+            case 'salir':
+              $user_session = new SessionController();
+              $user_session->logout();
+              break;
+            default:
+              $controller->load_view('error404');
+              break;
+          }      
       }
       else
       {
@@ -57,9 +81,8 @@
         {
           // Se desplegará un formulario de autenticación.
           // Esta clase es para mostrar las vistas en la aplicación Mexflix, se pasara como parámetro la vista que se desea mostrar.
-          $login_form = new ViewControllers();
-          $login_form->load_view('login');
-
+          $controller = new ViewControllers();
+          $controller->load_view('login');
         } 
         else
         { 
@@ -87,10 +110,10 @@
             {
               $_SESSION['user'] = $row['user'];
               $_SESSION['email'] = $row['email'];
-              $_SESSION['name'] = $row['name'];
+              $_SESSION['names'] = $row['names'];
               $_SESSION['birthday'] = $row['birthday'];
               $_SESSION['pass'] = $row['pass'];
-              $_SESSION['role'] = $row['role'];
+              $_SESSION['roles'] = $row['roles'];
             }
 
 

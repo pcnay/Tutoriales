@@ -25,8 +25,8 @@
       <nav class = "item i-b v-middle ph12 lg10 menu lg-right ">
         <ul class = "container">
           <li class = "nobullet item inline"><a href="./">Inicio</a></li>
-          <li class = "nobullet item inline"><a href="moviseries">Moviseries </a></li>
-          <li class = "nobullet item inline"><a href="usuarios">Usuarios</a></li>
+          <li class = "nobullet item inline"><a href="movieseries">MovieSeries </a></li>
+          <li class = "nobullet item inline"><a href="users">Usuarios</a></li>
           <li class = "nobullet item inline"><a href="estatus">Estatus</a></li>
           <li class = "nobullet item inline"><a href="salir">Salir</a></li>
         </ul>

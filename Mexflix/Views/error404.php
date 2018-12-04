@@ -1,0 +1,1 @@
+<h2>Error 404 Pagina NO encontrada</h2>

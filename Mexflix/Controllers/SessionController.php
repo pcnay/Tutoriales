@@ -17,6 +17,9 @@
 
     public function logout()
     {
+      session_start();
+      session_destroy();
+      header('Location: ./'); // Se retorna al menu de las contraseña.
 
     }
 

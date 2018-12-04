@@ -1,16 +1,16 @@
 #  Para que todos los links que tengan URL amigables puedan funcionar de acuerdo a como se configuran 
-# Options +FollowSymlinks
+Options +FollowSymlinks
 
 #  Que active toda la programación que se introducira 
-# RewriteEngine On
+RewriteEngine On
 #  Cual es la base de la aplicación en el servidor, depende de como este estructurada la carpeta 
 #  Los accesos seran : http://localhost/tutoriales/mexflix/usuarios, estatus, users, 
 
-# RewriteBase /Tutoriales/Mexflix
+RewriteBase /Tutoriales/Mexflix
 
 # Son condicionales en .htaccess, validando que la carpeta y archivos que se consulte 
-# RewriteCond %{SCRIPT_FILENAME} !-d
-# RewriteCond %{SCRIPT_FILENAME} !-f
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
 
 # Es la que permite el paso de las variables como URL en la aplicación. 
 # ^ = Inicio de como se estructura la URL.
@@ -22,5 +22,5 @@
 # ?r=$1&q=$2
 # [L] = Indica que se reemplaze el valor de la variable por el de $_GET en (.*)
 
-# RewriteRule ^(.*)$ index.php?r=$1 [L]
+RewriteRule ^(.*)$ index.php?r=$1 [L]
 
