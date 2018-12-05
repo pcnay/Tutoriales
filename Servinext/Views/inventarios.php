@@ -1,0 +1,1 @@
+<h2>Menu de Inventarios</h2>

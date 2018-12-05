@@ -41,6 +41,7 @@ CREATE TABLE articulos
   num_serial VARCHAR(40) NOT NULL,  
   num_parte VARCHAR(20) NOT NULL,
   existencia INTEGER UNSIGNED,
+  historial TEXT NULL,
   FULLTEXT KEY search (descripcion, modelo, num_serial, num_parte)
 );
 
