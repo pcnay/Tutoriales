@@ -1,0 +1,104 @@
+html
+{
+  background-color:#141414;
+  color:#FFF;
+}
+
+/* Para cuando se teclean en estas etiquetas se vena las letras. */
+input, textarea,select
+{
+  color:#141414;
+}
+
+table
+{
+  width:100%;
+  color:#141414;
+}
+
+table td, table th
+{
+  padding:0.25rem;
+}
+
+/* La primer fila de la tabla */
+table tr:first-child
+{
+  background-color:#E50914;
+  color:#FFF;
+}
+
+/* Las filas pares de la tabla se aplica el siguiente efecto */
+table tr:nth-child(even)
+{
+  background-color:#666;
+} 
+
+/* Las filas impares de la tabla se aplica el siguiente efecto */ 
+table tr:nth-child(odd):not(:first-child)
+{
+  background-color:#999;
+}
+
+.logo
+{
+  font-size:3rem;
+  color:#E50914;
+}
+
+/*Aplicando estilos a los enlaces del menu */
+/* Aumentadndo la fuente y color de la fuente en las opciones del menú.*/
+.menu a
+{
+  font-size:1.5rem;
+  text-decoration:none;
+  color:#E50914;
+}
+
+/* Agregando el efecto de cuando se pase el raton sobre la opción del menú se cambia a color Blanco*/
+.menu a:hover
+{
+  color:#FFF;
+}
+
+/* Aplicando estilos a los botones */ 
+.button
+{
+  padding:0.5rem 1rem; /* Solo se aplica arriba y abajo del boton por lo que se haran rectangular. */
+  background-color:#E50914;
+  color:#FFF;
+  cursor:pointer;
+}
+
+.button:hover
+{
+  opacity:0.75;
+}
+
+/* Se agrega los colores para las opciones mencionadas como clases en los botones */
+.add
+{
+  background-color:#0B0;
+}
+ 
+.edit
+{
+  background-color:#0871B2;
+}
+
+.delete
+{
+  background-color:#D23641;
+}
+
+.error
+{
+  background-color:#E50914;
+  color:#FFF;
+}
+
+.img-404
+{
+  max-width:140px;
+  height:auto;
+}
