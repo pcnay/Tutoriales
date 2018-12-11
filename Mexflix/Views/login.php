@@ -22,7 +22,7 @@ if (isset($_GET['error']) )
 {
   $template = '
   <div class = "container">
-    <p class = "item error">%s</p>; 
+    <p class = "item error">%s</p>
   </div>
 ';
   printf($template,$_GET['error']);
