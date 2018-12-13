@@ -62,10 +62,29 @@
               break;           
             case 'users':
               $controller->load_view('users');
-              break;
+              break; 
             case 'estatus':
-              $controller->load_view('estatus');
+              // Se determina si se oprimio el boton de "Agregar", "Editar", "Borrar" de la lista mostrada.
+              // De la vista "Estatus.php"
+              if (!isset($_POST['r']))
+              {
+                $controller->load_view('estatus');       
+              }
+              else if($_POST ['r'] == 'estatus-add')
+              {
+                $controller->load_view('estatus-add');       
+              }
+              else if($_POST ['r'] == 'estatus-edit')
+              {
+                $controller->load_view('estatus-edit');       
+              }
+              else if($_POST ['r'] == 'estatus-delete')
+              {
+                $controller->load_view('estatus-delete');       
+              }
+
               break;
+
             case 'salir':
               $user_session = new SessionController();
               $user_session->logout();

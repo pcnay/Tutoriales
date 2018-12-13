@@ -42,6 +42,7 @@ CREATE TABLE articulos
   num_parte VARCHAR(20) NOT NULL,
   existencia INTEGER UNSIGNED,
   historial TEXT NULL,
+  sr VARCHAR(20) NULL,
   FULLTEXT KEY search (descripcion, modelo, num_serial, num_parte)
 );
 
@@ -76,10 +77,10 @@ CREATE TABLE users
 
 /* Precargando Datos */
 
-INSERT INTO articulos(articulo_id,descripcion,marca,modelo,num_serial,num_parte,existencia) VALUES
-  (1,'Impresora','Lexmark','MX511','701531HH03YZG','N/A',0),
-  (2,'Impresora','Lexmark','MX711','79039484DSSDS','N/A',0),
-  (3,'Impresora','Lexmark','MX611','78492323JHDHG','N/A',0);
+INSERT INTO articulos(articulo_id,descripcion,marca,modelo,num_serial,num_parte,existencia,historial,sr) VALUES
+  (1,'Impresora','Lexmark','MX511','701531HH03YZG','N/A',0,'fechas de instalacion del dia 10 dic', '1-34567543446'),
+  (2,'Impresora','Lexmark','MX711','79039484DSSDS','N/A',0,'fechas de instalacion del dia 15 dic', '1-2030495865'),
+  (3,'Impresora','Lexmark','MX611','78492323JHDHG','N/A',0,'fechas de instalacion del dia 20 dic', '1-0593849323');
   
 INSERT INTO users (user,email,names,birthday,pass,roles) VALUES
   ('@administrador','administrador@correo.com','Administrador','1984-05-23',MD5('clave'),'Admin'),
