@@ -36,6 +36,7 @@
               <li class = "nobullet item inline"><a href="inventarios">Inventarios</a></li>
               <li class = "nobullet item inline"><a href="sgi">SGI</a></li>
               <li class = "nobullet item inline"><a href="varios">Varios</a></li>
+              <li class = "nobullet item inline"><a href="articulos">Articulos</a></li>
               <li class = "nobullet item inline"><a href="salir">Salir</a></li>
             </ul>
           </nav>

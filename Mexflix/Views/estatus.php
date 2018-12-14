@@ -53,6 +53,7 @@
           </tr>
           ';
       }
+      
       $template_estatus .= '
 
         </table>
