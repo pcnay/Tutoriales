@@ -3,7 +3,7 @@
   </main>
 
   <!--  Se utiliza JavaScript nativo para refrescar las páginas. -->
-  <script src="./public/js/mexflix.js"></script>
+  <script src="./public/Js/mexflix.js"></script>
 </body>
 </html>
   ');
