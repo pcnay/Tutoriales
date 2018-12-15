@@ -28,7 +28,7 @@
       'estatus_id' => 0,
       'estatus' => $_POST['estatus'] // Es el valor que tecle el usuario en el formulario anterior
     );
-    $estatus = $estatus_controller->set($new_estatus);
+    $estatus = $estatus_controller->set($new_estatus); // Graba a la Tabla de "Estatus" lo que tecleo el usuario.
     $template = '
       <div class = "container">
         <p class = "item add">Estatus <b>%s </b> Guardado En La Base De Datos </p>

@@ -41,7 +41,7 @@
     }
     
 
-    $this->query = "REPLACE INTO articulos (articulo_id,descripcion,marca,modelo,num_serial,num_parte,existencia) VALUES ($articulo_id,'$descripcion','$marca','$modelo','$num_serial','$num_parte',$existencia)";
+    $this->query = "REPLACE INTO articulos (articulo_id,descripcion,marca,modelo,num_serial,num_parte,existencia,historial,sr) VALUES ($articulo_id,'$descripcion','$marca','$modelo','$num_serial','$num_parte',$existencia,'$historial','$sr')";
     $this->set_query();
 
    }
