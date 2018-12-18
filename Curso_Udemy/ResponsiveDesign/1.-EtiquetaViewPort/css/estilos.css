@@ -1,0 +1,67 @@
+body
+{
+  font-family:'Raleway', sans-serif;
+  font-weight:700;
+}
+p
+{
+  font-weight: 400px;
+}
+
+/* Cuando se trabaje con sitios utilizando Responsive Design se utilizan las imagenes al 100% */
+img
+{
+  max-width:100%
+}
+
+/* Aplicando el primer Media Query, ewste color de fondo se activa cuando la pantalla esta en 599px */
+@media only screen and (max-width: 599px)
+{
+  body
+  {
+    background-color:orange;
+  }
+  h1 
+  {
+    color:#ffffff;
+  }
+  p 
+  {
+    text-align:justify;
+  }    
+  
+}
+/* Manejando un rango de anchura de pantalla */
+@media only screen and (min-width:600px) and (max-width:799px)
+{
+  body
+  {
+    background-color:purple;        
+  }
+  h1 
+  {
+    text-align:center;
+  }
+  img
+  {
+    float:right;
+  }
+}
+
+@media only screen and (min-width:800px)
+{
+  body 
+  {
+    background-color:blue;  
+  }
+  h1 
+  {
+    color:red;
+  }
+  .contenedor
+  {
+    max-width:800px;
+    margin:0 auto;    
+  }
+  
+}

@@ -1,0 +1,43 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: 'Raleway', sans-serif;
+}
+div.contenedor {
+  max-width: 1100px;
+  margin:0 auto;
+}
+
+div.contenido-principal::after {
+  clear: both;
+  content: '';
+  display: block;
+}
+
+@media only screen and (min-width:768px)
+{
+  /* [ * ] =  Significa que no importa que etiquete sea, la selecciona */
+  div.contenido-principal > *
+  {
+    padding: 0 20px;
+  }
+  div.principal
+  {
+    width:50%;
+    float:left;
+    margin-left:25%;    
+  }
+  /* Se mueve del lado derecho que se coloca con las modificaciones anteriores a lada izq, es cubre el hueco que tenia.*/
+  aside.primera
+  {
+    margin-left:-75%;
+    width:25%;
+    float:left;
+  }
+  aside.segunda
+  {
+    width:25%;
+    float:right;
+  }
+}
