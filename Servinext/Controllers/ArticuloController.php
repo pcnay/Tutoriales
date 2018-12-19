@@ -37,7 +37,7 @@
       return $this->model->del($articulo_id);
     }
 
-    public function get($articulo = '')
+    public function get($articulo_id = '')
     {
       return $this->model->get($articulo_id);
     }

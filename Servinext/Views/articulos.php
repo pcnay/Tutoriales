@@ -51,7 +51,7 @@
               <form method ="POST"> 
                 <!-- Se agrega un boton "hidden" para pasarlo cuando se oprime el boton de "Editar". NO se ve para el usuario pero los programadores lo utilizan para mandar información de las rutas (directorios que se accesan) -->
                 <input type ="hidden" name = "r" value ="articulo-edit">
-                <input type ="hidden" name = "articulo" value ="'.$articulo[$n]['articulo_id'].'">
+                <input type ="hidden" name = "articulo_id" value ="'.$articulo[$n]['articulo_id'].'">
                 <input class ="button edit" type = "submit" value ="Editar">                             
               </form>        
             </td>         
