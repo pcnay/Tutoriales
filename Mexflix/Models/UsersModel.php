@@ -7,9 +7,9 @@
   // Esta clase no tiene relación con la capa +Model+ en lo referente a la conexión de la base de datos, ya que solo accesa a un método de la clase +Model+
   class UsersModel extends Model
   {
-    // Campos de la tabla de "Estatus", se definen como atributos en esta clase.
-    //public $estatus_id;
-    //public $estatus;
+    // Campos de la tabla de "Users", se definen como atributos en esta clase.
+    //public $users_id;
+    //public $users;
     // Se tiene que indicar en el constructor en cada clase que se cree a cual base de datos se conectara.
     public function __construct()
     {
@@ -23,13 +23,13 @@
 
     // Se tiene que definir los métodos abstractos de la clase Padre que se definio.
     // Recibe un arreglo.
-   //public function create($estatus_data = array())
+   //public function create($users_data = array())
    public function set($user_data = array())
    {
      foreach ($user_data as $nombreCampo => $contenidoCampo)
       {
         // Para convertir de valor arreglo a variable, se le llama Variable a Variable
-        // $key = Exrae el nombre de la posición asociativa.
+        // $key = Extrae el nombre de la posición asociativa.
         // $$key = Esta posición la convierte a una variable de PHP.
         // http://php.net/manual/es/language.variables.variable.php
         $$nombreCampo = $contenidoCampo;
@@ -60,7 +60,7 @@
           $sql = "SELECT * FROM estatus";
         }
       */
-      $this->query = ($buscar_user != '' )?"SELECT * FROM users WHERE user = $buscar_user":"SELECT * FROM users";
+      $this->query = ($buscar_user != '' )?"SELECT * FROM users WHERE user = '$buscar_user'":"SELECT * FROM users";
       
       $this->get_query();
       // Devuelve un arreglo de la consulta ejecutada.
