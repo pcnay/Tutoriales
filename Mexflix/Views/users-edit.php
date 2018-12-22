@@ -49,7 +49,8 @@
             <input type="text" name="birthday" placeholder="AAAA-MM-DD  Cumpleaños" value = "%s" required>
           </div>         
           <div class = "p_25">
-            <input type="password" name="pass" placeholder="Contraseña" value = "%s" required>
+            <!-- No se asigna valor, porque al modificar este campo se volveria a encriptar lo que esta encriptado. , por lo que el usuario tendría que teclear un password nuevo o el mismo--> 
+            <input type="password" name="pass" placeholder="Contraseña" value = "" required>
           </div>         
           <div class = "p_25">
             <input type="radio" name="roles" id="admin" value="Admin" %s required><label for ="admin">Administrador</label>
@@ -70,7 +71,8 @@
         $user[0]['email'],
         $user[0]['names'],
         $user[0]['birthday'],
-        $user[0]['pass'],
+        // $user[0]['pass'],
+        // Se desactiva, porque al modificar este campo se volveria a encriptar lo que esta encriptado, por lo que el usuario tendría que teclear un password nuevo o el mismo--> 
         $role_admin,
         $role_user
       );
@@ -79,29 +81,33 @@
     
   }
   // Como no se indica una Acción, el formulario se va autoprocesar, con la siguiente válidación.
-  else if ($_POST['r']== 'estatus-edit' && $_SESSION['roles'] == 'Admin' && $_POST['crud'] == 'set')
+  else if ($_POST['r']== 'users-edit' && $_SESSION['roles'] == 'Admin' && $_POST['crud'] == 'set')
   {
     // programar la inserción de los datos
     
-    $save_estatus = array(
-      'estatus_id' => $_POST['estatus_id'], // Este valor es del formulario anterior donde se copia la información desde el arreglo "$estatus"      
-      'estatus' => $_POST['estatus'] // Es el valor que tecle el usuario en el formulario anterior
+    $save_user = array(
+      'user' => $_POST['user'], // Este valor es del formulario anterior donde se copia la información desde el arreglo "$estatus"      
+      'email' => $_POST['email'], // Es el valor que tecle el usuario en el formulario anterior
+      'names' => $_POST['names'],
+      'birthday' => $_POST['birthday'],
+      'pass' => $_POST['pass'],
+      'roles' => $_POST['roles']
     );
-    $estatus = $estatus_controller->set($save_estatus); // Graba a la Tabla de "Estatus" lo que tecleo el usuario.
+    $user = $users_controller->set($save_user); // Graba a la Tabla de "Users" lo que tecleo el usuario.
     $template = '
       <div class = "container">
-        <p class = "item edit">Estatus <b>%s </b> Guardado En La Base De Datos </p>
+        <p class = "item edit">Usuario <b>%s </b> Guardado En La Base De Datos </p>
       </div>
       <script>
         window.onload = function()
         {
-          reloadPage("estatus")
+          reloadPage("users")
         }
 
       </script>
 
     ';
-    printf($template,$_POST['estatus']);
+    printf($template,$_POST['user']);
   }
   else
   {

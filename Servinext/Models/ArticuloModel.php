@@ -63,7 +63,7 @@
           $sql = "SELECT * FROM articulo";
         }
       */
-      $this->query = ($buscar_articulo_id != '' )?"SELECT * FROM articulos WHERE articulo_id = $buscar_articulo_id":"SELECT * FROM articulos";
+      $this->query = ($buscar_articulo_id != '' )?"SELECT * FROM articulos WHERE articulo_id = '$buscar_articulo_id'":"SELECT * FROM articulos";
       
       $this->get_query();
       // Devuelve un arreglo de la consulta ejecutada.
