@@ -91,6 +91,11 @@ table tr:nth-child(odd):not(:first-child)
   background-color:#D23641;
 }
 
+.show
+{
+  background-color:#141414;
+}
+
 .error
 {
   background-color:#E50914;
@@ -101,4 +106,15 @@ table tr:nth-child(odd):not(:first-child)
 {
   max-width:140px;
   height:auto;
+}
+
+.poster
+{
+  max-width:200px;
+}
+
+.trailer iframe
+{
+  width:560px;
+  height:315px;
 }

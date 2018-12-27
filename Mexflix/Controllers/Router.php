@@ -58,7 +58,28 @@
               $controller->load_view('home');
               break;
             case 'movieseries':
-              $controller->load_view('movieseries');              
+              // Se determina si se oprimio el boton de "Agregar", "Editar", "Borrar" de la lista mostrada.
+              // De la vista "movieseries.php"
+              if (!isset($_POST['r']))
+              {
+                $controller->load_view('movieseries');                              
+              }
+              else if($_POST ['r'] == 'movieseries-add')
+              {
+                $controller->load_view('movieseries-add');       
+              }
+              else if($_POST ['r'] == 'movieseries-edit')
+              {
+                $controller->load_view('movieseries-edit');       
+              }
+              else if($_POST ['r'] == 'movieseries-delete')
+              {
+                $controller->load_view('movieseries-delete');       
+              }
+              else if($_POST ['r'] == 'movieseries-show')
+              {
+                $controller->load_view('movieseries-show');       
+              }
               break;           
             case 'users':
               // Se determina si se oprimio el boton de "Agregar", "Editar", "Borrar" de la lista mostrada.
