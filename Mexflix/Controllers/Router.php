@@ -39,9 +39,7 @@
       if (!isset($_SESSION['ok']))
       {
         $_SESSION['ok'] = false;        
-      }
-
-      
+      }      
       
       // cuando se crea la sesion se asignara a la variable sesion "ok" el valor de true
       if ($_SESSION['ok'])
@@ -132,7 +130,8 @@
               break;
           }      
       }
-      else
+
+      else //if ($_SESSION['ok'])
       {
         if(!isset($_POST['user']) && !isset($_POST['pass']))
         {
@@ -173,12 +172,10 @@
               $_SESSION['roles'] = $row['roles'];
             }
 
-
             //Redirige el flujo de la aplicación al directorio raíz y vuelve a comenzar la ejecución de la aplicación. "HOME" de la aplicación.
             header('Location: ./'); 
             
-          }
-          
+          }          
 
         }
 
