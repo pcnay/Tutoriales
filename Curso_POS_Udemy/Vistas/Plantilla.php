@@ -66,6 +66,9 @@
 <div class = "wrapper">
   <?php
     include "dist/modulos/cabezote.php";
+    include "dist/modulos/menu.php"; // Es el menu lateral Izq.
+    include "dist/modulos/contenido.php";
+    include "dist/modulos/footer.php";
   ?>
 
 </div>  
