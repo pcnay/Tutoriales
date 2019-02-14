@@ -1,0 +1,12 @@
+# Oculta todas las carpetas que tiene el proyecto
+Options All -Indexes
+
+#Habilitando URLs amigables
+RewriteEngine On
+
+# Regla a utilizar, se utilizan expresiones regulares.
+# ^ = Inicia la expresion regular
+# [] = Caracteres permitidos.
+# Cuando se este enviando a través de la ruta "index.php"
+# La variable  GET se llama "ruta" que se convierta en URL amigable($1)
+RewriteRule ^([-a-zA-Z0-9/]+)$ index.php?ruta=$1

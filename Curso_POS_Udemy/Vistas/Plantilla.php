@@ -66,8 +66,17 @@
 <div class = "wrapper">
   <?php
     include "dist/modulos/cabezote.php";
-    include "dist/modulos/menu.php"; // Es el menu lateral Izq.
-    include "dist/modulos/contenido.php";
+    include "dist/modulos/menu.php"; // Es el menu lateral Izq.  
+    if (isset($_GET["ruta"]))
+    {
+      if ($_GET["ruta"] == "inicio" || $_GET["ruta"] == "usuarios" || $_GET["ruta"] == "categorias" || $_GET["ruta"] == "productos" || $_GET["ruta"] == "clientes" || $_GET["ruta"] == "ventas" || $_GET["ruta"] == "crear-venta" || $_GET["ruta"] == "reportes" )
+        {
+          include "dist/modulos/".$_GET["ruta"].".php";
+        }
+
+    }
+    
+
     include "dist/modulos/footer.php";
   ?>
 

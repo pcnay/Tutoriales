@@ -1,7 +1,7 @@
 <!-- Este archivo se crea en la carpeta de : "distrib"->modulos->cabezote.php --> 
 <header class= "main-header">
   <!-- LOGOTIPO -->
-  <a href = "" class="logo">
+  <a href = "inicio" class="logo">
     <!-- Logo mini -->
     <span class = "logo-mini">
       <img src = "vistas/img/plantilla/icono-blanco.png" class = "img-responsive" style = "padding:10px"> 

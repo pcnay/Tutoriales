@@ -6,25 +6,26 @@
 			-->
 
 			<li class="active">
-				<a href="">
+				<!-- Si no se tuvieran url amigables se tendría que teclear : <a href="index.php?ruta=inicio">, por lo que se mostrará la ruta completa en el barra de direcciones, pero con el archivo ".htaccess" se oculta la variable "ruta" -->
+				<a href="inicio">
 					<i class="fa fa-home"></i> 
 					<span>Inicio</span>
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="usuarios">
 					<i class="fa fa-user"></i>
 					<span>Usuarios</span>
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="categorias">
 					<i class="fa fa-product-hunt"></i>
 					<span>Categorias</span>
 				</a>
 			</li>
 			<li>
-				<a href="">
+				<a href="clientes">
 					<i class="fa fa-users"></i>
 					<span>Clientes</span>
 				</a>
@@ -32,7 +33,7 @@
 
 			<!-- Botonera en Arbol -->
 			<li class="treeview">
-				<a href="">
+				<a href="#">
 					<i class="fa fa-list-ul"></i>
 					<span>Ventas</span>
 					<span class="pull-right-container">
@@ -43,19 +44,19 @@
 				<!-- Menu desplegable -->
 				<ul class="treeview-menu">
 					<li>
-						<a href = "">
+						<a href = "ventas">
 							<i class="fa fa-circle-o"></i>
 							<span>Administrar Ventas</span>
 						</a>
 					</li>
 					<li>
-						<a href = "">
+						<a href = "crear-venta">
 							<i class="fa fa-circle-o"></i>
 							<span>Crear Ventas</span>
 						</a>
 					</li>
 					<li>
-						<a href = "">
+						<a href = "reportes">
 							<i class="fa fa-circle-o"></i>
 							<span>Reportes Ventas</span>
 						</a>
