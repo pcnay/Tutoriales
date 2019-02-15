@@ -10,6 +10,9 @@
 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  
+  <!-- Se agrega un icono para el tab de la aplicación.  -->
+  <link rel="icon" href="vistas/img/plantilla/icono-negro.png">
 
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="vistas/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -69,13 +72,29 @@
     include "dist/modulos/menu.php"; // Es el menu lateral Izq.  
     if (isset($_GET["ruta"]))
     {
-      if ($_GET["ruta"] == "inicio" || $_GET["ruta"] == "usuarios" || $_GET["ruta"] == "categorias" || $_GET["ruta"] == "productos" || $_GET["ruta"] == "clientes" || $_GET["ruta"] == "ventas" || $_GET["ruta"] == "crear-venta" || $_GET["ruta"] == "reportes" )
+      // Es la lista permitadas de las URL para la aplicación.
+      if ($_GET["ruta"] == "inicio" || 
+          $_GET["ruta"] == "usuarios" || 
+          $_GET["ruta"] == "categorias" || 
+          $_GET["ruta"] == "productos" || 
+          $_GET["ruta"] == "clientes" || 
+          $_GET["ruta"] == "ventas" || 
+          $_GET["ruta"] == "crear-venta" || 
+          $_GET["ruta"] == "reportes" )
         {
-          include "dist/modulos/".$_GET["ruta"].".php";
+          include "dist/modulos/".$_GET["ruta"].".php";        
         }
+      else
+        {
+           include "dist/modulos/404.php";
+        }         
 
     }
-    
+    else
+    {
+      // Para cuando no se tiene en la URL ruta definida, por defecto abre la de Inicio
+      include "dist/modulos/inicio.php";
+    }
 
     include "dist/modulos/footer.php";
   ?>
