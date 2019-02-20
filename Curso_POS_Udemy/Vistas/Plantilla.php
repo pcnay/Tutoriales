@@ -10,7 +10,7 @@
 
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  
+
   <!-- Se agrega un icono para el tab de la aplicación.  -->
   <link rel="icon" href="vistas/img/plantilla/icono-negro.png">
 
@@ -64,43 +64,54 @@
 
 <!-- CUERPO DEL DOCUMENTO -->
 <!-- sidebar-collapse = Para que el sidebar no se muestre al iniciar el menu, se muestra el icono de lineas para oprimirlo y se muestre -->
-<body class="hold-transition skin-blue sidebar-collapse sidebar-mini">
+<body class="hold-transition skin-blue sidebar-collapse sidebar-mini login-page">
 <!-- Site wrapper -->  
-<div class = "wrapper">
+
+
   <?php
-    include "dist/modulos/cabezote.php";
-    include "dist/modulos/menu.php"; // Es el menu lateral Izq.  
-    if (isset($_GET["ruta"]))
+    // Se valida si el usuario tiene sesión activada.
+    if (isset($_SESSION["iniciarsesion"]) && $_SESSION["iniciarsesion"]=="ok")
     {
-      // Es la lista permitadas de las URL para la aplicación.
-      if ($_GET["ruta"] == "inicio" || 
-          $_GET["ruta"] == "usuarios" || 
-          $_GET["ruta"] == "categorias" || 
-          $_GET["ruta"] == "productos" || 
-          $_GET["ruta"] == "clientes" || 
-          $_GET["ruta"] == "ventas" || 
-          $_GET["ruta"] == "crear-venta" || 
-          $_GET["ruta"] == "reportes" )
-        {
-          include "dist/modulos/".$_GET["ruta"].".php";        
-        }
+      echo '<div class = "wrapper">';
+      include "dist/modulos/cabezote.php";
+      include "dist/modulos/menu.php"; // Es el menu lateral Izq.  
+      if (isset($_GET["ruta"]))
+      {
+        // Es la lista permitadas de las URL para la aplicación.
+        if ($_GET["ruta"] == "inicio" || 
+            $_GET["ruta"] == "usuarios" || 
+            $_GET["ruta"] == "categorias" || 
+            $_GET["ruta"] == "productos" || 
+            $_GET["ruta"] == "clientes" || 
+            $_GET["ruta"] == "ventas" || 
+            $_GET["ruta"] == "crear-venta" || 
+            $_GET["ruta"] == "reportes" )
+          {
+            include "dist/modulos/".$_GET["ruta"].".php";        
+          }
+        else
+          {
+            include "dist/modulos/404.php";
+          }         
+
+      }    
       else
-        {
-           include "dist/modulos/404.php";
-        }         
+      {
+        // Para cuando no se tiene en la URL ruta definida, por defecto abre la de Inicio
+        include "dist/modulos/inicio.php";
+      } // if (isset($_GET["ruta"]))
 
+      include "dist/modulos/footer.php";
+
+      echo '</div>  ';
     }
-    else
+    else // Se tiene que loguear para entrar al sistema.
     {
-      // Para cuando no se tiene en la URL ruta definida, por defecto abre la de Inicio
-      include "dist/modulos/inicio.php";
+      include "dist/modulos/login.php";
     }
 
-    include "dist/modulos/footer.php";
   ?>
 
-</div>  
-<!-- ./wrapper -->
 
 <!-- Se guardan las funciones que se encuentran de JavaScript en los archivos del sistema POS -->
 <script src="vistas/js/plantilla.js"></script>
