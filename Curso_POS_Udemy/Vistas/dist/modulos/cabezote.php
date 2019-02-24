@@ -1,6 +1,5 @@
 <!-- Este archivo se crea en la carpeta de : "distrib"->modulos->cabezote.php --> 
 <header class= "main-header">
-
   <!-- LOGOTIPO -->
   <a href = "inicio" class="logo">
     <!-- Logo mini -->
