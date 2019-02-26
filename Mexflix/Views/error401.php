@@ -1,4 +1,5 @@
 <?php
+// 
 print ('
    <h2 class "p1 error" >Error 401: NO tienes permiso para realizar esta operacion</h2>
    <!-- Ajustando la imagen al tamaño natural, utiliznado una clase para modificarlo en el CSS -->
