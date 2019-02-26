@@ -1,4 +1,5 @@
 <?php
+// Linea prueba
 // Puede tener metodos abstractos, y solo se heredan en las clases hijas y es donde se definen.
 // Permite la conexion a la base de datos.
 // No se incrusta archivo de las demás capas.
