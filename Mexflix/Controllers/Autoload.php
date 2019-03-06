@@ -1,5 +1,7 @@
 <?php
-  
+	// Se agrego para probar configuracion.
+	//
+	
   // Con este archivo se evita utilzar el "require" en cada una de las clase que utiliza el programa
   class Autoload
   {
