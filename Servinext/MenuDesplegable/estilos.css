@@ -1,0 +1,91 @@
+*
+{
+	margin:0;
+	padding:0;
+}
+header
+{
+	width:100%;
+}
+nav
+{
+	margin:20px auto;
+	width:90%;
+	max-width:1000px;
+}
+/*Suprimiendo las viñetas de las opciones del menu, los "ul" inicial solamente*/
+nav ul 
+{
+	list-style:none;
+}
+
+/* Se modifican las opciones del menu, pero que dependen "directamente" */
+nav > ul
+{
+	/*Se muestran las opciones del menu se coloquen en caja y en longuitud igual */
+	display:table;
+	/*todo lo que salga de las opciones del menú desaparezca */
+	overflow:hidden;
+	width:100%;
+	background:#000;
+	position:relative;	
+}
+
+/* Afecta las opciones del menu en el primir "li"*/ 
+nav > ul li
+{
+	/* Para desplegar las opciones del primer "li" que son las 5 opciones del menú, uno a lado del otro */ 
+	display:table-cell;
+}
+
+/* De momento se desactivan los submenus., solo los que tengan relación directa en las etiquetas "ul" y "li"*/
+nav > ul > li > ul
+{
+	display:none;
+} 
+
+/* Se aplican estilos a los "li" y "a" que tengan solo relación directa con el primir "ul" , osea las opciones principales del menú cambian a color blanco */
+nav > ul li a
+{
+	color:#fff;
+	/* Para cambiar el Ancho y Alto del elemento */
+	display:block;
+	line-height:20px; /* para hacerlo mas ancho */
+	padding:20px; /* Para todos los lados*/
+	position:relative; /* Para usuarlo con el menú desplegable*/ 
+	text-align:center;
+	text-decoration:none; /* Suprime el texto subrayado*/
+	/*	http://css3generator.com/ para efectos de transición que se utilizan en las opciones del menú
+	Property = All
+	Duration = 0.3 seconds
+	Function = Ease
+	*/
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-ms-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+/* Relación directa hasta el último "li" que son los submenus */
+nav > ul > li > ul > li a:hover
+{
+	background:#5da5a2;
+}
+
+/* Los iconos de las opciones del menu se cambiaran para que solo aparezcan cuando se seleccione la opcion. Se accesa a las opciones del menu, pero ahora se hara uso de la etiqueta "Span"*/ 
+
+nav > ul > li > a span
+{
+	background:#174459;
+	/*Por defecto son elementos en línea por lo que se convierten en bloques. para poder cambiar la altura, anchura.*/
+	display:block; 
+	height:100%;
+	width:100%;
+	left:0;
+	position:absolute;
+	top:-55px;
+}
+
+/*  http://www.falconmasters.com/tutoriales/menu-desplegable-animaciones-css3/ 
+Tiempo : 17:03 Min
+*/
