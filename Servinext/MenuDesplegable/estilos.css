@@ -31,6 +31,40 @@ nav > ul
 	position:relative;	
 }
 
+nav > ul li
+{
+	display:table-cell;
+}
+
+/* Se colocan las opciones del Submenu, este accesa a las opciones del submenu. */
+nav > ul > li:hover > ul
+{
+	display:block; /* Lo arregla para que sean elementos continuos uno después del otro.  */	
+	height:100%; /* Para que aparezca las opciones del submenu */
+}
+
+/* Para corregir la distorcion de la opción seleccionada del menú*/
+nav > ul > li > ul
+{
+	display:block;
+	position:absolute; /* Menú desplegable */
+	background:#000; /* El fondo de la selección de color negro.*/
+	left:0px; /*Colocando las opciones del menú a la izq. */
+	right:0px;
+	overflow:hidden;
+	height:0%;
+	/*	http://css3generator.com/ para efectos de transición que se utilizan en las opciones del menú
+	Property = All
+	Duration = 0.3 seconds
+	Function = Ease
+	*/
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-ms-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+}
+
 /* Afecta las opciones del menu en el primir "li"*/ 
 nav > ul li
 {
@@ -38,13 +72,7 @@ nav > ul li
 	display:table-cell;
 }
 
-/* De momento se desactivan los submenus., solo los que tengan relación directa en las etiquetas "ul" y "li"*/
-nav > ul > li > ul
-{
-	display:none;
-} 
-
-/* Se aplican estilos a los "li" y "a" que tengan solo relación directa con el primir "ul" , osea las opciones principales del menú cambian a color blanco */
+ /* Se aplican estilos a los "li" y "a" que tengan solo relación directa con el primir "ul" , osea las opciones principales del menú cambian a color blanco */
 nav > ul li a
 {
 	color:#fff;
@@ -84,8 +112,55 @@ nav > ul > li > a span
 	left:0;
 	position:absolute;
 	top:-55px;
+	/* Se agrega para el efecto de las transacciones */
+	-webkit-transition: all .3s ease;
+	-moz-transition: all .3s ease;
+	-ms-transition: all .3s ease;
+	-o-transition: all .3s ease;
+	transition: all .3s ease;
+
+
 }
 
-/*  http://www.falconmasters.com/tutoriales/menu-desplegable-animaciones-css3/ 
-Tiempo : 17:03 Min
+/* Accesando directamente a la clase "icon"  de los primeros niveles solamente. */
+nav > ul > li > a span .icon
+{
+	display:block; /*Para hacerlo de forma que se acomoden de forma continua, y se centre al ancho defiido */
+	line-height:60px;
+}
+
+/* 	Ahora hacer el efecto de que bajen los iconos definidos para cada opción. 
+		Se accesa al elemento de relación directa, se le aplica cuando se pase el raton 
+		
+		<li><a href="#"><span class ="" ><i class = "icon icon-home3"></i></span>Inicio</a></li>
+
 */
+nav > ul > li > a:hover > span 
+{
+	top:0px; /* Como ya se definio el efecto de transición y color el "top" a 0 se nota el efecto al pasar el ratón en las opciones del menú */
+}
+
+/* Se agregan colores a las opciones del menú */
+nav > ul > li > a .primero
+{
+	background:#0e5061;
+}
+
+nav > ul > li > a .segundo
+{
+	background:#5da5a2;
+}
+
+nav > ul > li > a .tercero
+{
+	background:#f25724;
+}
+nav > ul > li > a .cuarto
+{
+	background:#174459;
+}
+nav > ul > li > a .quinto
+{
+	background:#37a4d9;
+}
+
