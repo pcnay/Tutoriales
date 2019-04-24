@@ -1,0 +1,148 @@
+*
+{
+	padding:0;
+	margin:0;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing:border-box;
+	box-sizing:border-box;
+}
+body
+{
+	background:#FEFEFE;
+}
+.menu_bar
+{
+	display:none;
+}
+header
+{
+	 width:100%;
+}
+
+/* Para dejar visible el menu en formato mobil */
+header nav
+{
+	background:#023859;
+	z-index:1000;
+	max-width:1000px;
+	width:95%;
+	margin:20px auto;
+}
+
+header nav ul
+{
+	list-style:none; /*Desactiva las viñetas de las opciones del menú */
+}
+
+header nav ul li
+{
+	display:inline-block; /*Las opciones del menú estan línea uno a lado del otro*/
+	position:relative; /*Son para los submenus que se puedan utilizar, además son el padre del Menú*/
+}
+
+/*Son los submenus */
+header nav ul li a
+{
+	color:#fff; /*Las opciones del menú son de color blanco*/
+	display:block; /*Para hacerlos un bloques son mas anchos*/
+	text-decoration:none;
+	padding:20px; /*Alto de 20px las opciones del menú */
+}
+
+/*Accesando directamente a las opciones del menu.*/
+header nav ul li a span
+{
+	margin-right:10px; 
+}
+
+/*Cuando se pasa el raton se cambia de color la opción del menú */
+header nav ul li:hover
+{
+	background:#E6344A;
+}
+
+/*Estilos a los submenus cuando se pase el raton en el submenu */
+header nav ul li:hover .children
+{
+	display:block;  
+}
+
+header nav ul li .children
+{
+	display:none;
+	background:#011826;
+	position:absolute; /*Se coloca porque son hijos del menu principal, y coloca las opciones en formato vertical*/
+	width:150%;
+	z-index:1000; /*Se utiliza para que no se encimen las opciones del menu cuando se cambia de tamaño la pantalla*/
+}
+
+header nav ul li .children li
+{
+	display:block; /* Se despliegan en bloques y abarcan el 100% del tamaño anteriormente. */
+	overflow:hidden;
+	border-bottom:1px solid rgba(255,255,255,.5); /* Opacidad del 50% y de color blanco*/
+}
+
+header nav ul li .children li a
+{
+	display:block;
+}
+
+/*Para mover el icono de corchetes del submenu a la derecha  */
+header nav ul li .children li a span
+{
+	float:right;
+	position:relative;
+	top:3px;
+	margin-right:0;
+	margin-left:10px;
+}
+
+/* Se alinea el icono de la opción del menú (punta flecha abajo)*/
+header nav ul li .caret
+{
+	position:relative;
+	top:3px;
+	margin-left:10px;
+	margin-right:0px;
+}
+
+/* Trabajar el menu en modo Responsive (adaptable a dispositivos).*/
+
+@media screen and (max-width:800px)
+{
+	body
+	{
+		padding-top:80px; /* Es el margen del menu cuando este en pantalla movil*/
+	}
+
+	.menu_bar
+	{
+		display:block; /* Activando la clase "menu_bar" y mostrando en bloques */
+		width:100%;
+		position:fixed;
+		top:0px;
+		background:#E6344A;
+	}
+
+	.menu_bar .bt_menu
+	{
+		display:block;
+		padding:20px;
+		color:#fff;
+		overflow:hidden;
+		font-size:25px;
+		font-weight:bold;
+		text-decoration:none;
+	} 
+
+	/*Moviendo a la derecha el icono del menu */
+	.menu_bar span 
+	{
+		float:right;
+		font-size:40px;
+	}
+
+
+
+}

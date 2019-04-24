@@ -1,0 +1,60 @@
+<!-- 
+	http://www.falconmasters.com/web-design/menu-desplegable-adaptable-dispositivos-moviles/
+
+	Recursos:
+	Link de Jquery: http://code.jquery.com/jquery-latest.js
+	Link de Icomoon: https://icomoon.io/
+		Utilizar "Entypo"
+		Para bajar los iconos, se seleccionan los iconos y se descargan con la opción de "font"
+		https://icomoon.io/app/#/select
+		Una vez descomprimida la carpeta se extraen un archivo (style.css que se renombra "fonts.css"), la carpeta "fonst", se copian en la carpeta del proyecto.
+		 
+	
+	Tiempo: 31:28 Min
+
+-->
+<DOCTYPE html>
+	<html lang="en">
+		<head>
+			<meta charset = "UTF-8">
+			<!--Esta línea es para hacerlo "responsive" adaptable a dispositivos moviles la pantalla -->
+			<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+			<title>Menu Responsive</title>
+			<!-- <script src="https://code.jquery.com/jquery-3.4.0.min.js"></script> 
+				El contenido se copia a un archivo, ya que puede ser que cambie con los meses.
+			-->
+			<link rel="stylesheet" href="estilos.css">
+			<link rel="stylesheet" href="fonts.css">
+			<script src="jquery.js"></script>			
+			<script src="main.js"></script>
+
+		</head>
+		<body>
+			<header>
+					<!-- Este "div" es la leyenda de MENU -->
+				 <div class="menu_bar">
+						<a href = "#" class="bt_menu"><span class="icon-menu"></span>Menu</a>
+				 </div>
+				 <!--Agreando las opciones del Menu -->
+				 <nav>
+					 <ul>
+						 <li><a href="#"><span class="icon-cogs"></span>Inicio</a></li>
+						 <li><a href="#"><span class="icon-pencil"></span>Trabajos</a></li>
+						 <li class="submenu"><!--Se utilizara con JQuery-->
+							 <a href="#"><span class="icon-phone"></span>Proyectos<span class="caret icon-ctrl"></span></a>
+							 	<ul class="children">
+									<li><a href="#">SubMenu # 1<span class="icon-embed"></span></a></li>
+									<li><a href="#">SubMenu # 2<span class="icon-embed"></span></a></li>
+									<li><a href="#">SubMenu # 3<span class="icon-embed"></span></a></li>
+								</ul>
+							</li> 
+						 <li><a href="#"><span class="icon-mobile"></span>Servicios</a></li> 
+						 <li><a href="#"><span class="icon-mail"></span>Contactos</a></li>
+					 </ul>
+				 </nav>
+			</header>
+		</body>
+
+	</html>
+</DOCTYPE>
