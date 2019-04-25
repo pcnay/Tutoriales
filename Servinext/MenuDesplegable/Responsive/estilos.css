@@ -142,7 +142,52 @@ header nav ul li .caret
 		float:right;
 		font-size:40px;
 	}
+	/* Ajustar el ancho del mene que sea completo cuando se encuentre en tamaño para dispositivos mobiles */
+	header nav
+	{
+		width:80%;
+		/*Este valor de 80 px, se definio para el alto del menu (version mobil), pero tambien se definio en la parte de abajo, por lo que las opción última del menú se pierde por lo que se tiene que calcular la altura. */
+		height:calc(100% - 80px);
+		position:fixed;
+		/* left:0; */
+		right:100%;
+		margin:0;
+		overflow:scroll;  /* Para que muestre scroll en el menú */
+	}
 
+	/*todas las opciones del menú se cambaia de "inline-block" a "block" para que abarquen todo el ancho predefinido */ 
+	header nav ul li
+	{
+		display:block;
+		border-bottom:1px solid rgba(255,255,255,.5);
+	}
 
+	header nav ul li a
+	{
+		display:block;
+	}
 
+	/* Trabajando con el submenu, cuando se seleccionan las opciones de de bajo desaparecen por lo que se arreglara*/
+	header nav ul li .children
+	{
+		width:100%;
+		position:relative; /* Hace que las opciones del menu se bajen cuando se selecciona el submenu*/ 
+	}
+
+	header nav ul li .children li a
+	{
+		margin-left:20px; /*Para agregar un margen a los puntos de las opciones del menu*/
+	}
+
+	/*Se modifica los símbolos de "corchetes" de las opciones del submenu */
+	header nav ul li .caret
+	{
+		float:right;
+	}
+
+	/* Para desaparecer las opciones del submenu cuando se pase el raton en la opción del menú, este se activara con JavaScript */
+	header nav ul li:hover .children
+	{
+		display:none; 
+	}
 }

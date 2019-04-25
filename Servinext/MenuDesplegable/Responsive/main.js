@@ -1,0 +1,28 @@
+// Se utiliza para la animacion del menu, cuando se oprima aparecen todas las opciones.
+$(document).ready(main);
+
+var contador = 1;
+
+function main()
+{
+	$('.menu_bar').click(function(){
+		if (contador==1)
+		{
+			 $('nav').animate({
+				 left:'0'
+			 });
+			 contador = 0;			 
+		}
+		else
+		{
+			contador = 1;
+			$('nav').animate({
+				left:'-100%'
+			});
+		}
+	});
+	// Mostramos y ocultamos el submenu, al hacer click utilizando JQuery.
+	$('.submenu').click(function(){
+		$(this).children('.children').slideToggle();
+	});
+}
