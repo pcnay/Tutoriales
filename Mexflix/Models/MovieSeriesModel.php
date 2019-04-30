@@ -21,13 +21,14 @@
 
     // Se tiene que definir los métodos abstractos de la clase Padre que se definio.
     // Recibe un arreglo.
-   //public function create($estatus_data = array())
+	 //public function create($estatus_data = array())
+	 // ms = movieSerie
    public function set($ms_data = array())
    {
      foreach ($ms_data as $nombreCampo => $contenidoCampo)
       {
         // Para convertir de valor arreglo a variable, se le llama Variable a Variable
-        // $key = Exrae el nombre de la posición asociativa.
+        // $key = Extrae el nombre de la posición asociativa.
         // $$key = Esta posición la convierte a una variable de PHP.
         // http://php.net/manual/es/language.variables.variable.php
         $$nombreCampo = $contenidoCampo;

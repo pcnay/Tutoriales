@@ -31,7 +31,8 @@
 					<p class="p_5">Author : <b>%s</b></p>
 					<p class="p_5">Actor  : <b>%s</b></p>
 					<article class="p_5 ph7 mauto left">%s</article>
-					<div class="p_5 trailer">
+					<!-- Mostrando un video de Youtube -->
+					<div class="p_5 trailer"> 
 						<iframe src="%s" frameborder="0" allowfullscreen></iframe>						
 					</div>
 					<input class="p_5 button add" type="button" value="Regresar" onclick="history.back()">	

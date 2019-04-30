@@ -1,7 +1,7 @@
 <?php
   print('<h2 class="p1">GESTION DE MOVIESERIES</h2>');
-  $ms_controller = new MovieSeriesController(); // Para accesar al CRUD de la tabla "Estatus".
-  $ms = $ms_controller->get(); // Obtiene todos los valores de la tabla "Estatus", en arreglo asociativo.
+  $ms_controller = new MovieSeriesController(); // Para accesar al CRUD de la tabla "MovieSeries"
+  $ms = $ms_controller->get(); // Obtiene todos los valores de la tabla "MovieSeries", en arreglo asociativo.
   if (empty($ms))
   {
     print('
@@ -21,7 +21,7 @@
             <th>ESTRENO</th>
             <th>GENEROS</th>
             <th>ESTATUS</th>
-            <th>CATGORIA</th>
+            <th>CATEGORIA</th>
 
             <th colspan="3"> <!-- Para que abarque tres celdas, por los botones de "Editar", "mostrar y "Borrar" -->
               <form method ="POST"> 
@@ -43,7 +43,8 @@
             <td>'.$ms[$n]['genres'].'</td> 
             <td>'.$ms[$n]['estatus'].'</td> 
             <td>'.$ms[$n]['category'].'</td> 
-            <td>            
+						<td>
+							<!--La etiqeuta "form" se utiliza para manejar los botones -->        
               <form method ="POST"> 
                 <!-- Se agrega un boton "hidden" para pasarlo cuando se oprime el boton de "Editar". NO se ve para el usuario pero los programadores lo utilizan para mandar información de las rutas (directorios que se accesan) -->
                 <input type ="hidden" name = "r" value ="movieseries-show">
@@ -82,3 +83,4 @@
     print($template_ms);
   }
 ?>
+ 
