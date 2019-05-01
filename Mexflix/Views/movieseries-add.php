@@ -5,8 +5,20 @@
 
   if ($_POST['r']== 'movieseries-add' && $_SESSION['roles'] == 'Admin' && !isset($_POST['crud']))
   {
-    print('
-      <h2 class = "p1">Agregar MovieSeries</h2>
+		// Obtener los estatus de las peliculas
+		$status_controller = new EstatusController();
+		$status = $status_controller->get(); // Va obtener los estatus de la base de datos.
+		// Se introucen al Combobox de Select.
+		$status_select = '';
+		for ($n=0; $n<count($status); $n++)
+		{
+			$status_select .= '<option value ="'.$status[$n]['estatus_id'].'">'.$status[$n]['estatus'].'</option>';
+		}
+
+    printf('
+			<h2 class = "p1">Agregar MovieSeries</h2>
+
+			<!-- Se agrega el formulario para la captura de MoviSerie -->
       <form method="POST" class="item">
         <div class="p_25">
           <input type = "text" name="imdb_id" placeholder="imdb_id" required>
@@ -36,14 +48,14 @@
           <input type = "url" name="trailer" placeholder="Trailer">
         </div>
         <div class="p_25">
-          <input type = "number" name="rating" placeholder="Rating">
+          <input type = "number" name="rating" placeholder="Rating" required>
         </div>
         <div class="p_25">
           <input type = "text" name="genres" placeholder="Géneros" required>
         </div>
         <div class="p_25">
           <select name="estatus" placeholder="Estatus" required>
-            <option value = "">status</option>
+            <option value = "">estatus</option>
             %s
           </select>
         </div>
@@ -61,37 +73,45 @@
           <input type="hidden" name="crud" value="set">
         </div>
       </form>
-    ');
+    ',$status_select);
   }
   // Como no se indica una Acción, el formulario se va autoprocesar, con la siguiente válidación.
-  else if ($_POST['r']== 'moviseries-add' && $_SESSION['roles'] == 'Admin' && $_POST['crud'] == 'set')
+  else if ($_POST['r']== 'movieseries-add' && $_SESSION['roles'] == 'Admin' && $_POST['crud'] == 'set')
   {
     // programar la inserción de los datos
-    $users_controller = new UsersController();
-    $new_user = array(
-      'user' => $_POST['user'], // Es el valor que tecle el usuario en el formulario anterior
-      'email' => $_POST['email'],
-      'names' => $_POST['names'],
-      'birthday' => $_POST['birthday'],
-      'pass' => $_POST['pass'],
-      'roles' => $_POST['roles']
-    );
-    $user = $users_controller->set($new_user); // Graba a la Tabla de "Users" lo que tecleo el usuario.
+    $ms_controller = new MovieSeriesController();
+    $new_ms = array(
+      'imdb_id'  => $_POST['imdb_id'], // Es el valor que tecle el usuario en el formulario anterior
+      'title' => $_POST['title'],
+      'plott' => $_POST['plott'],
+			'author' => $_POST['author'],
+			'actors' => $_POST['actors'],
+			'country' => $_POST['country'],			
+			'premiere' => $_POST['premiere'],
+			'poster' => $_POST['poster'],
+			'trailer' => $_POST['trailer'],
+			'rating' => $_POST['rating'],
+			'genres' => $_POST['genres'],
+			'estatus' => $_POST['estatus'],
+			'category' => $_POST['category']
+		);
+		
+    $ms = $ms_controller->set($new_ms); // Graba a la Tabla de "Users" lo que tecleo el usuario.
 
     $template = '
       <div class = "container">
-        <p class = "item add">Usuario <b>%s </b> Guardado En La Base De Datos </p>
+        <p class = "item add">MovieSerie <b>%s </b> Guardado En La Base De Datos </p>
       </div>
       <script>
         window.onload = function()
         {
-          reloadPage("users")
+          reloadPage("movieseries")
         }
 
       </script>
 
     ';
-    printf($template,$_POST['user']);
+    printf($template,$_POST['title']);
   }
   else
   {

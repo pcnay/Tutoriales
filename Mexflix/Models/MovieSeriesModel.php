@@ -32,9 +32,12 @@
         // $$key = Esta posición la convierte a una variable de PHP.
         // http://php.net/manual/es/language.variables.variable.php
         $$nombreCampo = $contenidoCampo;
-      }
+			}
+			
+			// Corrigiendo el problema de "\'s" de los textos ingles que lo manejan pero en la definicion del comando para grabar no lo realiza.
+			$plott = str_replace("'","\'",$plott );
 
-      $this->query = "REPLACE INTO movieseries SET imdb_id = '$imdb_id',title = '$title',plot='$plot',author='$author',actors='$actors',country='$country',premiere='$premiere',poster='$poster',trailer='$trailer',rating=$rating, genres='$genres',status=$status,category='$category'";
+      $this->query = "REPLACE INTO movieseries SET imdb_id = '$imdb_id',title = '$title',plott='$plott',author='$author',actors='$actors',country='$country',premiere='$premiere',poster='$poster',trailer='$trailer',rating=$rating, genres='$genres',estatus=$estatus,category='$category'";
 
       $this->set_query();
    }
