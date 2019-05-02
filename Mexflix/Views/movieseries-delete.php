@@ -1,75 +1,75 @@
 <?php
-  // Valida que sea la opción de "userss-delete", que este el usuario Logueado, y que el usuario sea : Administrador = Permitir Alta, Baja, Actualizar.
+  // Valida que sea la opción de "movieseries-delete", que este el usuario Logueado, y que el usuario sea : Administrador = Permitir Alta, Baja, Actualizar.
   // User = Solo podra ver información.
 
-  $users_controller = new UsersController();
+  $ms_controller = new MovieSeriesController();
 
-  if ($_POST['r']== 'users-delete' && $_SESSION['roles'] == 'Admin' && !isset($_POST['crud']))
+  if ($_POST['r']== 'movieseries-delete' && $_SESSION['roles'] == 'Admin' && !isset($_POST['crud']))
   {
-    $user = $users_controller->get($_POST['user']); // Obtiene el registro a borrar.
+    $ms = $ms_controller->get($_POST['imdb_id']); // Obtiene el registro a borrar.
 
-    if (empty($user))
+    if (empty($ms))
     {
       $template = ' 
         <div class="container">
-          <p class="item error">NO existe el Usuario <b>%s</b></p>
+          <p class="item error">NO existe la MovieSerie <b>%s</b></p>
         </div>
         <script>
           window.onload = function()
           {
-            reloadPage("users")
+            reloadPage("movieseries")
           }
         </script>
       ';  
-      printf($template,$_POS['user']);
+      printf($template,$_POS['imdb_id']);
     }
     else
     {
-      $template_user =' 
-				<h2 class="p1">Eliminar Usuario</h2>
+      $template_ms =' 
+				<h2 class="p1">Eliminar MovieSerie</h2>
 				<form method="POST" class="item">
 					<div class="p1 f2">
-						¿ Estas seguro de eliminar el Usuario :  <mark class="p1">%s</mark> ?
+						¿ Estas seguro de eliminar La MovieSerie :  <mark class="p1">%s</mark> ?
 					</div>
 					<div class = "p_25">
 						<input class="button delete" type="submit" value = "SI"> <!-- Para procesar si es "SI"-->
 						<input class="button add" type="button" value = "NO" onclick="history.back()">
-						<input type="hidden" name = "user" value ="%s">
-						<input type="hidden" name = "r" value = "users-delete">
+						<input type="hidden" name = "imdb_id" value ="%s">
+						<input type="hidden" name = "r" value = "movieseries-delete">
 						<input type="hidden" name = "crud" value = "del"> <!-- Este valor se pasa cuando se procesa el formulario al flujo del programa, es decir vuelve a realizar la ejecuciòn del programa y continua con los otros IF -->
 					</div>
 				</form>
 
 			';
       printf(
-        $template_user,
-        $user[0]['user'],
-        $user[0]['user']        
+        $template_ms,
+        $ms[0]['imdb_id'],
+        $ms[0]['imdb_id']        
       );
     }
 
     
   }
   // Como no se indica una Acción, el formulario se va autoprocesar, con la siguiente válidación.
-  else if ($_POST['r']== 'users-delete' && $_SESSION['roles'] == 'Admin' && $_POST['crud'] == 'del')
+  else if ($_POST['r']== 'movieseries-delete' && $_SESSION['roles'] == 'Admin' && $_POST['crud'] == 'del')
   {
     // programar el borrado del "Usuario"
    
-    $user = $users_controller->del($_POST['user']); // Este variable viene del formulario anterior, donde preguntan si lo quieren "Borrar".
+    $ms = $ms_controller->del($_POST['imdb_id']); // Este variable viene del formulario anterior, donde preguntan si lo quieren "Borrar".
     $template = '
       <div class = "container">
-        <p class = "item delete">Usuario <b>%s </b> Eliminado De La Base De Datos </p>
+        <p class = "item delete">MovieSerie <b>%s </b> Eliminada De La Base De Datos </p>
       </div>
       <script>
         window.onload = function()
         {
-          reloadPage("users")
+          reloadPage("movieseries")
         }
 
       </script>
 
     ';
-    printf($template,$_POST['user']);
+    printf($template,$_POST['imdb_id']);
   }
   else
   {
