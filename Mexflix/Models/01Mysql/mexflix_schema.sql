@@ -6,6 +6,13 @@ Explicación de los tipos de datos en MySQL.
   http://mysql.conclase.net/curso/index.php?cap=005#
 
 */
+-- Ejecutarlo desde una terminal de Mysql 
+-- Se debe accesar al directorio donde se encuentra el "script.sql" y ejecutar el comenado "mysql" desde una terminal
+-- $ mysql -u nom-usr -p NombreBaseDatos < script.sql
+-- Otra Forma :
+--    mysql -u usuario -p NombreBaseDatos
+--    source script.sql ó \. script.sql
+
 DROP DATABASE IF EXISTS mexflix;
 
 CREATE DATABASE IF NOT EXISTS mexflix;
