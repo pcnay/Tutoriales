@@ -1,13 +1,16 @@
 <?php
+	echo '<h1>Bienvenido al Sistema Control de SGI</h1>';
+
+<
 /* Para cambiar el directorio por defecto en el Servidor Web se tiene que modificar el archivo : 
 	Nano /etc/apache2/sites-enabled/000-default.conf 
 
 	La carpeta donde se guardaran los archivos de “.html”, “.php” es : /home/soporte/proyectos/tutoriales/servinext
-*/
 
-require('./Clientes/ClientesModel.php');
+
+require('./Clientes/ClientesController.php');
 echo '<h1>CRUD con MVC de la Tabla Clientes.</h1>';
-$cliente = new ClientesModel();
+$cliente = new ClientesController();
 //echo 'Otro mensajes';
 $clientes_datos = $cliente->read(); // Muestra toda la tabla
 //$clientes_datos = $cliente->read(2);
@@ -37,13 +40,13 @@ echo '</table>';
 echo '<h2>Insertando clientes</h2>';
 $nuevo_cliente = array(
 	'id_clientes' =>0, // Para que agrege automaticamente el id_cliente.
-	'nombre' => 'Cerveceria Cuathemoc'
+	'nombre' => 'Televisa'
 );
-// $cliente->create($nuevo_cliente);
+//$cliente->create($nuevo_cliente);
 
 echo '<h2>Actualizando clientes</h2>';
 $actualiza_cliente = array(
-	'id_clientes' =>5, // Para que agrege automaticamente el id_cliente.
+	'id_clientes' =>7, // Para que agrege automaticamente el id_cliente.
 	'nombre' => 'Compartamos Banco'
 );
 $cliente->update($actualiza_cliente);
@@ -51,3 +54,4 @@ $cliente->update($actualiza_cliente);
 echo '<h2>Borrando clientes</h2>';
 $cliente->delete(5);
 ?>
+*/
