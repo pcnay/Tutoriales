@@ -16,9 +16,23 @@
 			//unset($this);
 		}
 
-		public function create()
+		// Recibe un arreglo la funcion.
+		public function create($clientes_datos=array() )		
 		{
+			foreach ($clientes_datos as $Campo => $Valor)
+			{
+				// Se crea dinamicamente una palabra, se convierta una variable "$Campo"
+				// $$Campo = Variable Variable, se convierte en variable dinámica.
+				//https://www.php.net/manual/es/language.variables.variable.php
+				// El nombre de la posicion, del arreglo la convierte a una variable para utilizar para  generar la consulta.
+				$$Campo = $Valor;
+ 
+			}			
 
+			// Se utiliza comillas, porque se utilizaran las comillas.
+			$this->query= "INSERT INTO t_Clientes (id_clientes,nombre) VALUES ($id_clientes,'$nombre')";
+			// Insertando el valor nuevo.
+			$this->set_query(); 
 		}
 		// Si "$id_clientes" esta vacio, le asigna espacio en blanco
 		public function read($id_clientes='')
@@ -62,13 +76,29 @@
 			return $datos;
 		}
 
-		public function update()
+		public function update($clientes_datos=array())
 		{
+			foreach ($clientes_datos as $Campo => $Valor)
+			{
+				// Se crea dinamicamente una palabra, se convierta una variable "$Campo"
+				// $$Campo = Variable Variable, se convierte en variable dinámica.
+				//https://www.php.net/manual/es/language.variables.variable.php
+				// El nombre de la posicion, del arreglo la convierte a una variable para utilizar para  generar la consulta.
+				$$Campo = $Valor;
+ 
+			}			
+
+			// Se utiliza comillas, porque se utilizaran las comillas.
+			$this->query= "UPDATE t_Clientes SET id_clientes = $id_clientes,nombre = '$nombre' WHERE id_clientes = $id_clientes";
+			
+			$this->set_query(); 
 
 		}
-		public function delete()
+		// Si no se manda parámetro, le asigna en blanco
+		public function delete($id_clientes='')
 		{
-			
+			$this->query= "DELETE FROM t_Clientes WHERE id_clientes = $id_clientes";
+			$this->set_query();
 		}
 
 	}
