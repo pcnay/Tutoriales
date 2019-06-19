@@ -52,5 +52,18 @@ UPDATE t_Marca
 	SET descripcion = 'Lexmark Modif'
 	WHERE id_marca = 3;
 
+/* Salvar un registro. 
+	REPLACE no forma parte del estadard de SQL, es una instrucción propia de MariaDB
+	Inserta un nuevo registro en el caso de que la clave(clave única) no exista.
+	Actualiza si existe la clave única.
+	Este actualiza todos los campos, se debe colocar todos los valores de la tabla, ya que si no se coloca le asigna un valor nulo.
+	Para agregar un registro.
+		REPLACE INTO t_Clientes (id_clientes,nombre) VALUES (0,'Famsa');
+		REPLACE t_Clientes SET id_clientes = 0, nombre='Famsa';
+ 	
+	 Para Actualizar registro 
+		REPLACE t_Clientes SET id_clientes = 8, nombre='Grupo Famsa';
+
+*/ 
 
 

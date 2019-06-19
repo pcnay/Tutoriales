@@ -18,10 +18,15 @@ abstract class Model
 	// Definición de métodos
 	// Métodos abstractos para CRUD de clases que hereden
 	// se tiene que definir en las clases que se hereden.
-	abstract protected function create();
-	abstract protected function read();
-	abstract protected function update();
-	abstract protected function delete();
+	//abstract protected function create();
+	//abstract protected function read();
+	//abstract protected function update();
+	//abstract protected function delete();
+	// Se haran modificaciones a estas funciones, el motivo es por la instrucción "REPLACE"
+	abstract protected function set();
+	abstract protected function get();
+	abstract protected function del();
+
 
 	// Método privado para conectarse a la base de datos, por esta razón es "private"
 	private function db_open()

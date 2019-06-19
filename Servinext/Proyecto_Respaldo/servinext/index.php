@@ -1,7 +1,6 @@
 <?php
 	echo '<h1>Bienvenido al Sistema Control de SGI</h1>';
 
-<
 /* Para cambiar el directorio por defecto en el Servidor Web se tiene que modificar el archivo : 
 	Nano /etc/apache2/sites-enabled/000-default.conf 
 
@@ -53,5 +52,6 @@ $cliente->update($actualiza_cliente);
 
 echo '<h2>Borrando clientes</h2>';
 $cliente->delete(5);
-?>
 */
+
+?>
