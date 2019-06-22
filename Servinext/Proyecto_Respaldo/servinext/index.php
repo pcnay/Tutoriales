@@ -1,5 +1,10 @@
 <?php
-	echo '<h1>Bienvenido al Sistema Control de SGI</h1>';
+	require_once('./Controllers/Autoload.php');
+	$autoload = new AutoLoad();
+	//echo '<h1>Bienvenido al Sistema Control de SGI</h1>';
+	$route= (isset($_GET['r']))?$_GET['r']:'home';
+	
+	$scs = new Router($route);
 
 /* Para cambiar el directorio por defecto en el Servidor Web se tiene que modificar el archivo : 
 	Nano /etc/apache2/sites-enabled/000-default.conf 
