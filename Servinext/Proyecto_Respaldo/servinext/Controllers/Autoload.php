@@ -7,14 +7,32 @@
 	{	
 		public function __construct()
 		{			
+			//https://www.php.net/manual/en/function.spl-autoload-register.php
+
 			spl_autoload_register(function($class_name)
 			{
 				$models_path = './Models/'.$class_name.'.php';
 				$controllers_path = './Controllers/'.$class_name.'.php';
 				
-				echo "<p>$models_path</p>";
-				echo "<p>$controllers_path</p>";
+				// Desplegará el nombre de las carpetas en pantalla, se tiene que incluir el nomnbre de la rutas.
+				//echo "<p>$models_path</p>";
+				//echo "<p>$controllers_path</p>";
+				// La diferencia de "requiere" e "include", es que "include" permite la ejecución del programa y "requiere" realiza lo contrario.
+
+				// Se tiene que validar que exista el archivo antes de lo que llame. Todos los que encuentre en la carpeta de Models y Controllers. 
+				if (file_exists($models_path))
+				{
+					require_once($models_path);
+					//echo "<p>$models_path</p>";
+				}
 				
+				if (file_exists($controllers_path))
+				{
+					require_once($controllers_path);	
+					//echo "<p>$controllers_path</p>";
+				}
+		
+
 			});
 			
 		}

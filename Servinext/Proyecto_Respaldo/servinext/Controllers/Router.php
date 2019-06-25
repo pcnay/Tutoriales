@@ -1,4 +1,4 @@
-<?
+<?php
 	class Router
 	{
 		public $route;
@@ -15,8 +15,6 @@
           "read_and_close" => false // La sesion se cierre automaticamente.
                                     // Si se coloca a "true" no funciona la variable Global 
                                     // $_SESSION['ok'],
-
-
           /* Valores originales, pero no funciona en PHP Ver 7 
           "use_only_cookies" => 1,
           "auto_start" => 1,
@@ -27,6 +25,10 @@
 				$_SESSION['ok'] = false; 
 			}
 
+			if (!isset($_SESSION['ok']))
+			{
+				$_SESSION['ok'] = false; 
+			}
 			// Controla el flujo de la aplicación
 			if($_SESSION['ok'])
 			{
@@ -35,6 +37,9 @@
 			else
 			{
 				//Mostrar un formulario de Autenticación.
+				// Se utilizaran controladores para las vistas
+				$login_form = new ViewController();
+				$login_form->load_view('login');
 			}
 		}
 		public function __destruct()

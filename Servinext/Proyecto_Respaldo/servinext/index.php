@@ -5,6 +5,8 @@
 	$route= (isset($_GET['r']))?$_GET['r']:'home';
 	
 	$scs = new Router($route);
+	$a = new ClientesModel();
+	
 
 /* Para cambiar el directorio por defecto en el Servidor Web se tiene que modificar el archivo : 
 	Nano /etc/apache2/sites-enabled/000-default.conf 
