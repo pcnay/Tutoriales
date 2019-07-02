@@ -1,7 +1,8 @@
 <?php
 
 	class ViewController
-	{		
+	{	
+		// Esta clase carga todas las vistas de la aplicación, se manda como parámetro el nombre de la vista.	
 		private static $view_path= './Views/';
 	
 		public function load_view($view)

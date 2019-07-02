@@ -22,9 +22,9 @@
           */
 
 				]);   
-				$_SESSION['ok'] = false; 
-			}
 
+			}	
+			
 			if (!isset($_SESSION['ok']))
 			{
 				$_SESSION['ok'] = false; 
@@ -33,13 +33,62 @@
 			if($_SESSION['ok'])
 			{
 				// Toda la programación de la aplicación.
+				// Se maneja las rutas de la aplicación
+				$controller = new ViewController();
+				$controller->load_view('home');
+
 			}
 			else
 			{
 				//Mostrar un formulario de Autenticación.
 				// Se utilizaran controladores para las vistas
-				$login_form = new ViewController();
-				$login_form->load_view('login');
+				// Si no esta definida las variables globales "user" y "password", carga la vista de "login", esta se origina cuando la primera vez se oprime el boton de "Enviar"
+				if (!isset($_POST['user']) && !isset($_POST['pass']))
+				{ 
+					$login_form = new ViewController();
+					$login_form->load_view('login');
+					//Cuando se procesa el formulario (Se oprime el boton "Enviar"), se regresa el flujo de ejecución del programa desde el inicio del archivo "Router.php" y vuelve a validar, en esta ocación no se cumple esta condición porque ya tienen valores las variables globales "user" y "passs", ejecuta el "else"
+				}
+				else 
+				{
+					// Se da acceso a la aplicación.
+					$user_session = new SessionController();
+					// Esta funcion de la clase SessionController, valida si el usuario existe.
+					$session = $user_session->login($_POST['user'],$_POST['pass']);
+					// Regresa un arreglo, de una solo posicion.
+					if (empty($session))
+					{
+						// No existe el usuario
+						// Se tiene que ejecutar de nuevo la clase "ViewController"
+						$login_form = new ViewController();
+						$login_form->load_view('login');
+						// Se redirecciona el flujo de la aplicación, al Home de la aplicación
+						header('Location: ./?error=El usuario '.$_POST['user']. ' y el password proporcionado no coinciden');
+							
+					}
+					else
+					{
+						echo '$_session[ ok ] se genera las variables de session de los datos usaurios';
+						// Se crea una sesion de usuario para entrar el menu del sistema.
+						//echo 'El usuario y contraseña son correctos';
+						$_SESSION['ok'] = true;
+						// Se guardaran en variables de SESSION los datos del usuario que se firmo
+						foreach ($session as $row)
+						{
+							$_SESSION['user'] = $row['usuario'];
+							$_SESSION['email'] = $row['email'];
+							$_SESSION['name'] = $row['nombre'];
+							$_SESSION['birthday'] = $row['cumpleanos'];
+							$_SESSION['pass'] = $row['clave'];
+							$_SESSION['role'] = $row['perfil'];
+						}
+
+						// Se regresa el flujo de la ejecución de la aplicación al "home" de la aplicación, vuelve a ejecutar la clase "Router", comienza a validar, pero ahora se ejecutara el "if($_SESSION['ok'])	// Toda la programación de la aplicación.	
+						header ('Location: ./');
+
+					}
+
+				}
 			}
 		}
 		public function __destruct()
