@@ -34,8 +34,36 @@
 			{
 				// Toda la programación de la aplicación.
 				// Se maneja las rutas de la aplicación
+				//Determina que ruta va a seguir.
+				$this->route = (isset($_GET['r']))?$_GET['r']:'home';
 				$controller = new ViewController();
-				$controller->load_view('home');
+				
+				switch ($this->route)
+				{
+					case 'home':
+						$controller->load_view('home');	
+					break;
+					case 'clientes':
+						$controller->load_view('clientes');
+					break;
+					case 'sucursales':
+						$controller->load_view('sucursales');
+					break;
+					case 'marcas':
+						$controller->load_view('marcas');
+					break;
+					case 'historicos':
+						$controller->load_view('historicos');
+					break;
+					case 'salir':
+						$user_session = new SessionController();
+						$user_session->logout();
+					break;
+					default:
+						$controller->load_view('error404');
+					break;
+
+				}
 
 			}
 			else

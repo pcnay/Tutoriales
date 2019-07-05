@@ -20,10 +20,10 @@
 			<nav style="background:pink" class="item i-b v-middle ph12 lg10 menu lg-right ">
 				<ul class ="container">
 					<li class="nobullet item inline"><a href="./">Inicio</a></li>
-					<li class="nobullet item inline"><a href="clientes">Capturas Clientes</a></li>
+					<li class="nobullet item inline"><a href="clientes">Clientes</a></li>
 					<li class="nobullet item inline"><a href="sucursales">Sucursales</a></li>
 					<li class="nobullet item inline"><a href="marcas">Marcas</a></li>
-					<li class="nobullet item inline"><a href="historicos_epo">Historicos de Equipos</a></li>
+					<li class="nobullet item inline"><a href="historicos">Historicos de Equipos</a></li>
 					<li class="nobullet item inline"><a href="salir">Salir</a></li>
 
 				</ul>

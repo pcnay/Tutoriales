@@ -1,22 +1,25 @@
 # Para que puedan funcionar todos los link amigables. 
-# Options +FollowSymlinks
+ Options +FollowSymlinks
  # Se active toda la programacion que se manejara en este archivo.
-# RewriteEngine On
+ RewriteBase /
+ RewriteEngine On
  # Se define la ruta de la aplicacion, se inicia desde "htdocs" para servidores locales, para cuando son remotos:, revisar el archivo
  # /etc/apache2/sites-enabled/000-default.conf 
-# RewriteBase /home/soporte/proyectos/tutoriales/servinext
+ #RewriteBase /home/soporte/proyectos/tutoriales/servinext
  # Condicionales, -d = Directorio, -f = Archivo
-# RewriteCond %{SCRIPT_FILENAME} ! -d
-# RewriteCond %{SCRIPT_FILENAME} ! -f
-
+ RewriteCond %{SCRIPT_FILENAME} !-d
+ #RewriteCond %{REQUEST_FILENAME} !-d
+ RewriteCond %{SCRIPT_FILENAME} !-f
+ #RewriteCond %{REQUEST_FILENAME} !-f
  # Realiza la URL amigables
  #^ = Inicio 
  #(.*) = Es lo que reemplazara por el valor que se pasara por la URL, esta variable es la variable "r"
  # Se trabajara con una sola variable
  # [L] = Que reemplazara el valor en la sección ^(.*)
-# Rewrite ^(.*)$ index.php?r=$1 [L]
+ RewriteRule ^(.*)$ index.php?r=$1 [L]
 # El estilo para llamar la pantallas del sistema:
-# /home/proyectos/tutoriales/servinext/clientes
-# /home/proyectos/tutoriales/servinext/proveedores
-# /home/proyectos/tutoriales/servinext/sucursales
+# http://192.168.1.79/clientes
+# http://192.168.1.79/sucursales
+# http://192.168.179/marca
+# http://192.168.179/historicos
 #.....
