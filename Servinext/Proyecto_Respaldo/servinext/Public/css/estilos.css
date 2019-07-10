@@ -1,0 +1,89 @@
+html
+{
+  background-color:#141414;
+  color:#FFF;
+}
+.logo
+{
+  font-size:3rem;
+  color:#E50914;
+}
+input, textarea, select 
+{
+	color:#141414;
+}
+table
+{
+	width:100%;
+	color:#141414;	
+}
+table td, table th
+{
+	padding:.25rem;
+}
+table tr:first-child
+{
+	background-color:#E50914;
+	color:#FFF;
+}
+/*  */
+table tr:nth-child(even)
+{
+	background-color:#666;
+}
+/* odd = impar, exepto a la primera fila*/
+table tr:nth-child(odd):not(:first-child)
+{
+	background-color:#999;
+}
+
+.menu a
+{
+	font-size:1.5rem;
+	text-decoration:none;
+	color:#E50914;
+}
+
+.menu a:hover
+{
+	color:black;
+}
+
+.button
+{
+	/* Se aplica margen para arriba y abajo */
+	padding:.5rem 1rem;
+	background-color:#E50914;
+	color:#FFF;
+	cursor:pointer;
+}
+
+/* Cuando se pase el cursor en el boton se opaca un poco */
+.button:hover
+{
+	opacity:.75;
+}
+
+.add
+{
+	background-color:#0B0;
+}
+.edit
+{
+	background-color:#0871B2;
+}
+.delete
+{
+	background-color:#D23641;
+}
+.error
+{
+	background-color:#E50914;
+	color:#FFF;
+}
+
+.img-404
+{
+	max-width:180px;
+	height:auto;
+}

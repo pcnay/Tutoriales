@@ -5,7 +5,7 @@
       <p class= "p1 f1_25">Tu Nombre es: <b>%s</b> </p>
       <p class= "p1 f1_25">Tu email es : <b>%s</b> </p>
       <p class= "p1 f1_25">Tu cumpleaños es : <b>%s</b> </p>
-      <p class= "p1 f1_25">Tu perfil de usuario  : <b>%s</b> </p>
+      <p class= "p1 f1_25">Tu perfil de usuario  : <b>%s</b> </p>  
     </article>
   ';
   
