@@ -44,7 +44,15 @@
 						$controller->load_view('home');	
 					break;
 					case 'clientes':
-						$controller->load_view('clientes');
+						// Viene desde Clientes.php
+						if (!isset($_POST['r']))
+							$controller->load_view('clientes');
+						else if($_POST['r'] == 'clientes-add')
+							$controller->load_view('clientes-add');						
+						else if($_POST['r'] == 'clientes-edit')
+							$controller->load_view('clientes-edit');
+						else if($_POST['r'] == 'clientes-delete')
+							$controller->load_view('clientes-delete');										
 					break;
 					case 'sucursales':
 						$controller->load_view('sucursales');
