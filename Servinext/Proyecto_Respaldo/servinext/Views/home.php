@@ -10,10 +10,10 @@
   ';
   
   printf ($template,
-    $_SESSION['user'],
-    $_SESSION['name'],
+    $_SESSION['usuario'],
+    $_SESSION['nombre'],
     $_SESSION['email'],
-    $_SESSION['birthday'],
-    $_SESSION['role']
+    $_SESSION['cumpleanos'],
+    $_SESSION['perfil']
   );
 ?>

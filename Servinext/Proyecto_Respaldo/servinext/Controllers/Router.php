@@ -111,12 +111,12 @@
 						// Se guardaran en variables de SESSION los datos del usuario que se firmo
 						foreach ($session as $row)
 						{
-							$_SESSION['user'] = $row['usuario'];
+							$_SESSION['usuario'] = $row['usuario'];
 							$_SESSION['email'] = $row['email'];
-							$_SESSION['name'] = $row['nombre'];
-							$_SESSION['birthday'] = $row['cumpleanos'];
-							$_SESSION['pass'] = $row['clave'];
-							$_SESSION['role'] = $row['perfil'];
+							$_SESSION['nombre'] = $row['nombre'];
+							$_SESSION['cumpleanos'] = $row['cumpleanos'];
+							$_SESSION['clave'] = $row['clave'];
+							$_SESSION['perfil'] = $row['perfil'];
 						}
 
 						// Se regresa el flujo de la ejecución de la aplicación al "home" de la aplicación, vuelve a ejecutar la clase "Router", comienza a validar, pero ahora se ejecutara el "if($_SESSION['ok'])	// Toda la programación de la aplicación.	
