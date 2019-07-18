@@ -54,6 +54,17 @@
 						else if($_POST['r'] == 'clientes-delete')
 							$controller->load_view('clientes-delete');										
 					break;
+					case 'usuarios':
+						// Viene desde Usuarios.php
+						if (!isset($_POST['r']))
+							$controller->load_view('usuarios');
+						else if($_POST['r'] == 'usuarios-add')
+							$controller->load_view('usuarios-add');						
+						else if($_POST['r'] == 'usuarios-edit')
+							$controller->load_view('usuarios-edit');
+						else if($_POST['r'] == 'usuarios-delete')
+							$controller->load_view('usuarios-delete');										
+					break;
 					case 'sucursales':
 						$controller->load_view('sucursales');
 					break;

@@ -26,6 +26,7 @@
 					<nav class="item i-b v-middle ph12 lg10 menu lg-right ">
 						<ul class ="container">
 							<li class="nobullet item inline"><a href="./">Inicio</a></li>
+							<li class="nobullet item inline"><a href="usuarios">Usuarios</a></li>
 							<li class="nobullet item inline"><a href="clientes">Clientes</a></li>
 							<li class="nobullet item inline"><a href="sucursales">Sucursales</a></li>
 							<li class="nobullet item inline"><a href="marcas">Marcas</a></li>
