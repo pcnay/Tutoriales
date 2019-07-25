@@ -45,14 +45,14 @@
           <td>
             <form method="POST">
               <input type="hidden" name="r" value="usuarios-edit">
-              <input type="hidden" name="id_usuarios" value="'.$usuarios[$n]['usuario'].' ">
+              <input type="hidden" name="usuario" value="'.$usuarios[$n]['usuario'].'">
               <input class="button edit" type = "submit" value="Editar">      
             </form>                        
           </td>
           <td>
             <form method="POST">
               <input type="hidden" name="r" value="usuarios-delete">
-              <input type="hidden" name="id_usuarios" value="'.$usuarios[$n]['usuario'].' ">
+              <input type="hidden" name="usuario" value="'.$usuarios[$n]['usuario'].' ">
               <input class="button delete" type = "submit" value="Eliminar">      
             </form>                        
           </td>

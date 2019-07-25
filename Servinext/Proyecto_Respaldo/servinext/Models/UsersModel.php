@@ -31,7 +31,7 @@
 			}			
 
 			// Se utiliza comillas, porque se utilizaran las comillas.
-			$this->query= "REPLACE INTO t_Usuarios (usuario,email,nombre,cumpleanos,clave,perfil) VALUES ('$usuario','$email','$nombre','$cumpleanos',MD5('$clave'),'$prefil')";
+			$this->query= "REPLACE INTO t_Usuarios (usuario,email,nombre,cumpleanos,clave,perfil) VALUES ('$usuario','$email','$nombre','$cumpleanos',MD5('$clave'),'$perfil')";
 			// Insertando el valor nuevo.
 			$this->set_query(); 
 		}
@@ -41,7 +41,7 @@
 			//echo 'entro al read';
 			// Se coloca en comillas para que tome el valor de la variable "$id_clientes"
 			$this->query = ($user != '')
-			?"SELECT * FROM t_Usuarios WHERE usuario = $user"
+			?"SELECT * FROM t_Usuarios WHERE usuario = '$user'"
 			:"SELECT * FROM t_Usuarios";
 			
 			/*
@@ -102,7 +102,7 @@
 		// Si no se manda parámetro, le asigna en blanco
 		public function del($user='')
 		{
-			$this->query= "DELETE FROM t_Usuarios WHERE usuario = $user";
+			$this->query= "DELETE FROM t_Usuarios WHERE usuario = '$user'";
 			$this->set_query();
 		}
 
