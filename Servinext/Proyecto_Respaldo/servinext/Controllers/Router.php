@@ -69,7 +69,15 @@
 						$controller->load_view('sucursales');
 					break;
 					case 'marcas':
-						$controller->load_view('marcas');
+						// Viene desde marcas.php
+						if (!isset($_POST['r']))
+							$controller->load_view('marcas');
+						else if($_POST['r'] == 'marcas-add')
+							$controller->load_view('marcas-add');						
+						else if($_POST['r'] == 'marcas-edit')
+							$controller->load_view('marcas-edit');
+						else if($_POST['r'] == 'marcas-delete')
+							$controller->load_view('marcas-delete');										
 					break;
 					case 'historicos':
 						$controller->load_view('historicos');

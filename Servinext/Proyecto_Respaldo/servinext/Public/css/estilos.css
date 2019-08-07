@@ -76,6 +76,10 @@ table tr:nth-child(odd):not(:first-child)
 {
 	background-color:#D23641;
 }
+.show
+{
+	background-color:#141414;
+}
 .error
 {
 	background-color:#E50914;

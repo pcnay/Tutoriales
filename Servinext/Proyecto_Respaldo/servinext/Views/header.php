@@ -30,6 +30,7 @@
 							<li class="nobullet item inline"><a href="clientes">Clientes</a></li>
 							<li class="nobullet item inline"><a href="sucursales">Sucursales</a></li>
 							<li class="nobullet item inline"><a href="marcas">Marcas</a></li>
+							<li class="nobullet item inline"><a href="modelo">Modelo</a></li>
 							<li class="nobullet item inline"><a href="historicos">Historicos de Equipos</a></li>
 							<li class="nobullet item inline"><a href="salir">Salir</a></li>
 

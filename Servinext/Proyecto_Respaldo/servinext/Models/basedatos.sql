@@ -60,9 +60,9 @@ CREATE TABLE t_Sucursales
   contacto VARCHAR(80) NULL
 );
 
-CREATE TABLE t_Tipo_epo
+CREATE TABLE t_Tipo_Componente
 (
-  id_tipo_epo INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  id_tipo_componente INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
   descripcion VARCHAR(45) NOT NULL
 );
 
@@ -71,11 +71,13 @@ CREATE TABLE t_Equipo
   id_epo INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
   num_serie VARCHAR(45) NOT NULL,
   num_inv VARCHAR(45) NULL,
-  id_tipo_epo INT UNSIGNED NOT NULL,
+  num_parte VARCHAR(45) NULL,
+  existencia INTEGER UNSIGNED NOT NULL,
+  id_tipo_componente INT UNSIGNED NOT NULL,
   id_marca INTEGER UNSIGNED NOT NULL,
   id_modelo INTEGER UNSIGNED NOT NULL,
   /* FULLTEXT KEY search(num_serie,num_inv),*/
-  FOREIGN KEY(id_tipo_epo) REFERENCES t_Tipo_epo(id_tipo_epo)
+  FOREIGN KEY(id_tipo_componente) REFERENCES t_Tipo_Componente(id_tipo_componente)
     ON DELETE RESTRICT ON UPDATE CASCADE,
   FOREIGN KEY(id_marca) REFERENCES t_Marca(id_marca)
     ON DELETE RESTRICT ON UPDATE CASCADE,
@@ -120,6 +122,7 @@ CREATE TABLE t_Historico_epo
     ON DELETE RESTRICT ON UPDATE CASCADE    
     
 );
+
 /* Precargando los datos */
 INSERT INTO t_Marca (id_marca,descripcion) VALUES
   (1,'HewllwtPackard'),
@@ -136,21 +139,22 @@ INSERT INTO t_Clientes (id_clientes,nombre) VALUES
   (2,'Nacional Monte De Piedad'),
   (3,'BBVA Bancomer');
 
-INSERT INTO t_Tipo_epo (id_tipo_epo,descripcion) VALUES
+INSERT INTO t_Tipo_Componente (id_tipo_componente,descripcion) VALUES
   (1,'Escritorio'),
 	(2,'Escritorio Moderno'),
   (3,'Portatil'),
-  (4,'NoteBook');
+  (4,'Teclado'),
+  (5,'NoteBook');
 
 INSERT INTO t_Sucursales (id_sucursal,nombre,num_suc,domicilio,referencias,tel_fijo,tel_movil,contacto) VALUES
   (1,'Banamex Matamoros','4333','Ruta Independencia No. 15150','Dentro Plaza Mariano Matamoros','664-999-99-99','664-99-99','Julio Salazar'),
   (2,'Compartamos Banco','Los Pinos','Blvd. Diaz Ordaz No. 10430','Aun lado de la CFE','664-999-99-99','664-99-99','Juana Sanchez'),
   (3,'Banamex La Mesa','0390','Blvd. Agua Caliente No. 140','Enfrente de Telcel 5y10 ','664-999-99-99','664-99-99','Margarita Solis');
 
-INSERT INTO t_Equipo (id_epo,num_serie,num_inv,id_tipo_epo,id_marca,id_modelo) VALUES
-  (1,'7410HH348984','Numero De Inventario 1',1,1,1),
-	(2,'7410HH348993','Numero De Inventario 2',1,1,1),
-	(3,'9410HH348081','Numero De Inventario 3',1,1,1);
+INSERT INTO t_Equipo (id_epo,num_serie,num_inv,id_tipo_componente,num_parte,existencia,id_marca,id_modelo) VALUES
+  (1,'7410HH348984','Numero De Inventario 1',1,'40X4598',1,1,1),
+	(2,'7410HH348993','Numero De Inventario 2',1,'NUMPARTE10',2,1,1),
+	(3,'9410HH348081','Numero De Inventario 3',1,'NUMPARTE20',4,1,1);
 
 INSERT INTO t_Historico_epo (id_Historico_epo,notas,id_modelo,id_marca,id_clientes,id_sucursal,id_epo,fecha) VALUES
   (1,'Campo De Notas 1',1,1,1,1,1,'2018-05-19'),
