@@ -79,6 +79,17 @@
 						else if($_POST['r'] == 'marcas-delete')
 							$controller->load_view('marcas-delete');										
 					break;
+					case 'modelos':
+						// Viene desde modelos.php
+						if (!isset($_POST['r']))
+							$controller->load_view('modelos');
+						else if($_POST['r'] == 'modelos-add')
+							$controller->load_view('modelos-add');						
+						else if($_POST['r'] == 'modelos-edit')
+							$controller->load_view('modelos-edit');
+						else if($_POST['r'] == 'modelos-delete')
+							$controller->load_view('modelos-delete');										
+					break;
 					case 'historicos':
 						$controller->load_view('historicos');
 					break;
