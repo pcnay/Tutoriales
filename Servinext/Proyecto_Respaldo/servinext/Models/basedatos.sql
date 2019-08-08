@@ -153,7 +153,7 @@ INSERT INTO t_Sucursales (id_sucursal,nombre,num_suc,domicilio,referencias,tel_f
 
 INSERT INTO t_Equipo (id_epo,num_serie,num_inv,id_tipo_componente,num_parte,existencia,id_marca,id_modelo) VALUES
   (1,'7410HH348984','Numero De Inventario 1',1,'40X4598',1,1,1),
-	(2,'7410HH348993','Numero De Inventario 2',1,'NUMPARTE10',2,1,1),
+	(2,'7410HH348993','Numero De Inventario 2',2,'NUMPARTE10',2,1,1),
 	(3,'9410HH348081','Numero De Inventario 3',1,'NUMPARTE20',4,1,1);
 
 INSERT INTO t_Historico_epo (id_Historico_epo,notas,id_modelo,id_marca,id_clientes,id_sucursal,id_epo,fecha) VALUES

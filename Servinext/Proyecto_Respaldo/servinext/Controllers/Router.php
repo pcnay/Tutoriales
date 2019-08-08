@@ -90,6 +90,29 @@
 						else if($_POST['r'] == 'modelos-delete')
 							$controller->load_view('modelos-delete');										
 					break;
+					case 'tipocomponente':
+						// Viene desde tc.php
+						if (!isset($_POST['r']))
+							$controller->load_view('tc');
+						else if($_POST['r'] == 'tc-add')
+							$controller->load_view('tc-add');						
+						else if($_POST['r'] == 'tc-edit')
+							$controller->load_view('tc-edit');
+						else if($_POST['r'] == 'tc-delete')
+							$controller->load_view('tc-delete');										
+					break;
+					case 'equipos':
+						// Viene desde equipos.php
+						if (!isset($_POST['r']))
+							$controller->load_view('equipos');
+						else if($_POST['r'] == 'equipos-add')
+							$controller->load_view('equipos-add');						
+						else if($_POST['r'] == 'equipos-edit')
+							$controller->load_view('equipos-edit');
+						else if($_POST['r'] == 'equipos-delete')
+							$controller->load_view('equipos-delete');										
+					break;
+
 					case 'historicos':
 						$controller->load_view('historicos');
 					break;
