@@ -90,7 +90,7 @@
 						else if($_POST['r'] == 'modelos-delete')
 							$controller->load_view('modelos-delete');										
 					break;
-					case 'tipocomponente':
+					case 'tc':
 						// Viene desde tc.php
 						if (!isset($_POST['r']))
 							$controller->load_view('tc');

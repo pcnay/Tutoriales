@@ -24,7 +24,7 @@
 		//public function create($equipos_datos=array() )		
 		public function set($equipos_datos=array() )		
 		{
-			foreach ($marcas_datos as $Campo => $Valor)
+			foreach ($equipos_datos as $Campo => $Valor)
 			{
 				// Se crea dinamicamente una palabra, se convierta una variable "$Campo"
 				// $$Campo = Variable Variable, se convierte en variable dinámica.
@@ -35,7 +35,7 @@
 			}			
 
 			// Se utiliza comillas, porque se utilizaran las comillas.
-			$this->query= "REPLACE INTO t_Equipo (id_epo,num_serie,num_inv,id_tipo_componente,num_parte,existencia,id_marca,id_modelo) VALUES ($id_epo,'$num_serie','$num_inv',$id_tipo_componente,'$num_parte',$existencia,$id_marca,$id_modelo)";
+			$this->query= "REPLACE INTO t_Equipo (id_epo,num_serie,num_inv,id_tipo_componente,num_parte,existencia,id_marca,id_modelo,comentarios) VALUES ($id_epo,'$num_serie','$num_inv',$id_tipo_componente,'$num_parte',$existencia,$id_marca,$id_modelo,'$comentarios')";
 			// Insertando el valor nuevo.
 			$this->set_query(); 
 		}
@@ -44,12 +44,12 @@
 		{				
 			// Se coloca en comillas para que tome el valor de la variable "$id_epo"
 			$this->query = ($id_epo != '')
-			?"SELECT epo.id_epo,epo.num_serie,epo.num_inv,epo.num_parte,tc.descripcion AS componente,marca.descripcion AS marca,modelo.descripcion AS modelo,epo.existencia FROM t_Equipo AS epo 
+			?"SELECT epo.id_epo,epo.num_serie,epo.num_inv,epo.num_parte,epo.id_tipo_componente,tc.descripcion AS componente,epo.id_marca,marca.descripcion AS marca,epo.id_modelo,modelo.descripcion AS modelo,epo.existencia,epo.comentarios FROM t_Equipo AS epo 
       INNER JOIN t_Tipo_Componente AS tc ON epo.id_tipo_componente = tc.id_tipo_componente
       INNER JOIN t_Marca AS marca ON epo.id_marca = marca.id_marca
       INNER JOIN t_Modelo AS modelo ON epo.id_modelo = modelo.id_modelo      
       WHERE epo.id_epo = $id_epo"
-			:"SELECT epo.id_epo,epo.num_serie,epo.num_inv,epo.num_parte,tc.descripcion AS componente,marca.descripcion AS marca,modelo.descripcion AS modelo,epo.existencia FROM t_Equipo AS epo 
+			:"SELECT epo.id_epo,epo.num_serie,epo.num_inv,epo.num_parte,epo.id_tipo_componente,tc.descripcion AS componente,epo.id_marca,marca.descripcion AS marca,epo.id_modelo,modelo.descripcion AS modelo,epo.existencia,epo.comentarios FROM t_Equipo AS epo 
       INNER JOIN t_Tipo_Componente AS tc ON epo.id_tipo_componente = tc.id_tipo_componente
       INNER JOIN t_Marca AS marca ON epo.id_marca = marca.id_marca
       INNER JOIN t_Modelo AS modelo ON epo.id_modelo = modelo.id_modelo";

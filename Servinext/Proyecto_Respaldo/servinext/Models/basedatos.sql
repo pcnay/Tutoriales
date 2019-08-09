@@ -55,6 +55,7 @@ CREATE TABLE t_Sucursales
   num_suc VARCHAR(45) NOT NULL,
   domicilio VARCHAR(90) NOT NULL,
   referencias TEXT NULL,
+  /* Longuitud de TEXT = 4 GB */
   tel_fijo VARCHAR(15) NULL,
   tel_movil VARCHAR(45) NULL,
   contacto VARCHAR(80) NULL
@@ -76,6 +77,8 @@ CREATE TABLE t_Equipo
   id_tipo_componente INT UNSIGNED NOT NULL,
   id_marca INTEGER UNSIGNED NOT NULL,
   id_modelo INTEGER UNSIGNED NOT NULL,
+  comentarios TEXT NULL,
+  /* Longuitud de TEXT = 4 GB */
   /* FULLTEXT KEY search(num_serie,num_inv),*/
   FOREIGN KEY(id_tipo_componente) REFERENCES t_Tipo_Componente(id_tipo_componente)
     ON DELETE RESTRICT ON UPDATE CASCADE,
