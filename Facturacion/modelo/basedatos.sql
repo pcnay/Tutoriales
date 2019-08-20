@@ -27,6 +27,8 @@ SET time_zone = "+00:00";
 Explicación de los tipos de datos en MySQL.
   http://mysql.conclase.net/curso/index.php?cap=005#
 
+Trabajando localmente y/o en otros proveedores de hosting, podrás verás que en el valor “host” siempre utilizas “localhost”. Esto es debido a que el servidor de base de datos (mysql) y el servidor web (apache) se encuentran en el mismo servidor. Aquí radica la diferencia, ya que cuenta con una infraestructura en nodos en donde tenemos separados el servidor de base de datos del servidor web.
+
 */
 -- Ejecutarlo desde una terminal de Mysql 
 -- Se debe accesar al directorio donde se encuentra el "script.sql" y ejecutar el comenado "mysql" desde una terminal
@@ -185,7 +187,7 @@ CREATE TABLE `usuario` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `usuario` (`idusuario`, `nombre`,`correo`,`usuario`,`clave`,`rol`) VALUES
-(1, 'Abel','info@abelosh.com','admin','123',1);
+(1, 'Abel','info@abelosh.com','admin',MD5('123'),1);
 
 
 --

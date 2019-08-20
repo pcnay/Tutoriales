@@ -20,8 +20,16 @@
       else
       {
         require_once "conexion.php";
-        $user = $_POST['usuario'];
-        $clave = $_POST['clave'];
+        // Evita caracteres raros para que no afecte la base de datos.
+        $user = mysqli_real_escape_string($conexion,$_POST['usuario']);
+        $clave = md5(mysqli_real_escape_string($conexion,$_POST['clave']));
+        /*
+          Cuando se desea depurar parte del programa, se coloca estas opciones para que el programa se bote y nos muestre los valores de las variables que se quieren mostrar. 
+
+            echo $clave;
+            exit;
+
+        */
         $query = mysqli_query ($conexion,"SELECT * FROM usuario WHERE usuario = '$user' AND clave = '$clave'");
         $result = mysqli_num_rows($query);
         if ($result>0)
@@ -32,7 +40,7 @@
           $_SESSION['active'] = true;
           $_SESSION['idUser'] = $data['idusuario'];
           $_SESSION['nombre'] = $data['nombre'];
-          $_SESSION['email'] = $data['email'];
+          $_SESSION['correo'] = $data['correo'];
           $_SESSION['user'] = $data['usuario'];
           $_SESSION['rol'] = $data['rol'];
           header ('location: sistema/');
