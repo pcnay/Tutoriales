@@ -1,4 +1,5 @@
 <?php
+  
   // Como no tiene "action" se autoprocesa automaticamente, es decir que se vuelve a cargar el archivo "index.php" 
   $alert = '';
   session_start();
@@ -19,7 +20,7 @@
       }
       else
       {
-        require_once "conexion.php";
+        require_once "conexion.php";      
         // Evita caracteres raros para que no afecte la base de datos.
         $user = mysqli_real_escape_string($conexion,$_POST['usuario']);
         $clave = md5(mysqli_real_escape_string($conexion,$_POST['clave']));
@@ -41,7 +42,7 @@
           $_SESSION['idUser'] = $data['idusuario'];
           $_SESSION['nombre'] = $data['nombre'];
           $_SESSION['correo'] = $data['correo'];
-          $_SESSION['user'] = $data['usuario'];
+          $_SESSION['usuario'] = $data['usuario'];
           $_SESSION['rol'] = $data['rol'];
           header ('location: sistema/');
         } 

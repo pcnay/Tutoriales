@@ -161,3 +161,122 @@ nav li ul li:last-child{
 	padding: 90px 15px 15px;
 }
 /*****************************************************************/
+/* Aplicando estilos a la pantalla de Captura de usuarios .*/
+.form_register
+{
+	width:450px;
+	margin:auto;
+}
+.form_register h1
+{
+	color:#3c93b0;	
+}
+hr
+{
+	border:0;
+	background:#CCC;
+	height:1px;
+	margin:10px 0;
+	display:block;
+}
+
+form
+{
+	background:#FFF;
+	margin:auto;
+	padding:20px 50px;
+	border: 1px solid #d1d1d1;	
+}
+
+label 
+{
+	display:block;
+	font-size:12px;
+	font-family:'GothamBook';
+	margin:15px auto 5px auto;	
+}
+input,select
+{
+	display:block;
+	width: 100%;
+	font-size:11pt;
+	padding:5px;
+	border:1px solid #85929e;
+	border-radius:5px;  
+}
+.btn_save
+{
+	font-size:12pt;
+	background:#12a4c6;
+	padding:10px;
+	color:#FFF;
+	letter-spacing:1px;
+	border:0;
+	cursor:pointer;
+	margin:15px auto;
+}
+.alert
+{
+	width:100%;
+	background:#66e07d66;
+	border-radius:6px;
+	margin:20px auto;
+}
+.msg_error
+{
+	color:#e65656;
+}
+.msg_save
+{
+	color:#126e00;
+}
+.alert p
+{
+	padding:10px;
+}
+/* Se aplican estilos a la pantalla de "Listado De Usuarios" */
+#container h1
+{
+	font-size:35px;
+	display:inline-block;	
+}
+.btn_new
+{
+	display:inline-block; /* se muestre en el mismo renglon. */
+	background:#239baa;
+	color:#FFF;
+	padding:5px 25px;
+	border-radius:4px;
+	margin:20px;	 
+}
+table
+{
+	/* Para eliminar los bordes de las celdas de tablas */ 
+	border-collapse:collapse;
+	font-size:12pt;
+	font-family:'arial';
+	width:100%;
+}
+table th
+{
+	text-align:left;
+	padding:10px;
+	background:#3d7ba8;
+	color:#FFF;
+}
+table tr:nth-child(odd)
+{
+	background:#FFF;
+}
+table td
+{
+	padding:10px;
+}
+.link_edit
+{
+	color:#0ca4ce;
+}
+.link_delete
+{
+	color:#f26b6b;
+}
