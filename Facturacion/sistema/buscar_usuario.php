@@ -14,13 +14,20 @@
 <body>
 	<?php include "includes/header.php"; ?>
 	<section id="container">
+    <?php 
+      $busqueda = strtolower($_REQUEST['busqueda']);
+      if (empty($busqueda))
+      {
+        header("location:lista_usuarios.php");
+      }
 
+    ?>
     <h1>Lista De Usuarios</h1>
     <a href = "registro_usuario.php" class = "btn_new">Crear Usuario</a>
     
     <!-- Se agrega el formulario para la busqueda de usuarios. -->
     <form action="buscar_usuario.php" method="get" class = "form_search">
-      <input type="text" name = "busqueda" id="busqueda" placeholder ="Buscar">
+      <input type="text" name = "busqueda" id="busqueda" placeholder ="Buscar" value = "<?php echo $busqueda; ?>">
       <input type="submit" value = "Buscar" class = "btn_search">
     </form>
     
@@ -34,9 +41,32 @@
         <th>Acciones</th>
       </tr>
       <?php
+        $rol = '';
+        if ($busqueda == 'administrador')
+        {
+          $rol = " OR rol LIKE '%1%' ";          
+        }
+        else if ($busqueda == 'supervisor')
+        {
+          $rol = " OR rol LIKE '%2%' ";
+        }
+        else if ($busqueda == 'vendedor')
+        {
+          $rol = " OR rol LIKE '%3%' ";
+        }
+
+
+
         // Seccion para el paginador (Barra donde despliega las páginas)
         // Extraer los registros que esten activos
-        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM usuario WHERE  estatus = 1");
+        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro 
+                                                FROM usuario WHERE  
+                                                (idusuario LIKE '%$busqueda%' OR 
+                                                nombre LIKE '%$busqueda%' OR
+                                                correo LIKE '%$busqueda%' OR
+                                                usuario LIKE '%$busqueda%' $rol) AND 
+                                                estatus = 1");
+
         $result_register = mysqli_fetch_array($sql_registe);
         $total_registro = $result_register['total_registro'];
         $por_pagina = 11;
@@ -56,7 +86,13 @@
 
 
         // Se obtiene los usuarios con su correspondiente nombre de "Rol" y que tengan en la columna "estatus = 1(Borrado logico)"
-        $query = mysqli_query($conexion,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u  INNER JOIN rol r ON u.rol = r.idrol WHERE estatus = 1  ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
+        $query = mysqli_query($conexion,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE 
+                                          (u.idusuario LIKE '%$busqueda%' OR 
+                                          u.nombre LIKE '%$busqueda%' OR
+                                          u.correo LIKE '%$busqueda%' OR
+                                          u.usuario LIKE '%$busqueda%' OR 
+                                          r.rol LIKE '%$busqueda%') AND 
+                                          u.estatus = 1  ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
 
         $result = mysqli_num_rows($query);
         if ($result > 0)
