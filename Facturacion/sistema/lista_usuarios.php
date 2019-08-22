@@ -22,12 +22,35 @@
         <th>ID</th>
         <th>Nombre</th>
         <th>Correo</th>
+        <th>Usuario</th>
         <th>Rol</th>
         <th>Acciones</th>
       </tr>
       <?php
-        // Se obtiene los usuarios con su correspondiente nombre de "Rol" 
-        $query = mysqli_query($conexion,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u  INNER JOIN rol r ON u.rol = r.idrol");
+        // Seccion para el paginador (Barra donde despliega las páginas)
+        // Extraer los registros que esten activos
+        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM usuario WHERE  estatus = 1");
+        $result_register = mysqli_fetch_array($sql_registe);
+        $total_registro = $result_register['total_registro'];
+        $por_pagina = 11;
+        if(empty($_GET['pagina']))
+        {
+          $pagina = 1;
+
+        }
+        else
+        {
+          $pagina = $_GET['pagina'];
+        }
+
+        $desde = ($pagina-1)*$por_pagina;
+        // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
+        $total_paginas = ceil($total_registro/$por_pagina);
+
+
+        // Se obtiene los usuarios con su correspondiente nombre de "Rol" y que tengan en la columna "estatus = 1(Borrado logico)"
+        $query = mysqli_query($conexion,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u  INNER JOIN rol r ON u.rol = r.idrol WHERE estatus = 1  ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
+
         $result = mysqli_num_rows($query);
         if ($result > 0)
         {
@@ -41,9 +64,16 @@
               <td><?php echo $data['usuario']; ?></td>
               <td><?php echo $data['rol']; ?></td>
               <td>
-                <a class ="link_edit" href = "#">Editar</a>
+                <a class ="link_edit" href = "editar_usuario.php?id=<?php echo $data['idusuario']; ?>">Editar</a>
+                <?php
+                 if ($data['idusuario'] != 1) 
+                 {
+                ?>
                 |
-                <a class = "link_delete"  href = "#">Eliminar</a>
+                <!-- Si es el usuario = 1 (SuperUsuario) no se puede borrar -->
+                <a class = "link_delete"  href = "eliminar_confirmar_usuario.php?id=<?php echo $data['idusuario']; ?>">Eliminar</a>
+            <?php } ?>
+            
               </td>
             </tr>
       <?php        
@@ -51,6 +81,41 @@
         }
       ?>
     </table>
+    <div class = "paginador">
+        <ul>
+        <?php 
+          if ($pagina != 1)
+          {          
+        ?>  
+          <li><a href= "?pagina=<?php echo 1; ?>">|<</a></li>
+          <li><a href= "?pagina=<?php echo $pagina-1; ?>"><<</a></li>
+        <?php 
+          }
+            for ($i=1;$i<=$total_paginas;$i++)
+            {
+              // Para indicar que es la pantalla actual.
+              if ($i == $pagina)
+              {
+                echo '<li class="pageSelected">'.$i.'</li>';  
+              }
+              else
+              {
+                echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+              }               
+            }
+            if ($pagina != $total_paginas)
+            {
+        ?>        
+          <li><a href= "?pagina=<?php echo $pagina+1; ?>">>></a></li>
+          <li><a href= "?pagina=<?php echo $total_paginas; ?>">>|</a></li>
+
+        <?php
+            }
+        ?>
+        </ul>
+
+    </div>
+
 	</section>
 	<?php include "includes/footer.php"; ?>
 </body>

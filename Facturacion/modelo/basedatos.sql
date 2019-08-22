@@ -183,7 +183,8 @@ CREATE TABLE `usuario` (
   `correo` varchar(100) DEFAULT NULL,
   `usuario` varchar(15) DEFAULT NULL,
   `clave` varchar(100) DEFAULT NULL,
-  `rol` int(11) DEFAULT NULL
+  `rol` int(11) DEFAULT NULL,
+  `estatus` tinyint DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 INSERT INTO `usuario` (`idusuario`, `nombre`,`correo`,`usuario`,`clave`,`rol`) VALUES
@@ -256,6 +257,7 @@ ALTER TABLE `rol`
 ALTER TABLE `usuario`
   ADD PRIMARY KEY (`idusuario`),
   ADD KEY `rol` (`rol`);
+  
 
 --
 -- AUTO_INCREMENT de las tablas volcadas

@@ -204,6 +204,12 @@ input,select
 	border:1px solid #85929e;
 	border-radius:5px;  
 }
+/*NO mostrara el primer elemento del select en la seccion de Actulizar Usuario */
+.notItemOne option:first-child
+{
+	display:none;
+}
+ 
 .btn_save
 {
 	font-size:12pt;
@@ -279,4 +285,78 @@ table td
 .link_delete
 {
 	color:#f26b6b;
+}
+/* Pantalla de Borrar Usuario */
+.data_delete
+{
+	text-align:center;
+}
+.data_delete h2
+{
+	font-size:12pt;	
+}
+.data_delete span
+{
+	font-weight:bold;
+	color:#4f72d4;
+	font-size:12pt;
+}
+.btn_cancel, .btn_ok
+{
+	width:124px;
+	background:#478ba2;
+	color:#FFF;
+	display:inline-block;
+	padding:5px;
+	border-radius:5px;
+	cursor:pointer;
+	margin:15px;
+}
+.btn_cancel
+ {
+	 background:#42b343;
+ }
+ /* Para suprimir el recuadro blanco y los bordes del "form" donde se encuentra los botones de Cancelar y Aceptar */
+.data_delete form
+{
+	background:initial;
+	margin:auto;
+	padding:20px 50px;
+	border: 0px;	
+} 
+/* Seccion de Paginador */
+.paginador ul
+{
+	padding:15px;
+	list-style:none;
+	background:#FFF;
+	margin-top:15px;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+	display:flex;
+	/* desplaza la barra del paginador a la Derecha*/
+	justify-content:flex-end;
+}
+/* Para que despliege el recuadro azul del paginador.*/ 
+.paginador a, .pageSelected
+{
+	color:#428bca;
+	border:1px solid #ddd;
+	padding:5px;
+	display:inline-block;
+	font-size:14px;
+	text-align:center;
+	width:35px;
+}
+.paginador a:hover
+{
+	background:#ddd;
+}
+.pageSelected
+{
+	color:#FFF;
+	background:#428bca;
+	border:1px solid #428bca;
 }
