@@ -69,7 +69,7 @@
 
         $result_register = mysqli_fetch_array($sql_registe);
         $total_registro = $result_register['total_registro'];
-        $por_pagina = 11;
+        $por_pagina = 5;
         if(empty($_GET['pagina']))
         {
           $pagina = 1;
@@ -124,40 +124,50 @@
         }
       ?>
     </table>
-    <div class = "paginador">
-        <ul>
-        <?php 
-          if ($pagina != 1)
-          {          
-        ?>  
-          <li><a href= "?pagina=<?php echo 1; ?>">|<</a></li>
-          <li><a href= "?pagina=<?php echo $pagina-1; ?>"><<</a></li>
-        <?php 
-          }
-            for ($i=1;$i<=$total_paginas;$i++)
-            {
-              // Para indicar que es la pantalla actual.
-              if ($i == $pagina)
-              {
-                echo '<li class="pageSelected">'.$i.'</li>';  
-              }
-              else
-              {
-                echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
-              }               
-            }
-            if ($pagina != $total_paginas)
-            {
-        ?>        
-          <li><a href= "?pagina=<?php echo $pagina+1; ?>">>></a></li>
-          <li><a href= "?pagina=<?php echo $total_paginas; ?>">>|</a></li>
-
-        <?php
-            }
+    <!-- Si en la busqueda no tiene registros. -->
+    <?php
+      if ($total_registro != 0)
+      {
+     
         ?>
-        </ul>
 
-    </div>
+        <div class = "paginador">
+            <ul>
+            <?php 
+              if ($pagina != 1)
+              {          
+            ?>  
+              <li><a href= "?pagina=<?php echo 1; ?>&busqueda=<?php echo $busqueda; ?>" >|<</a></li>
+              <li><a href= "?pagina=<?php echo $pagina-1; ?>&busqueda=<?php echo $busqueda; ?>"><<</a></li>
+            <?php 
+              }
+                for ($i=1;$i<=$total_paginas;$i++)
+                {
+                  // Para indicar que es la pantalla actual.
+                  if ($i == $pagina)
+                  {
+                    echo '<li class="pageSelected">'.$i.'</li>';  
+                  }
+                  else
+                  {
+                    echo '<li><a href="?pagina='.$i.'&busqueda='.$busqueda.'">'.$i.'</a></li>';
+                  }               
+                }
+                if ($pagina != $total_paginas)
+                {
+            ?>        
+              <li><a href= "?pagina=<?php echo $pagina+1; ?>&busqueda=<?php echo $busqueda; ?>">>></a></li>
+              <li><a href= "?pagina=<?php echo $total_paginas; ?>&busqueda=<?php echo $busqueda; ?>">>|</a></li>
+
+            <?php
+                }
+            ?>
+            </ul>
+
+        </div>
+    <?php
+      }
+    ?>  
 
 	</section>
 	<?php include "includes/footer.php"; ?>
