@@ -1,4 +1,12 @@
 <?php
+  // Para validar los roles de los usuarios.
+  // Solo tiene acceso a esta pantalla el Administrador (1)
+  session_start();
+  if ($_SESSION['rol'] != 1)
+  {
+    header ("location: ./");
+  }
+
   include "../conexion.php";
   
   if (!empty($_POST))
@@ -20,6 +28,8 @@
 
       // Revisando que no existe el correo y usuario.
       $query = mysqli_query($conexion,"SELECT * FROM usuario WHERE usuario = '$usuario' OR correo = '$correo'");
+      mysqli_close($conexion);
+
       $result = mysqli_fetch_array($query);
       if ($result > 0)
       {
@@ -73,6 +83,7 @@
 
         <?php
           $query_rol = mysqli_query($conexion,"SELECT * FROM rol ");
+          mysqli_close($conexion);
           $result_rol = mysqli_num_rows($query_rol);
         ?>
         

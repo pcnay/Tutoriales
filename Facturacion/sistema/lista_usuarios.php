@@ -1,5 +1,14 @@
 <?php
- include "../conexion.php" 
+  
+  session_start();
+  // Para validar los roles de los usuarios.
+  // Solo tiene acceso a esta pantalla el Administrador (1)
+  if ($_SESSION['rol'] != 1)
+  {
+    header ("location: ./");
+  }
+
+  include "../conexion.php" 
 ?>
 
 <!DOCTYPE html>
@@ -57,6 +66,8 @@
 
         // Se obtiene los usuarios con su correspondiente nombre de "Rol" y que tengan en la columna "estatus = 1(Borrado logico)"
         $query = mysqli_query($conexion,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u  INNER JOIN rol r ON u.rol = r.idrol WHERE estatus = 1  ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
+        
+        mysqli_close($conexion);
 
         $result = mysqli_num_rows($query);
         if ($result > 0)

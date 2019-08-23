@@ -1,10 +1,19 @@
 <?php
+  session_start();
+  // Para validar los roles de los usuarios.
+  // Solo tiene acceso a esta pantalla el Administrador (1)
+  if ($_SESSION['rol'] != 1)
+  {
+    header ("location: ./");
+  }
+
   include "../conexion.php";
   
   // Cuando el usuario oprime el boton de "Actualizar usuario"
   if (!empty($_POST))
   {
     $alert = '';
+    $option = '';
     if (empty ($_POST['nombre']) || empty ($_POST['correo']) || empty ($_POST['usuario']) || empty ($_POST['rol']) )
     {
       $alert = '<p class = "msg_error">Todos los campos son obligatorios</p>';
@@ -61,9 +70,13 @@
         {
           $alert = '<p class = "msg_error">Error al Actualiar El Usuario</p>';        
         }
-      }
-
+        
+        
+      }      
+      
     }
+
+    //mysqli_close($conexion);
 
   }
   // Recuperar los datos de los usuarios.
@@ -72,6 +85,7 @@
   if (empty($_GET['id']))
   {
     header ('Location: lista_usuarios.php');
+    //mysqli_close($conexion);
   }
   // Se obtiene el valor del id de la URL que se asigna en el href de Listado de Usuarios.
   $iduser = $_GET['id'];
@@ -80,6 +94,8 @@
   INNER JOIN rol r
   ON u.rol = r.idrol
   WHERE idusuario = $iduser");
+
+  //mysqli_close($conexion);
 
   $result_sql = mysqli_num_rows($sql);
   if ($result_sql == 0)
@@ -147,14 +163,16 @@
         <label for="rol">Tipo Usuario</label>
 
         <?php
+          include "../conexion.php";
           $query_rol = mysqli_query($conexion,"SELECT * FROM rol ");
+          //mysqli_close($conexion);
           $result_rol = mysqli_num_rows($query_rol);
         ?>
         
         <!-- Para obtener los registros de la tabla "rol" -->
         <select name = "rol" id = "rol" class ="notItemOne">
           <?php
-          echo $option;
+            echo $option;
             if ($result_rol > 0)
             {
               while ($rol = mysqli_fetch_array($query_rol))

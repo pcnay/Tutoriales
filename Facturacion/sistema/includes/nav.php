@@ -1,6 +1,12 @@
 <nav>
 			<ul>
 				<li><a href="#">Inicio</a></li>
+				
+				<!-- Habilitando las opciones para el administrador -->
+				<?php 					
+					if ($_SESSION['rol'] == 1)
+					{
+				?>
 				<li class="principal">
 					<a href="#">Usuarios</a>
 					<ul>
@@ -9,6 +15,10 @@
 						<li><a href="#">Otra opcion de Usuarios</a></li>
 					</ul>
 				</li>
+				<?php 
+					} // if ($_SESSION['rol'] == 1)
+				?>
+
 				<li class="principal">
 					<a href="#">Clientes</a>
 					<ul>

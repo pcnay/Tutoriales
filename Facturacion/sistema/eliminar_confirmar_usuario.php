@@ -1,4 +1,11 @@
 <?php
+  session_start();
+  // Para validar los roles de los usuarios.
+  // Solo tiene acceso a esta pantalla el Administrador (1)
+  if ($_SESSION['rol'] != 1)
+  {
+    header ("location: ./");
+  }
 
   include "../conexion.php";
   // Borrar al Usuario, cuando se oprime el boton del formulario de "data_delete"
@@ -8,6 +15,7 @@
     if ($_POST['idusuario']==1)
     {
       header("location: lista_usuarios.php");  
+      //mysqli_close($conexion);
       exit;
     }
 
@@ -15,7 +23,7 @@
     // Para este caso se cambia el valor del campo "estatus = 0"
     // $query_delete = mysqli_query($conexion,"DELETE FROM usuario WHERE idusuario = $idusuario ");
     $query_delete = mysqli_query($conexion,"UPDATE usuario SET estatus = 0  WHERE idusuario = $idusuario ");
-    
+    //mysqli_close($conexion);    
 
     if ($query_delete)
     {
@@ -32,12 +40,15 @@
   if (empty($_REQUEST['id']) || $_REQUEST['id'] == 1)
   {
     header("location: lista_usuarios.php");    
+    mysqli_close($conexion);
   }
   else
   {
     
     $idusuario = $_REQUEST['id'];
     $query = mysqli_query($conexion,"SELECT u.nombre,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE u.idusuario=$idusuario");
+    //mysqli_close($conexion);
+
     $result = mysqli_num_rows($query);
     if ($result>0)
     {

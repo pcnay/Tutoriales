@@ -1,5 +1,13 @@
 <?php
- include "../conexion.php" 
+  session_start();
+  // Para validar los roles de los usuarios.
+  // Solo tiene acceso a esta pantalla el Administrador (1)
+  if ($_SESSION['rol'] != 1)
+  {
+    header ("location: ./");
+  }
+
+  include "../conexion.php" 
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +74,7 @@
                                                 correo LIKE '%$busqueda%' OR
                                                 usuario LIKE '%$busqueda%' $rol) AND 
                                                 estatus = 1");
-
+        
         $result_register = mysqli_fetch_array($sql_registe);
         $total_registro = $result_register['total_registro'];
         $por_pagina = 5;

@@ -8,6 +8,7 @@ Trabajando localmente y/o en otros proveedores de hosting, podrás verás que en
   $password = 'pcnay2003';
   $db = 'facturacion';
   $conexion = @mysqli_connect($host,$user,$password,$db);
+  
   if (!$conexion)
   {
     //echo "Error En La Conexion";    

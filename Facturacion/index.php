@@ -32,6 +32,7 @@
 
         */
         $query = mysqli_query ($conexion,"SELECT * FROM usuario WHERE usuario = '$user' AND clave = '$clave'");
+        mysqli_close($conexion);
         $result = mysqli_num_rows($query);
         if ($result>0)
         {
