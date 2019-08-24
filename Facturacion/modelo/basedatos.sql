@@ -51,7 +51,10 @@ CREATE TABLE `cliente` (
   `nit` int(11) DEFAULT NULL,
   `nombre` varchar(80) DEFAULT NULL,
   `telefono` int(11) DEFAULT NULL,
-  `direccion` text
+  `direccion` text DEFAULT NULL,
+   `dateadd` datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP, /* Por defecto grabara la fecha sin necesidad de agregalo manualmente */
+  `usuario_id` int(11) NOT NULL,
+  `estatus` tinyint DEFAULT 1      
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -199,8 +202,8 @@ INSERT INTO `usuario` (`idusuario`, `nombre`,`correo`,`usuario`,`clave`,`rol`) V
 -- Indices de la tabla `cliente`
 --
 ALTER TABLE `cliente`
-  ADD PRIMARY KEY (`idcliente`);
-
+  ADD PRIMARY KEY (`idcliente`),
+  ADD KEY `usuario_id` (`usuario_id`); /* Para poder enlazar la tabla "Usuario" con "Cliente"*/
 --
 -- Indices de la tabla `detallefactura`
 --
@@ -268,7 +271,7 @@ ALTER TABLE `usuario`
 --
 ALTER TABLE `cliente`
   MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT;
-
+  
 --
 -- AUTO_INCREMENT de la tabla `detallefactura`
 --
@@ -359,6 +362,32 @@ ALTER TABLE `producto`
 --
 ALTER TABLE `usuario`
   ADD CONSTRAINT `usuario_ibfk_1` FOREIGN KEY (`rol`) REFERENCES `rol` (`idrol`) ON DELETE CASCADE ON UPDATE CASCADE;
+  
+ALTER TABLE `cliente`
+  ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+/*
+  Otra forma de crearlo:
+CREATE TABLE t_Equipo
+(
+  id_epo INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  num_serie VARCHAR(45) NOT NULL,
+  num_inv VARCHAR(45) NULL,
+  num_parte VARCHAR(45) NULL,
+  existencia INTEGER UNSIGNED NOT NULL,
+  id_tipo_componente INT UNSIGNED NOT NULL,
+  id_marca INTEGER UNSIGNED NOT NULL,
+  id_modelo INTEGER UNSIGNED NOT NULL,
+  comentarios TEXT NULL,
+  /* Longuitud de TEXT = 4 GB */
+  /* FULLTEXT KEY search(num_serie,num_inv),
+  FOREIGN KEY(id_tipo_componente) REFERENCES t_Tipo_Componente(id_tipo_componente)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY(id_marca) REFERENCES t_Marca(id_marca)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY(id_modelo) REFERENCES t_Modelo(id_modelo)
+    ON DELETE RESTRICT ON UPDATE CASCADE
+*/
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

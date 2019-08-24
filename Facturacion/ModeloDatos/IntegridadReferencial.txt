@@ -1,0 +1,38 @@
+Modificando para que sea autoincremental.
+ALTER TABLE `cliente`
+  MODIFY `idcliente` int(11) NOT NULL AUTO_INCREMENT;
+
+
+
+Agregando el indice
+
+ALTER TABLE `cliente`
+  ADD PRIMARY KEY (`idcliente`),
+  ADD KEY `usuario_id` (`usuario_id`); /* Para poder enlazar la tabla "Usuario" con "Cliente"*/
+
+
+
+Integridad Referencial
+ALTER TABLE `cliente`
+  ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+Otra forma de crearlo:
+CREATE TABLE t_Equipo
+(
+  id_epo INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  num_serie VARCHAR(45) NOT NULL,
+  num_inv VARCHAR(45) NULL,
+  num_parte VARCHAR(45) NULL,
+  existencia INTEGER UNSIGNED NOT NULL,
+  id_tipo_componente INT UNSIGNED NOT NULL,
+  id_marca INTEGER UNSIGNED NOT NULL,
+  id_modelo INTEGER UNSIGNED NOT NULL,
+  comentarios TEXT NULL,
+  /* Longuitud de TEXT = 4 GB */
+  /* FULLTEXT KEY search(num_serie,num_inv),*/
+  FOREIGN KEY(id_tipo_componente) REFERENCES t_Tipo_Componente(id_tipo_componente)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY(id_marca) REFERENCES t_Marca(id_marca)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY(id_modelo) REFERENCES t_Modelo(id_modelo)
+    ON DELETE RESTRICT ON UPDATE CASCADE

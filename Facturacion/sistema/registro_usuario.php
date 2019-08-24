@@ -28,7 +28,7 @@
 
       // Revisando que no existe el correo y usuario.
       $query = mysqli_query($conexion,"SELECT * FROM usuario WHERE usuario = '$usuario' OR correo = '$correo'");
-      mysqli_close($conexion);
+      //mysqli_close($conexion);
 
       $result = mysqli_fetch_array($query);
       if ($result > 0)
