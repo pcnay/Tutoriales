@@ -21,7 +21,7 @@
     else 
     {
       //Se retorna una carpeta, ya que este archivo se encuentra en el subdirectorio "sistema"
-      $idusuario = $_POST['idusuario'];
+      $idusuario = $_POST['id'];
       $nombre = $_POST['nombre'];
       $correo = $_POST['correo'];
       $usuario = $_POST['usuario'];
@@ -40,6 +40,7 @@
 
 
       $result = mysqli_fetch_array($query);
+      $result = count($result);
       if ($result > 0)
       {
         $alert = '<p class = "msg_error">El correo y/o usuario ya existe </p>';        
@@ -82,7 +83,7 @@
   // Recuperar los datos de los usuarios.
   // Valida que tenga valor el "id" que se encuentra en la URL. 
   // De estar en blanco se volvera a recargar la página de "lista_usuarios.php".
-  if (empty($_GET['id']))
+  if (empty($_REQUEST['id']))
   {
     header ('Location: lista_usuarios.php');
     //mysqli_close($conexion);
@@ -150,7 +151,7 @@
       <!-- El formulario se autoprocesa, es decir que cuando se oprima el Input Submit se vuelve a ejecutar el archivos desde el inicio. -->
       <form action ="" method="POST">
         <!-- Campo oculto, solo se utiliza para pasar información desde el formulario. -->
-        <input type="hidden" name = "idusuario" value = "<?php echo $iduser; ?>">
+        <input type="hidden" name = "id" value = "<?php echo $iduser; ?>">
          
         <label for="nombre">Nombre </label>
         <input type="text" name="nombre" id="nombre" placeholder =" Nombre completo" value = "<?php echo $nombre; ?>">
