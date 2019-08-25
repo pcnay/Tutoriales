@@ -93,7 +93,10 @@
               <td>
                 <a class ="link_edit" href = "editar_cliente.php?id=<?php echo $data['idcliente']; ?>">Editar</a>
                 |
-                <a class = "link_delete"  href = "eliminar_confirmar_cliente.php?id=<?php echo $data['idcliente']; ?>">Eliminar</a>            
+                <?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)  { ?>
+                  <a class = "link_delete"  href = "eliminar_confirmar_cliente.php?id=<?php echo $data['idcliente']; ?>">Eliminar</a>            
+                <?php } ?>
+
               </td>
             </tr>
       <?php        
