@@ -145,7 +145,7 @@
 	<?php include "includes/header.php"; ?>
 	<section id="container">
     <div class = "form_register">
-      <h1>Actualizar Usuarios</h1>
+      <h1><i class="fas fa-user-edit"></i> Actualizar Usuarios</h1>
       <hr>
       <div class="alert"><?php echo isset($alert) ? $alert: ''; ?></div>
       <!-- El formulario se autoprocesa, es decir que cuando se oprima el Input Submit se vuelve a ejecutar el archivos desde el inicio. -->
@@ -186,8 +186,8 @@
           ?>
             
         </select>
-        <input type ="submit" value = "Actualizar Usuario" class = "btn_save">
-
+        <!-- <input type ="submit" value = "Actualizar Usuario" class = "btn_save"> -->
+        <button type ="submit" class = "btn_save"><i class="fas fa-user-edit"></i> Actualizar Usuario</button>
 
 
       </form>

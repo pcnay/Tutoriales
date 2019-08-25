@@ -66,7 +66,7 @@
 	<?php include "includes/header.php"; ?>
 	<section id="container">
     <div class = "form_register">
-      <h1>Registro Usuarios</h1>
+      <h1><i class="fas fa-user-plus"></i> Registro Usuarios</h1>
       <hr>
       <div class="alert"><?php echo isset($alert) ? $alert: ''; ?></div>
 
@@ -102,9 +102,10 @@
           ?>
             
         </select>
+        <!-- Se comenta el input "submit" ya que no se puede agregar iconos, se reemplaza por "button"
         <input type ="submit" value = "Crear usuario" class = "btn_save">
-
-
+        -->
+        <button type ="submit" class = "btn_save"><i class="far fa-save"></i> Crear Usuario</button>
 
       </form>
     </div>

@@ -79,6 +79,9 @@
 	<?php include "includes/header.php"; ?>
 	<section id="container">
 		<div class="data_delete">
+      <i class="fas fa-user-times fa-7x" style = "color:#c66262"></i>
+      <br/>
+      <br/> 
       <h2>Estas Seguro de eliminar el usuario</h2>
       <p>Nombre : <span><?php echo $nombre; ?></span></p>
       <p>Usuario : <span><?php echo $usuario; ?></span></p>
@@ -87,8 +90,11 @@
       <form method="post" action="">
         <input type="hidden" name="idusuario" value="<?php echo $idusuario; ?>">
 
-        <a href ="lista_usuarios.php" class="btn_cancel">Cancelar</a>
-        <input type ="submit" value ="Aceptar" class ="btn_ok">   
+        <a href ="lista_usuarios.php" class="btn_cancel"><i class="fas fa-ban"></i> Cancelar</a>
+        <!-- <input type ="submit" value ="Aceptar" class ="btn_ok"> -->
+        <button type ="submit" class ="btn_ok"><i class="far fa-trash-alt"></i> Aceptar</button>
+        
+
       </form>
     </div>
 

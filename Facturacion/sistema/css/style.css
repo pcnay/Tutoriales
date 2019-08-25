@@ -166,6 +166,7 @@ nav li ul li:last-child{
 {
 	width:450px;
 	margin:auto;
+	margin-top:20px;
 }
 .form_register h1
 {
@@ -219,7 +220,9 @@ input,select
 	letter-spacing:1px;
 	border:0;
 	cursor:pointer;
-	margin:15px auto;
+	margin:30px auto 15px auto;
+	display:block; /* Para que se quede en linea, y se centra */ 
+	border-radius:5px;	
 }
 .alert
 {
@@ -290,10 +293,11 @@ table td
 .data_delete
 {
 	text-align:center;
+	margin-top:40px;
 }
 .data_delete h2
 {
-	font-size:12pt;	
+	font-size:12pt;		 
 }
 .data_delete span
 {
@@ -304,11 +308,12 @@ table td
 .btn_cancel, .btn_ok
 {
 	width:124px;
-	background:#478ba2;
+	background:#c66262;
 	color:#FFF;
 	display:inline-block;
 	padding:5px;
 	border-radius:5px;
+	border:0;
 	cursor:pointer;
 	margin:15px;
 }
@@ -377,8 +382,14 @@ table td
 {
 	background:#1faac8;
 	color:#FFF;
-	padding:0 20px;
+	padding:10px;
 	border:0;
 	cursor:pointer;
 	margin-left:10px;
+	display:-webkit-flex;
+	display:-moz-flex;
+	display:-ms-flex;
+	display:-o-flex;
+	display:flex;
+	border-radius:5px;
 }
