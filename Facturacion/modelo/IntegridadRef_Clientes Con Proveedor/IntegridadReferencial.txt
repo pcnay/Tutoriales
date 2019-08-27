@@ -6,9 +6,11 @@ ALTER TABLE `cliente`
 
 Agregando el indice
 
+
 ALTER TABLE `cliente`
   ADD PRIMARY KEY (`idcliente`),
-  ADD KEY `usuario_id` (`usuario_id`); /* Para poder enlazar la tabla "Usuario" con "Cliente"*/
+  
+ADD KEY `usuario_id` (`usuario_id`); /* Para poder enlazar la tabla "Usuario" con "Cliente"*/
 
 
 

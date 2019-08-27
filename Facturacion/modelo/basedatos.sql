@@ -139,13 +139,17 @@ CREATE TABLE `proveedor` (
   `proveedor` varchar(100) DEFAULT NULL,
   `contacto` varchar(100) DEFAULT NULL,
   `telefono` bigint(11) DEFAULT NULL,
-  `direccion` text
+  `direccion` text,
+  `usuario_id` int(11) NOT NULL,
+  `date_add` datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP, /* Por defecto grabara la fecha sin necesidad de agregalo manualmente */
+  `estatus` tinyint DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `proveedor`
 --
-
+/*
+  Se agrega en el script "ModificarTablas.sql"
 INSERT INTO `proveedor` (`codproveedor`, `proveedor`, `contacto`, `telefono`, `direccion`) VALUES
 (1, 'BIC', 'Claudia Rosales', 789877889, 'Avenida las Americas'),
 (2, 'CASIO', 'Jorge Herrera', 565656565656, 'Calzada Las Flores'),
@@ -158,6 +162,7 @@ INSERT INTO `proveedor` (`codproveedor`, `proveedor`, `contacto`, `telefono`, `d
 (9, 'VAIO', 'Felix Arnoldo Rojas', 476378276, 'Avenida las Americas Zona 13'),
 (10, 'SUMAR', 'Oscar Maldonado', 788376787, 'Colonia San Jose, Zona 5 Guatemala'),
 (11, 'HP', 'Angel Cardona', 2147483647, '5ta. calle zona 4 Guatemala');
+*/
 
 -- --------------------------------------------------------
 
@@ -246,7 +251,8 @@ ALTER TABLE `producto`
 -- Indices de la tabla `proveedor`
 --
 ALTER TABLE `proveedor`
-  ADD PRIMARY KEY (`codproveedor`);
+  ADD PRIMARY KEY (`codproveedor`),
+  ADD KEY `usuario_id` (`usuario_id`); /* Para poder enlazar la tabla "Usuario" con "Cliente"*/
 
 --
 -- Indices de la tabla `rol`
@@ -365,6 +371,9 @@ ALTER TABLE `usuario`
   
 ALTER TABLE `cliente`
   ADD CONSTRAINT `cliente_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `proveedor`
+  ADD CONSTRAINT `proveedor_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*
   Otra forma de crearlo:

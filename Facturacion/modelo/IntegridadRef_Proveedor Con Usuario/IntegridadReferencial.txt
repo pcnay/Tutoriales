@@ -1,0 +1,69 @@
+Creando la tabla:
+CREATE TABLE `proveedor` (
+  
+`codproveedor` int(11) NOT NULL,
+  
+`proveedor` varchar(100) DEFAULT NULL,
+  
+`contacto` varchar(100) DEFAULT NULL,
+  
+`telefono` bigint(11) DEFAULT NULL,
+  
+`direccion` text,
+  `usuario_id` int(11) NOT NULL,
+  
+`date_add` datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP, /* Por defecto grabara la fecha sin necesidad de agregalo manualmente */
+
+`estatus` tinyint DEFAULT 1
+) 
+ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+Agregando la clave primaria y el indice
+--
+-- Indices de la tabla `proveedor`
+--
+
+ALTER TABLE `proveedor`
+  ADD PRIMARY KEY (`codproveedor`),
+  
+ADD KEY `usuario_id` (`usuario_id`); /* Para poder enlazar la tabla "Usuario" con "Cliente"*/
+
+
+-- AUTO_INCREMENT de la tabla `proveedor`
+--
+
+ALTER TABLE `proveedor`
+  MODIFY `codproveedor` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+
+Integridad Referencial
+
+ALTER TABLE `proveedor`
+  
+ ADD CONSTRAINT `proveedor_ibfk_1` FOREIGN KEY (`usuario_id`) 
+ REFERENCES `usuario` (`idusuario`) 
+ ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+Otra forma de crearlo:
+CREATE TABLE t_Equipo
+(
+  id_epo INTEGER UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  num_serie VARCHAR(45) NOT NULL,
+  num_inv VARCHAR(45) NULL,
+  num_parte VARCHAR(45) NULL,
+  existencia INTEGER UNSIGNED NOT NULL,
+  id_tipo_componente INT UNSIGNED NOT NULL,
+  id_marca INTEGER UNSIGNED NOT NULL,
+  id_modelo INTEGER UNSIGNED NOT NULL,
+  comentarios TEXT NULL,
+  /* Longuitud de TEXT = 4 GB */
+  /* FULLTEXT KEY search(num_serie,num_inv),*/
+  FOREIGN KEY(id_tipo_componente) REFERENCES t_Tipo_Componente(id_tipo_componente)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY(id_marca) REFERENCES t_Marca(id_marca)
+    ON DELETE RESTRICT ON UPDATE CASCADE,
+  FOREIGN KEY(id_modelo) REFERENCES t_Modelo(id_modelo)
+    ON DELETE RESTRICT ON UPDATE CASCADE
