@@ -18,21 +18,23 @@
 				<?php 
 					} // if ($_SESSION['rol'] == 1)
 				?>
-
 				<li class="principal">
 					<a href="#">Clientes</a>
 					<ul>
-						<li><a href="registro_cliente.php">Nuevo Clientes</a></li>
-						<li><a href="lista_clientes.php">Lista Clientes</a></li>
+						<li><a href="registro_cliente.php"><i class="fas fa-plus"></i> Nuevo Clientes</a></li>
+						<li><a href="lista_clientes.php"><i class="fas fa-alt"></i> Lista Clientes</a></li>
 					</ul>
 				</li>
+				<?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)	{?>
 				<li class="principal">
 					<a href="#">Proveedores</a>
 					<ul>
-						<li><a href="#">Nuevo Proveedor</a></li>
+						<li><a href="registro_proveedor.php"><i class="far fa-building"></i> Nuevo Proveedor</a></li>
 						<li><a href="#">Lista de Proveedores</a></li>
 					</ul>
 				</li>
+				<?php } // if ($_SESSION['rol'] == 1)	($_SESSION['rol'] == 2) ?>
+
 				<li class="principal">
 					<a href="#">Productos</a>
 					<ul>
