@@ -25,12 +25,13 @@
 						<li><a href="lista_clientes.php"><i class="fas fa-alt"></i> Lista Clientes</a></li>
 					</ul>
 				</li>
+				<!-- Solo es visible para usuarios "Administrador" y "Supervisor"-->
 				<?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)	{?>
 				<li class="principal">
 					<a href="#">Proveedores</a>
 					<ul>
 						<li><a href="registro_proveedor.php"><i class="far fa-building"></i> Nuevo Proveedor</a></li>
-						<li><a href="#">Lista de Proveedores</a></li>
+						<li><a href="lista_proveedor.php"><i class="far fa-list-alt"></i> Lista de Proveedores</a></li>
 					</ul>
 				</li>
 				<?php } // if ($_SESSION['rol'] == 1)	($_SESSION['rol'] == 2) ?>

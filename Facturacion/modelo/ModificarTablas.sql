@@ -37,4 +37,9 @@ INSERT INTO `proveedor` (`codproveedor`, `proveedor`, `contacto`, `telefono`, `d
 (10, 'SUMAR', 'Oscar Maldonado', 788376787, 'Colonia San Jose, Zona 5 Guatemala',1),
 (11, 'HP', 'Angel Cardona', 2147483647, '5ta. calle zona 4 Guatemala',1);
 
+INSERT INTO `usuario` (`idusuario`, `nombre`, `correo`, `usuario`, `clave`,`rol`) VALUES
+(2, 'Juan Solis', 'supervisor1@correo.com', 'supervisor', MD5('123'),1),
+(3, 'Monserrat Sanchez', 'vendedor1@correo.com', 'vendedor1', MD5('123'),1),
+(4, 'Alfredo Lopez', 'vendedor2@correo.com', 'vendedor2', MD5('123'),1);
+
 COMMIT;
