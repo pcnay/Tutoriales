@@ -20,6 +20,8 @@ ALTER TABLE `usuario`
  COMMIT;
 
 */
+
+/*
 --
 -- Volcado de datos para la tabla `proveedor`
 --
@@ -41,5 +43,28 @@ INSERT INTO `usuario` (`idusuario`, `nombre`, `correo`, `usuario`, `clave`,`rol`
 (2, 'Juan Solis', 'supervisor1@correo.com', 'supervisor', MD5('123'),1),
 (3, 'Monserrat Sanchez', 'vendedor1@correo.com', 'vendedor1', MD5('123'),1),
 (4, 'Alfredo Lopez', 'vendedor2@correo.com', 'vendedor2', MD5('123'),1);
+*/
+/* 
+Este "TRIGGER" se utilizara para insertar un regsitros en la tabla de "Entradas", es despues de insertar un registros en la tabla de "Producto".
+
+entrada_A_I = Es el nombre del Trigger, para este caso es: Tabla "Entrada", A= "After", I = "Insert"
+new = Hace referencia a los datos insertados en la tabla "Producto", es donde tomara los valores para pasarlos a la tabla de "entradas"
+
+SHOW TRIGGERS FROM NombreBaseDatos;  = Muestra todos los triggers creados en la base de datos actual.
+DROP TRIGGERS "Nombre Triggers"; = Borra el triggers.
+SHOW TRIGGERS LIKE 'nombreTabla' = Para mostrar todos los triggers de "nombreTabla"
+SHOW TRIGGERS WHERE EVENT LIKE 'insert' \G; = Muestra todos los "triggers" con el evento "Insert", de forma ordenada (\G)
+
+
+*/
+DELIMITER |
+CREATE TRIGGER entrada_A_I AFTER INSERT ON producto FOR EACH ROW
+BEGIN
+  INSERT INTO entradas (codproducto,cantidad,precio,usuario_id)
+  VALUE (new.codproducto,new.existencia,new.precio,new.usuario_id);
+END
+|
+DELIMITER ;
+
 
 COMMIT;

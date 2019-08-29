@@ -60,7 +60,7 @@ if (!empty($_POST))
 // Se obtiene el valor del id de la URL que se asigna en el href de Listado de Proveedores.
 $codproveedor = $_REQUEST['id'];
 
-$sql = mysqli_query($conexion,"SELECT * FROM proveedor WHERE codproveedor = $codproveedor");
+$sql = mysqli_query($conexion,"SELECT * FROM proveedor WHERE codproveedor = $codproveedor AND estatus=1");
 mysqli_close($conexion);
 
 $result_sql = mysqli_num_rows($sql);

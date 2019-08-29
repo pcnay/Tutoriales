@@ -84,9 +84,9 @@ if (!empty($_POST))
     header ('Location: lista_clientes.php');
     mysqli_close($conexion);
   }
-// Se obtiene el valor del id de la URL que se asigna en el href de Listado de Usuarios.
+// Se obtiene el valor del id de la URL que se asigna en el href de Listado de Clientes.
 $idcliente = $_REQUEST['id'];
-$sql = mysqli_query($conexion,"SELECT * FROM cliente WHERE idcliente = $idcliente");
+$sql = mysqli_query($conexion,"SELECT * FROM cliente WHERE idcliente = $idcliente AND estatus=1");
 mysqli_close($conexion);
 
 $result_sql = mysqli_num_rows($sql);
