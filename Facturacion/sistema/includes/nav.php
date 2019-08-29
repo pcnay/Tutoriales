@@ -47,7 +47,7 @@
 								<li><a href="registro_producto.php"><i class="fas fa-plus"></i> Nuevo Producto</a></li>
 							<?php } // if ($_SESSION['rol'] == 1)	($_SESSION['rol'] == 2) ?>				
 
-							<li><a href="#">Lista de Productos</a></li>
+							<li><a href="lista_producto.php"><i class="fas fa-cube"></i> Lista de Productos</a></li>
 						</ul>
 					</li>
 				
