@@ -96,7 +96,8 @@ CREATE TABLE `entradas` (
   `codproducto` int(11) NOT NULL,
   `fecha` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `cantidad` int(11) NOT NULL,
-  `precio` decimal(10,2) NOT NULL
+  `precio` decimal(10,2) NOT NULL,
+  `usuario_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -125,6 +126,9 @@ CREATE TABLE `producto` (
   `proveedor` int(11) DEFAULT NULL,
   `precio` decimal(10,2) DEFAULT NULL,
   `existencia` int(11) DEFAULT NULL,
+  `dateadd` datetime NOT NULL  DEFAULT CURRENT_TIMESTAMP, /* Por defecto grabara la fecha sin necesidad de agregalo manualmente */
+  `usuario_id` int(11) NOT NULL,
+  `estatus` tinyint DEFAULT 1,
   `foto` text
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -145,24 +149,6 @@ CREATE TABLE `proveedor` (
   `estatus` tinyint DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `proveedor`
---
-/*
-  Se agrega en el script "ModificarTablas.sql"
-INSERT INTO `proveedor` (`codproveedor`, `proveedor`, `contacto`, `telefono`, `direccion`) VALUES
-(1, 'BIC', 'Claudia Rosales', 789877889, 'Avenida las Americas'),
-(2, 'CASIO', 'Jorge Herrera', 565656565656, 'Calzada Las Flores'),
-(3, 'Omega', 'Julio Estrada', 982877489, 'Avenida Elena Zona 4, Guatemala'),
-(4, 'Dell Compani', 'Roberto Estrada', 2147483647, 'Guatemala, Guatemala'),
-(5, 'Olimpia S.A', 'Elena Franco Morales', 564535676, '5ta. Avenida Zona 4 Ciudad'),
-(6, 'Oster', 'Fernando Guerra', 78987678, 'Calzada La Paz, Guatemala'),
-(7, 'ACELTECSA S.A', 'Ruben PÃ©rez', 789879889, 'Colonia las Victorias'),
-(8, 'Sony', 'Julieta Contreras', 89476787, 'Antigua Guatemala'),
-(9, 'VAIO', 'Felix Arnoldo Rojas', 476378276, 'Avenida las Americas Zona 13'),
-(10, 'SUMAR', 'Oscar Maldonado', 788376787, 'Colonia San Jose, Zona 5 Guatemala'),
-(11, 'HP', 'Angel Cardona', 2147483647, '5ta. calle zona 4 Guatemala');
-*/
 
 -- --------------------------------------------------------
 
@@ -175,10 +161,6 @@ CREATE TABLE `rol` (
   `rol` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO `rol` (`idrol`, `rol`) VALUES
-(1, 'Administrador'),
-(2, 'Supervisor'),
-(3, 'Vendedor');
 -- --------------------------------------------------------
 
 --
@@ -194,9 +176,6 @@ CREATE TABLE `usuario` (
   `rol` int(11) DEFAULT NULL,
   `estatus` tinyint DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO `usuario` (`idusuario`, `nombre`,`correo`,`usuario`,`clave`,`rol`) VALUES
-(1, 'Abel','info@abelosh.com','admin',MD5('123'),1);
 
 
 --
@@ -230,8 +209,8 @@ ALTER TABLE `detalle_temp`
 --
 ALTER TABLE `entradas`
   ADD PRIMARY KEY (`correlativo`),
-  ADD KEY `codproducto` (`codproducto`);
-
+  ADD KEY `codproducto` (`codproducto`),
+  ADD KEY `usuario_id` (`usuario_id`); /* Para poder enlazar la tabla "Usuario" con "Entrada"*/
 --
 -- Indices de la tabla `factura`
 --
@@ -245,7 +224,8 @@ ALTER TABLE `factura`
 --
 ALTER TABLE `producto`
   ADD PRIMARY KEY (`codproducto`),
-  ADD KEY `proveedor` (`proveedor`);
+  ADD KEY `proveedor` (`proveedor`),
+  ADD KEY `usuario_id` (`usuario_id`); /* Para poder enlazar la tabla "Usuario" con "Cliente"*/
 
 --
 -- Indices de la tabla `proveedor`
@@ -350,6 +330,9 @@ ALTER TABLE `detalle_temp`
 ALTER TABLE `entradas`
   ADD CONSTRAINT `entradas_ibfk_1` FOREIGN KEY (`codproducto`) REFERENCES `producto` (`codproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+ALTER TABLE `entradas`
+  ADD CONSTRAINT `entradas_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
 --
 -- Filtros para la tabla `factura`
 --
@@ -360,8 +343,6 @@ ALTER TABLE `factura`
 --
 -- Filtros para la tabla `producto`
 --
-ALTER TABLE `producto`
-  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`proveedor`) REFERENCES `proveedor` (`codproveedor`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `usuario`
@@ -374,6 +355,12 @@ ALTER TABLE `cliente`
 
 ALTER TABLE `proveedor`
   ADD CONSTRAINT `proveedor_ibfk_1` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `producto`
+  ADD CONSTRAINT `producto_ibfk_1` FOREIGN KEY (`proveedor`) REFERENCES `proveedor` (`codproveedor`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+ALTER TABLE `producto`
+  ADD CONSTRAINT `producto_ibfk_2` FOREIGN KEY (`usuario_id`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*
   Otra forma de crearlo:
@@ -397,6 +384,68 @@ CREATE TABLE t_Equipo
   FOREIGN KEY(id_modelo) REFERENCES t_Modelo(id_modelo)
     ON DELETE RESTRICT ON UPDATE CASCADE
 */
+
+--
+-- Volcado de datos para la tabla `proveedor`
+--
+
+INSERT INTO `rol` (`idrol`, `rol`) VALUES
+(1, 'Administrador'),
+(2, 'Supervisor'),
+(3, 'Vendedor');
+
+INSERT INTO `usuario` (`idusuario`, `nombre`,`correo`,`usuario`,`clave`,`rol`) VALUES
+(1, 'Abel','info@abelosh.com','admin',MD5('123'),1),
+(2, 'Juan','juan@correo.com','supervisor',MD5('123'),2),
+(3, 'Rosalia','rosalia@correo.com','vendedor',MD5('123'),3);
+
+INSERT INTO `cliente` (`idcliente`, `nit`, `nombre`, `telefono`, `direccion`,`usuario_id`) VALUES
+(1, 'nit-012345', 'Nombre Cliente 1', 0293982, 'Direccion Cliente 1',1),
+(2, 'nit-0123456', 'Nombre Cliente 2', 021232, 'Direccion Cliente 2',2),
+(3, 'nit-01234567', 'Nombre Cliente 3', 2123982, 'Direccion Cliente 3',1);
+
+
+INSERT INTO `proveedor` (`codproveedor`, `proveedor`, `contacto`, `telefono`, `direccion`,`usuario_id`) VALUES
+(1, 'BIC', 'Claudia Rosales', 789877889, 'Avenida las Americas',1),
+(2, 'CASIO', 'Jorge Herrera', 565656565656, 'Calzada Las Flores',2),
+(3, 'Omega', 'Julio Estrada', 982877489, 'Avenida Elena Zona 4, Guatemala',3),
+(4, 'Dell Compani', 'Roberto Estrada', 2147483647, 'Guatemala, Guatemala',2),
+(5, 'Olimpia S.A', 'Elena Franco Morales', 564535676, '5ta. Avenida Zona 4 Ciudad',1),
+(6, 'Oster', 'Fernando Guerra', 78987678, 'Calzada La Paz, Guatemala',3),
+(7, 'ACELTECSA S.A', 'Ruben PÃ©rez', 789879889, 'Colonia las Victorias',2),
+(8, 'Sony', 'Julieta Contreras', 89476787, 'Antigua Guatemala',1),
+(9, 'VAIO', 'Felix Arnoldo Rojas', 476378276, 'Avenida las Americas Zona 13',3),
+(10, 'SUMAR', 'Oscar Maldonado', 788376787, 'Colonia San Jose, Zona 5 Guatemala',2),
+(11, 'HP', 'Angel Cardona', 2147483647, '5ta. calle zona 4 Guatemala',1);
+
+/* =============================================================================*/
+/* Este Trigger corresponde a la tabla de "Producto" cuando se inserta se actualiza la tabla de "entradas"
+
+entrada_A_I = Es el nombre del Trigger, para este caso es: Tabla "Entrada", A= "After", I = "Insert"
+new = Hace referencia a los datos insertados en la tabla "Producto", es donde tomara los valores para pasarlos a la tabla de "entradas"
+
+SHOW TRIGGERS FROM NombreBaseDatos;  = Muestra todos los triggers creados en la base de datos actual.
+DROP TRIGGERS "Nombre Triggers"; = Borra el triggers.
+SHOW TRIGGERS LIKE 'nombreTabla' = Para mostrar todos los triggers de "nombreTabla"
+SHOW TRIGGERS WHERE EVENT LIKE 'insert' \G; = Muestra todos los "triggers" con el evento "Insert", de forma ordenada (\G)
+
+*/
+DELIMITER |
+CREATE TRIGGER entrada_A_I AFTER INSERT ON producto FOR EACH ROW
+BEGIN
+  INSERT INTO entradas (codproducto,cantidad,precio,usuario_id)
+  VALUE (new.codproducto,new.existencia,new.precio,new.usuario_id);
+END
+|
+DELIMITER ;
+
+INSERT INTO `producto` (`codproducto`, `descripcion`, `proveedor`, `precio`, `existencia`,`usuario_id`,`foto`) VALUES
+(1, 'Descripcion Producto 1',1,150,10,1,'foto-1.jpg'),
+(2, 'Descripcion Producto 2',3,100,4,1,'foto-2.jpg'),
+(3, 'Descripcion Producto 3',2,90,6,3,'foto-3.jpg');
+
+/* ==============================================================================*/
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
