@@ -41,4 +41,19 @@ $(document).ready(function(){
 
   });
 
+// Creando la ventana "Modal" Add Product
+$('.add_product').click(function(e)
+{  
+  e.preventDefault(); // No recarga la ventana cuando se oprima el boton "Agregar".
+  var producto = $(this).attr('product');
+  //alert(producto);
+  $('.modal').fadeIn(); // Activando la ventana Modal de Insertar Registro. 
 });
+
+});
+
+// Cerrar la ventana Modal de Insertar Producto.
+function closeModal()
+{
+  $('.modal').fadeOut();
+}

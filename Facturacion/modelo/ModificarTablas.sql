@@ -56,7 +56,7 @@ SHOW TRIGGERS LIKE 'nombreTabla' = Para mostrar todos los triggers de "nombreTab
 SHOW TRIGGERS WHERE EVENT LIKE 'insert' \G; = Muestra todos los "triggers" con el evento "Insert", de forma ordenada (\G)
 
 
-*/
+
 DELIMITER |
 CREATE TRIGGER entrada_A_I AFTER INSERT ON producto FOR EACH ROW
 BEGIN
@@ -65,6 +65,30 @@ BEGIN
 END
 |
 DELIMITER ;
+*/
 
+DELIMITER $$
+  CREATE PROCEDURE actualizar_precio_producto(n_cantidad int, n_precio decimal(10,2), codigo int)
+  BEGIN
+    DECLARE nueva_existencia int;
+    DECLARE nuevo_total decimal(10,2);
+    DECLARE nuevo_precio decimal(10,2);
+
+    DECLARE cant_actual int;
+    DECLARE pre_actual decimal(10,2);
+
+    DECLARE actual_existencia int;
+    DECLARE actual_precio decimal(10,2);
+
+    SELECT precio,existencia INTO actual_precio,actual_existencia FROM producto WHERE codproducto = codigo;
+    SET nueva_existencia = actual_existencia+n_cantidad;
+    SET nuevo_total = (actual_existencia*actual_precio)+(n_cantidad*n_precio);
+    SET nuevo_precio = nuevo_total/nueva_existencia;
+
+    UPDATE producto SET existencia = nueva_existencia, precio = nuevo_precio WHERE codproducto = codigo;
+
+    SELECT nueva_existencia,nuevo_precio;
+  END;$$
+DELIMITER ;
 
 COMMIT;

@@ -37,6 +37,86 @@ Trabajando localmente y/o en otros proveedores de hosting, podrás verás que en
 --    mysql -u usuario -p NombreBaseDatos
 --    source script.sql ó \. script.sql
 
+/* =============================================================================*/
+/* Este Trigger corresponde a la tabla de "Producto" cuando se inserta se actualiza la tabla de "entradas"
+
+entrada_A_I = Es el nombre del Trigger, para este caso es: Tabla "Entrada", A= "After", I = "Insert"
+new = Hace referencia a los datos insertados en la tabla "Producto", es donde tomara los valores para pasarlos a la tabla de "entradas"
+
+SHOW TRIGGERS FROM NombreBaseDatos;  = Muestra todos los triggers creados en la base de datos actual.
+DROP TRIGGERS "Nombre Triggers"; = Borra el triggers.
+SHOW TRIGGERS LIKE 'nombreTabla' = Para mostrar todos los triggers de "nombreTabla"
+SHOW TRIGGERS WHERE EVENT LIKE 'insert' \G; = Muestra todos los "triggers" con el evento "Insert", de forma ordenada (\G)
+
+
+DELIMITER |
+CREATE TRIGGER entrada_A_I AFTER INSERT ON producto FOR EACH ROW
+BEGIN
+  INSERT INTO entradas (codproducto,cantidad,precio,usuario_id)
+  VALUE (new.codproducto,new.existencia,new.precio,new.usuario_id);
+END
+|
+DELIMITER ;
+
+INSERT INTO `producto` (`codproducto`, `descripcion`, `proveedor`, `precio`, `existencia`,`usuario_id`,`foto`) VALUES
+(1, 'Descripcion Producto 1',1,150,10,1,'foto-1.jpg'),
+(2, 'Descripcion Producto 2',3,100,4,1,'foto-2.jpg'),
+(3, 'Descripcion Producto 3',2,90,6,3,'foto-3.jpg');
+
+=================================================================================
+PROCEDIMIENTOS ALMACENADOS
+Por defecto estos son asociados a la base de datos actual. 
+CALL proc_name;
+DROP PROCEDURE IF EXISTS names;
+SHOW CREATE PROCEDURE proc_name;
+SHOW PROCEDURE STATUS LIKE 'actualizar_precio_producto' \G;
+*************************** 1. row ***************************
+                  Db: facturacion
+                Name: actualizar_precio_producto
+                Type: PROCEDURE
+             Definer: root@localhost
+            Modified: 2019-08-29 19:23:40
+             Created: 2019-08-29 19:23:40
+       Security_type: DEFINER
+             Comment:
+character_set_client: utf8
+collation_connection: utf8_general_ci
+  Database Collation: latin1_swedish_ci
+1 row in set (0.003 sec)
+
+ALTER PROCEDURE proc_name;
+
+==================================================================================
+DELIMITER $$
+  CREATE PROCEDURE actualizar_precio_producto(n_cantidad int, n_precio decimal(10,2), codigo int)
+  BEGIN
+    DECLARE nueva_existencia int;
+    DECLARE nuevo_total decimal(10,2);
+    DECLARE nuevo_precio decimal(10,2);
+
+    DECLARE cant_actual int;
+    DECLARE pre_actual decimal(10,2);
+
+    DECLARE actual_existencia int;
+    DECLARE actual_precio decimal(10,2);
+
+    SELECT precio,existencia INTO actual_precio,actual_existencia FROM producto WHERE codproducto = codigo;
+    SET nueva_existencia = actual_existencia+n_cantidad;
+    SET nuevo_total = (actual_existencia*actual_precio)+(n_cantidad*n_precio);
+    SET nuevo_precio = nuevo_total/nueva_existencia;
+
+    UPDATE producto SET existencia = nueva_existencia, precio = nuevo_precio WHERE codproducto = codigo;
+
+    SELECT nueva_existencia,nuevo_precio;
+  END;$$
+DELIMITER ;
+
+
+*/
+
+
+
+
 DROP DATABASE IF EXISTS facturacion;
 
 CREATE DATABASE IF NOT EXISTS facturacion;
@@ -418,18 +498,6 @@ INSERT INTO `proveedor` (`codproveedor`, `proveedor`, `contacto`, `telefono`, `d
 (10, 'SUMAR', 'Oscar Maldonado', 788376787, 'Colonia San Jose, Zona 5 Guatemala',2),
 (11, 'HP', 'Angel Cardona', 2147483647, '5ta. calle zona 4 Guatemala',1);
 
-/* =============================================================================*/
-/* Este Trigger corresponde a la tabla de "Producto" cuando se inserta se actualiza la tabla de "entradas"
-
-entrada_A_I = Es el nombre del Trigger, para este caso es: Tabla "Entrada", A= "After", I = "Insert"
-new = Hace referencia a los datos insertados en la tabla "Producto", es donde tomara los valores para pasarlos a la tabla de "entradas"
-
-SHOW TRIGGERS FROM NombreBaseDatos;  = Muestra todos los triggers creados en la base de datos actual.
-DROP TRIGGERS "Nombre Triggers"; = Borra el triggers.
-SHOW TRIGGERS LIKE 'nombreTabla' = Para mostrar todos los triggers de "nombreTabla"
-SHOW TRIGGERS WHERE EVENT LIKE 'insert' \G; = Muestra todos los "triggers" con el evento "Insert", de forma ordenada (\G)
-
-*/
 DELIMITER |
 CREATE TRIGGER entrada_A_I AFTER INSERT ON producto FOR EACH ROW
 BEGIN
