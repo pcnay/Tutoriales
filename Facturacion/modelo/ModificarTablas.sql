@@ -65,7 +65,7 @@ BEGIN
 END
 |
 DELIMITER ;
-*/
+
 
 DELIMITER $$
   CREATE PROCEDURE actualizar_precio_producto(n_cantidad int, n_precio decimal(10,2), codigo int)
@@ -90,5 +90,7 @@ DELIMITER $$
     SELECT nueva_existencia,nuevo_precio;
   END;$$
 DELIMITER ;
+*/
+
 
 COMMIT;

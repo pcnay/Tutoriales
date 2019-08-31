@@ -29,7 +29,7 @@ if (empty($_SESSION['active']))
 	<div class="bodyModal">
 		<form action ="" method="post" name="form_add_product" id="form_add_product" onsubmit="event.preventDefault();  sendDataProduct();">
 			<h1><i class="fas fa-cubes" style="font-size: 45pt;"></i><br> Agregar Producto</h1>
-			<h2 class="nameProducto">Monitor LCD</h2><br>
+			<h2 class="nameProducto"></h2><br>
 			<input type="number" name="cantidad" id="txtCantidad" placeholder="Cantidad Del Producto" required><br>
 			<input type="text" name="precio" id="txtPrecio" placeholder="Precio Del Producto" required>
 			<input type="hidden" name="producto_id" id="producto_id" required>
