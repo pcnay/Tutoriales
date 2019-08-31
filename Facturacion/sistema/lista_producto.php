@@ -93,11 +93,12 @@
               $foto = 'img/uploads/'.$data['foto'];
             }
       ?>
-            <tr>
+            <!-- Cambiar a cada renglon un color-->
+            <tr class="row<?php echo $data['codproducto']; ?>">
               <td><?php echo $data['codproducto']; ?></td>
               <td><?php echo $data['descripcion']; ?></td>
-              <td><?php echo $data['precio']; ?></td>
-              <td><?php echo $data['existencia']; ?></td>
+              <td class="celPrecio"><?php echo $data['precio']; ?></td>
+              <td class="celExistencia"><?php echo $data['existencia']; ?></td>
               <td><?php echo $data['proveedor']; ?></td>
 
               <!-- Para mostrar la foto, se asigna clase para definir un tamaño constante. -->

@@ -86,8 +86,53 @@ $(document).ready(function(){
 
 }); // $(document).ready(function(){
 
+// Funcion para el boton de "Agregar" de la Ventana Modal
+//<form action ="" method="post" name="form_add_product" id="form_add_product" onsubmit="event.preventDefault();  sendDataProduct();">
+
+function sendDataProduct()
+{
+  $('.alertAddProduct').html('');
+  $.ajax
+  ({
+    url:'ajax.php',
+    type:'POST',
+    async:true,
+    // Envia todos los input del form (Ventana Modal) a parámetro "data"
+    data:$('#form_add_product').serialize(),
+
+    success: function(response)
+    {
+      // console.log(response);
+      // El valor de "error" viene desde ajax.php seccion : if ($_POST['action'] == 'addProduct'), <div>
+      if (response == 'error')
+      {
+        $('.alertAddProduct').html('<p style="color:red;">Error Al Agregar El Producto</p>');
+      }
+      else
+      {
+        // Convertir el formato JSon(Texto) a un objeto
+        var info = JSON.parse(response);
+        $('.row'+info.producto_id+' .celPrecio').html(info.nuevo_precio);
+        $('.row'+info.producto_id+' .celExistencia').html(info.nueva_existencia);
+        $('#txtCantidad').val(''); // Limpiar los input Cantidad cuando se haya oprimido el boton "Agregar"
+        $('#txtPrecio').val(''); // Limpiar los input Existencia cuando se haya oprimido el boton "Agregar"
+        $('.alertAddProduct').html('<p>Producto Guardado Guardado Correctamente</p>');
+      } 
+    },
+    error: function(error)
+    {
+      console.log(error);  
+    }
+
+  });
+
+}
+
 // Cerrar la ventana Modal de Insertar Producto.
 function closeModal()
 {
+  $('.alertAddProduct').html('');
+  $('#txtCantidad').val('');
+  $('#txtPrecio').val('');
   $('.modal').fadeOut();
 }
