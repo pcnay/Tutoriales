@@ -67,10 +67,23 @@ $(document).ready(function(){
             var info = JSON.parse(response);
             //console.log(info);
             // header.php -> form(form_add_product) ->id (product_id) se le asigna "
-            $('#producto_id').val(info.codproducto);
+
+            //$('#producto_id').val(info.codproducto);
             // header.php -> form(form_add_product) ->class (nameProducto) se le asigna "
-            $('.nameProducto').html(info.descripcion);
-             
+            // $('.nameProducto').html(info.descripcion);
+
+             // Se agrega la "form" para Ingregar Producto, antes se encontraba en "Header.php", se agrega por renglon, por lo que se tiene que agregar linea por línea, utilizando JavaScript.
+            $('.bodyModal').html('<form action ="" method="post" name="form_add_product" id="form_add_product" onsubmit="event.preventDefault();  sendDataProduct();">'+
+            '<h1><i class="fas fa-cubes" style="font-size: 45pt;"></i><br> Agregar Producto</h1>'+
+            '<h2 class="nameProducto">'+info.descripcion+'</h2><br>'+
+            '<input type="number" name="cantidad" id="txtCantidad" placeholder="Cantidad Del Producto" required><br>'+
+            '<input type="text" name="precio" id="txtPrecio" placeholder="Precio Del Producto" required>'+
+            '<input type="hidden" name="producto_id" id="producto_id" value="'+info.codproducto+'" required>'+
+            '<input type="hidden" name="action" value="addProduct" required>'+
+            '<div class="alert alertAddProduct"></div>'+
+            '<button type="submit" class="btn_new"><i class="fas fa-plus"></i> Agregar</button>'+
+            '<a href="#" class="btn_ok closeModal" onclick="closeModal();"><i class="fas fa-ban"></i> Cerrar</a>'+  
+          '</form>');             
           }
         },
         error: function(error)
@@ -116,7 +129,7 @@ function sendDataProduct()
         $('.row'+info.producto_id+' .celExistencia').html(info.nueva_existencia);
         $('#txtCantidad').val(''); // Limpiar los input Cantidad cuando se haya oprimido el boton "Agregar"
         $('#txtPrecio').val(''); // Limpiar los input Existencia cuando se haya oprimido el boton "Agregar"
-        $('.alertAddProduct').html('<p>Producto Guardado Guardado Correctamente</p>');
+        $('.alertAddProduct').html('<p>Producto Guardado Correctamente</p>');
       } 
     },
     error: function(error)
