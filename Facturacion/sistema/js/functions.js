@@ -38,7 +38,14 @@ $(document).ready(function(){
     $('#foto').val('');
     $(".delPhoto").addClass('notBlock');
     $("#img").remove();
-
+    
+    // Editar Producto, para cuando guarde el producto le asigne el nombre de archivo "img_producto.png"
+  
+    if ($("#foto_actual") && $("#foto_remove"))
+    {
+      $("#foto_remove").val('img_producto.png');
+    }
+  
   });
 
 // Creando la ventana "Modal" Add Product
