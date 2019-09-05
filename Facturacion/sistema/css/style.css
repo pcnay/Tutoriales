@@ -508,7 +508,7 @@ z-index: 10;
 	margin-top:15px;
 }
 
-#form_add_product
+#form_add_product, #form_del_product
 {
 	width:420px;
 	text-align:center; 
