@@ -51,6 +51,7 @@
           ?>
 
           <select name="proveedor" id="search_proveedor">
+            <option value = ""selected >Proveedor</option>
           <?php 
             if ($result_proveedor > 0)
             {
@@ -94,11 +95,12 @@
 
 
         // Se obtiene los productos con el estatus = 1(Borrado logico)
+        // Se agrega la variable "$where" para poder usarlo en la etiqueta de lupa
         $query = mysqli_query($conexion,"SELECT p.codproducto,p.descripcion,p.precio,p.existencia,pr.proveedor,p.foto 
         FROM producto p 
         INNER JOIN proveedor pr 
         ON p.proveedor = pr.codproveedor
-        WHERE p.estatus = 1  
+        WHERE p.estatus = 1 
         ORDER BY p.descripcion ASC LIMIT $desde,$por_pagina");
         
         mysqli_close($conexion);

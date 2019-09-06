@@ -36,23 +36,28 @@
       if (!empty($_REQUEST['busqueda']))
       {
         $busqueda = strtolower($_REQUEST['busqueda']);
-        $where ="(codproducto LIKE '%$busqueda%' OR descripcion LIKE '%$busqueda%') AND  estatus = 1";
+        // Esta variable se utiliza en la seccion del SELECT donde se obtienen todos los datos de los productos.
+        $where ="(p.codproducto LIKE '%$busqueda%' OR p.descripcion LIKE '%$busqueda%') AND  p.estatus = 1";
+        // Para utilizar el paginador cuando se filtre la busqueda.
+        $buscar= 'busqueda='.$busqueda;
       }
 
       if (!empty($_REQUEST['proveedor']))
       {
         $search_proveedor = $_REQUEST['proveedor'];
         // Se utiliza para hacerlo generico en la consulta.
-        $where = "proveedor LIKE $search_proveedor AND estatus = 1";
+        $where = "p.proveedor LIKE $search_proveedor AND p.estatus = 1";
+        // Para utilizar el paginador cuando se filtre la busqueda.
+        $buscar= 'proveedor='.$search_proveedor;
       }
 
     ?>
     <h1><i class="fas fa-building"></i> Lista De Productos</h1>
     <a href = "registro_producto.php" class = "btn_new"><i class="fas fa-plus"></i> Alta Producto</a>
     
-    <!-- Se agrega el formulario para la busqueda de usuarios. -->
-    <form action="buscar_producto.php" method="get" class = "form_search">
-      <input type="text" name = "busqueda" id="busqueda" placeholder ="Buscar">
+    <!-- Se agrega el formulario para la busqueda de producto. -->
+    <form action="buscar_productos.php" method="get" class = "form_search">
+      <input type="text" name = "busqueda" id="busqueda" placeholder ="Buscar" value = "<?php echo $busqueda; ?>">
       <button type="submit" class = "btn_search" ><i class="fas fa-search"></i></button>
 
       <!-- <input type="submit" value = "Buscar" class = "btn_search"> -->
@@ -78,6 +83,7 @@
           ?>
 
           <select name="proveedor" id="search_proveedor">
+            <option value = ""selected >Proveedor</option>
           <?php 
             if ($result_proveedor > 0)
             {
@@ -114,14 +120,14 @@
         // Extraer los registros que esten activos
         // "search_proveedor" es numerico, no se agregan las % y ''
         // "$where" se define en la validacion de que se buscará por "proveedor" o "descripcion"
-        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM producto WHERE $where ");        
+        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM producto AS p WHERE $where ");        
         
         $result_register = mysqli_fetch_array($sql_registe);
         $total_registro = $result_register['total_registro'];
-        echo $total_registro;
-        exit;
+        //echo $total_registro;
+        //exit;
 
-        $por_pagina = 3;
+        $por_pagina = 1;
 
         if(empty($_GET['pagina']))
         {
@@ -138,12 +144,13 @@
         $total_paginas = ceil($total_registro/$por_pagina);
 
 
-        // Se obtiene los productos con el estatus = 1(Borrado logico)
+        // Se obtiene los productos con el estatus = 1(NO Borrado logico)
+        // Se agrega la variable "$where" para que funcione cuando se busque por la caja de "buscar"
         $query = mysqli_query($conexion,"SELECT p.codproducto,p.descripcion,p.precio,p.existencia,pr.proveedor,p.foto 
         FROM producto p 
         INNER JOIN proveedor pr 
         ON p.proveedor = pr.codproveedor
-        WHERE p.estatus = 1  
+        WHERE $where
         ORDER BY p.descripcion ASC LIMIT $desde,$por_pagina");
         
         mysqli_close($conexion);
@@ -192,14 +199,19 @@
       ?>
 
     </table>
-    <div class = "paginador">
+    <!-- Se elimina los botones del paginador cuando no se tengan registros  -->
+    <?php 
+      if ($total_pagina != 0)
+      {
+    ?>
+      <div class = "paginador">
         <ul>
         <?php 
           if ($pagina != 1)
           {          
         ?>  
-          <li><a href= "?pagina=<?php echo 1; ?>"><i class="fas fa-step-backward"></i></a></li>
-          <li><a href= "?pagina=<?php echo $pagina-1; ?>"><i class="fas fa-backward"></i></a></li>
+          <li><a href= "?pagina=<?php echo 1; ?>&<?php echo $buscar; ?>"><i class="fas fa-step-backward"></i></a></li>
+          <li><a href= "?pagina=<?php echo $pagina-1; ?>&<?php echo $buscar; ?>"><i class="fas fa-backward"></i></a></li>
         <?php 
           }
             for ($i=1;$i<=$total_paginas;$i++)
@@ -211,21 +223,22 @@
               }
               else
               {
-                echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+                echo '<li><a href="?pagina='.$i.'&'.$buscar.'">'.$i.'</a></li>';
               }               
             }
             if ($pagina != $total_paginas)
             {
         ?>        
-          <li><a href= "?pagina=<?php echo $pagina+1; ?>"><i class="fas fa-forward"></i></a></li>
-          <li><a href= "?pagina=<?php echo $total_paginas; ?>"><i class="fas fa-step-forward"></i></a></li>
+          <li><a href= "?pagina=<?php echo $pagina+1; ?>&<?php echo $buscar; ?>"><i class="fas fa-forward"></i></a></li>
+          <li><a href= "?pagina=<?php echo $total_paginas; ?>&<?php echo $buscar; ?>"><i class="fas fa-step-forward"></i></a></li>
 
         <?php
             }
         ?>
         </ul>
 
-    </div>
+      </div>
+    <?php } ?> <!-- if ($total_pagina != 0) -->
 
 	</section>
 	<?php include "includes/footer.php"; ?>
