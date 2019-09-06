@@ -158,9 +158,28 @@ $(document).ready(function(){
 
     $('.modal').fadeIn(); // Activando la ventana Modal de Insertar Registro. 
 
-  }); // $('.add_product').click(function(e)
+  }); // $('.del_product').click(function(e)
+
+  // Buscar proveedor, utilizando JQuery, otra forma de llamar a las archivos.
+  $('#search_proveedor').change(function(e){
+    e.preventDefault(); // NO se recargara, no hara nada 
+    var sistema = getUrl();
+    // alert(sistema); Para revisar que este correcta la URL donde esta el sistema de Facturacion.
+    // $(this) = Es la etiqueta "SELECT" y se tome el valor que tiene "Value" en el momento que se escoge el proveedor
+    // Cuando se ejecuta:, cambia el "codproveedor" al seleccionar del ComboBox Select
+    // http://192.168.1.79/facturacion/sistema/buscar_producto.php?proveedor=8
+    location.href = sistema+'buscar_productos.php?proveedor='+$(this).val();
+  });
+ 
 }); // $(document).ready(function(){
 
+// Obtiene la URL del Proyecto
+function getUrl()
+{
+  var loc = window.location;
+  var pathName = loc.pathname.substring(0,loc.pathname.lastIndexOf('/')+1);
+  return loc.href.substring(0,loc.href.length-((loc.pathname+loc.search+loc.hash).length - pathName.length));
+}
 // Funcion para el boton de "Agregar" de la Ventana Modal
 //<form action ="" method="post" name="form_add_product" id="form_add_product" onsubmit="event.preventDefault();  sendDataProduct();">
 function sendDataProduct()
@@ -265,3 +284,5 @@ function closeModal()
   $('#txtPrecio').val('');
   $('.modal').fadeOut();
 }
+
+
