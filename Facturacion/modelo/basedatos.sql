@@ -122,6 +122,18 @@ DROP DATABASE IF EXISTS facturacion;
 CREATE DATABASE IF NOT EXISTS facturacion;
 USE facturacion;
 
+-- Los datos de la empresa 
+CREATE TABLE `configuracion` (
+  `id` bigint(11) NOT NULL,
+  `nit` varchar(20) NOT NULL,
+  `nombre` varchar(100) DEFAULT NULL,
+  `razon_social` varchar(100) DEFAULT NULL,
+  `telefono` bigint(11) DEFAULT NULL,
+  `email` varchar(80) DEFAULT NULL,
+  `direccion` text DEFAULT NULL,
+  `iva` decimal(10,2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 --
 -- Estructura de tabla para la tabla `cliente`
 --
@@ -159,7 +171,7 @@ CREATE TABLE `detallefactura` (
 
 CREATE TABLE `detalle_temp` (
   `correlativo` int(11) NOT NULL,
-  `nofactura` bigint(11) NOT NULL,
+  `token_user` varchar(50) NOT NULL,
   `codproducto` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
   `preciototal` decimal(10,2) NOT NULL
@@ -191,7 +203,8 @@ CREATE TABLE `factura` (
   `fecha` datetime NOT NULL,
   `usuario` int(11) DEFAULT NULL,
   `codcliente` int(11) DEFAULT NULL,
-  `totaltactura` decimal(10,2) DEFAULT NULL
+  `totalfactura` decimal(10,2) DEFAULT NULL,
+  `estatus` tinyint DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -262,6 +275,9 @@ CREATE TABLE `usuario` (
 -- Índices para tablas volcadas
 --
 
+ALTER TABLE `configuracion`
+  ADD PRIMARY KEY (`id`);
+
 --
 -- Indices de la tabla `cliente`
 --
@@ -281,7 +297,7 @@ ALTER TABLE `detallefactura`
 --
 ALTER TABLE `detalle_temp`
   ADD PRIMARY KEY (`correlativo`),
-  ADD KEY `nofactura` (`nofactura`),
+  -- ADD KEY `nofactura` (`nofactura`),
   ADD KEY `codproducto` (`codproducto`);
 
 --
@@ -401,9 +417,11 @@ ALTER TABLE `detallefactura`
 -- Filtros para la tabla `detalle_temp`
 --
 ALTER TABLE `detalle_temp`
-  ADD CONSTRAINT `detalle_temp_ibfk_1` FOREIGN KEY (`nofactura`) REFERENCES `factura` (`nofactura`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `detalle_temp_ibfk_2` FOREIGN KEY (`codproducto`) REFERENCES `producto` (`codproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `detalle_temp_ibfk_1` FOREIGN KEY (`codproducto`) REFERENCES `producto` (`codproducto`) ON DELETE CASCADE ON UPDATE CASCADE;
 
+/* Durante el proyecto se elimina la relacion de "Factura" con "Detalle_temp"
+  --ADD CONSTRAINT `detalle_temp_ibfk_1` FOREIGN KEY (`nofactura`) REFERENCES `factura` (`nofactura`) ON DELETE CASCADE ON UPDATE CASCADE,
+*/
 --
 -- Filtros para la tabla `entradas`
 --
@@ -497,6 +515,10 @@ INSERT INTO `proveedor` (`codproveedor`, `proveedor`, `contacto`, `telefono`, `d
 (9, 'VAIO', 'Felix Arnoldo Rojas', 476378276, 'Avenida las Americas Zona 13',3),
 (10, 'SUMAR', 'Oscar Maldonado', 788376787, 'Colonia San Jose, Zona 5 Guatemala',2),
 (11, 'HP', 'Angel Cardona', 2147483647, '5ta. calle zona 4 Guatemala',1);
+
+-- Insertando datos en la tabla de "Configuracion"
+INSERT INTO `configuracion` (`id`, `nit`, `nombre`, `razon_social`, `telefono`,`email`,`direccion`,`iva`) VALUES
+(1, '12345GFRE','LA GRAN EMPRESA DEL NORTE, S.A. DE C.V.', 'SEPSA',999873234,'email@empresa.com.mx','Ave. Los Laureles No. 120 Esq. Con Amado Nervo',12);
 
 DELIMITER |
 CREATE TRIGGER entrada_A_I AFTER INSERT ON producto FOR EACH ROW

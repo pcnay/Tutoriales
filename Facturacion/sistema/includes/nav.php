@@ -52,10 +52,10 @@
 					</li>
 				
 				<li class="principal">
-					<a href="#">Facturas</a>
+					<a href="#"><i class="far fa-file-alt"></i> Ventas</a>
 					<ul>
-						<li><a href="#"><i class="fas fa-plus"></i>Nuevo Factura</a></li>
-						<li><a href="#"><i class="far fa-newspaper"></i>Facturas</a></li>
+						<li><a href="nueva_venta.php"><i class="fas fa-plus"></i>Nueva Venta</a></li>
+						<li><a href="#"><i class="far fa-newspaper"></i>Ventas</a></li>
 					</ul>
 				</li>
 			</ul>

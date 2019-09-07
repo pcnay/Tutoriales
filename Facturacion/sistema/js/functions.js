@@ -170,6 +170,19 @@ $(document).ready(function(){
     // http://192.168.1.79/facturacion/sistema/buscar_producto.php?proveedor=8
     location.href = sistema+'buscar_productos.php?proveedor='+$(this).val();
   });
+
+  // ====== Seccion para la captura de Ventas. ===== //
+
+  // Activa campos para registrar clientes en la captura de Ventas.
+  $('.btn_new_cliente').click(function(e)
+  {
+    e.preventDefault();
+    $('#nom_cliente').removeAttr('disabled'); // Elimina el "disabled" de la etiqueta 
+    $('#tel_cliente').removeAttr('disabled');
+    $('#dir_cliente').removeAttr('disabled');
+    // Mostrar el boton "Guardar" ya que por defecto esta oculto este boton.
+    $('#div_registro_cliente').slideDown(); 
+  });
  
 }); // $(document).ready(function(){
 
