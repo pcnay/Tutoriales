@@ -498,10 +498,12 @@ INSERT INTO `usuario` (`idusuario`, `nombre`,`correo`,`usuario`,`clave`,`rol`) V
 (3, 'Rosalia','rosalia@correo.com','vendedor',MD5('123'),3);
 
 INSERT INTO `cliente` (`idcliente`, `nit`, `nombre`, `telefono`, `direccion`,`usuario_id`) VALUES
-(1, 'nit-012345', 'Nombre Cliente 1', 0293982, 'Direccion Cliente 1',1),
-(2, 'nit-0123456', 'Nombre Cliente 2', 021232, 'Direccion Cliente 2',2),
-(3, 'nit-01234567', 'Nombre Cliente 3', 2123982, 'Direccion Cliente 3',1);
-
+(1, 12345, 'Nombre Cliente 1', 0293982, 'Direccion Cliente 1',1),
+(2, 123456, 'Nombre Cliente 2', 021232, 'Direccion Cliente 2',2),
+(3, 1234567, 'Nombre Cliente 3', 2123982, 'Direccion Cliente 3',1),
+(4, 123, 'Nombre Cliente 4', 444444, 'Direccion Cliente 4',1),
+(5, 12340, 'Nombre Cliente 5', 55555, 'Direccion Cliente 5',1),
+(6, 1212, 'Nombre Cliente 6', 66666, 'Direccion Cliente 6',1);
 
 INSERT INTO `proveedor` (`codproveedor`, `proveedor`, `contacto`, `telefono`, `direccion`,`usuario_id`) VALUES
 (1, 'BIC', 'Claudia Rosales', 789877889, 'Avenida las Americas',1),

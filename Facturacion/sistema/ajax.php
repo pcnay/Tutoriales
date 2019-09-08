@@ -77,6 +77,7 @@
     
     if ($_POST['action'] == 'delProduct')
     {
+
       // Probar que ingresa a esta condicion
       // 'producto_id' viene desde "$('.del_product').click(function(e)" cuando se hace click en el boton de "Eliminar"
       if (empty($_POST['producto_id']) || !is_numeric($_POST['producto_id']))
@@ -104,9 +105,85 @@
       
       } // if (empty($_POST['product_id']) || is_numeric($_POST['product_id']))
       //echo "Error";
-    
+
+      exit;
     } // if ($_POST['action'] == 'delProduct')
-    exit;
+    
+    // Buscar Cliente viene desde la ventana de Ventas.
+    if ($_POST['action'] == 'searchCliente')
+    {
+      // Para comprobar si esta ejecutando la condición , en al pagina de "Ventas" se hace click derecho y Inspeccionar Elemento, -> Console.
+      //print_r($_POST); // Muestra el contenido de la esta variable global.
+      // [action] => searchCliente
+      //[cliente] => "d5" Lo que esta teclando en el campo "nit_cliente", cada vez que se oprime una tecla va cambiando.
+
+      //echo "Buscar cliente";
+      //exit;
+      // Este valor viene desde el campo "nit_cliente" en el arreglo que es enviado desde el $.ajax({ .......})
+      //  [action] => searchCliente
+      //  [cliente] => "d5"
+      if (!empty($_POST['cliente']))
+      {
+        $nit = $_POST['cliente'];
+        // LIKE = Se realiza una busqueda en base a la variable "nit" 
+        $query = mysqli_query($conexion,"SELECT * FROM cliente WHERE nit LIKE '$nit' AND estatus = 1");
+        mysqli_close($conextion);
+        $result = mysqli_num_rows($query);
+
+        $data = '';
+        if($result > 0)
+        {
+          $data = mysqli_fetch_assoc($query);
+        }
+        else
+        {
+          $data = 0;
+        }
+        // Decodifica a formato JSon y las tildes las maneje como texto.
+        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+      }
+      exit;
+
+    } // if ($_POST['action'] == 'searchCliente')
+
+    // Grabar Cliente desde el Modulo de Ventas.
+    // 'addCliente' es un input de la form "form_new_cliente_venta" del Modulo de Ventas.
+    if ($_POST['action'] == 'addCliente')
+    {
+      //print_r($_POST);
+        /* Muestra los datos en Console del Navegador 
+        [action] => addCliente
+        [idcliente] => 
+        [nit_cliente] => 1212
+        [nom_cliente] => juean
+        [tel_cliente] => 8392839
+        [dir_cliente] => kasjdlakdladsl
+        */
+      //exit;
+      $nit = $_POST['nit_cliente'];
+      $nombre = $_POST['nom_cliente'];
+      $telefono = $_POST['tel_cliente'];
+      $direccion = $_POST['dir_cliente'];
+      $usuario_id = $_SESSION['idUser'];
+
+      $query_insert = mysqli_query($conexion,"INSERT INTO cliente (nit,nombre,telefono,direccion,usuario_id) VALUES($nit,'$nombre',$telefono,'$direccion',$usuario_id)");
+      // El resto de los campos estan definidos con valores por default.
+
+      if ($query_insert)
+      {
+        $codCliente = mysqli_insert_id($conexion); // Extrae el "id" (lo genera de forma consecutiva) del cliente
+        $msg = $codCliente;
+      }
+      else
+      {
+        $msg = 'error';
+      }
+      
+      mysqli_close($conexion);
+      echo $msg;
+      exit;
+       
+    }
 
   } // if (!empty($_POST))
   //exit;

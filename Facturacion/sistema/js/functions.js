@@ -184,6 +184,101 @@ $(document).ready(function(){
     $('#div_registro_cliente').slideDown(); 
   });
  
+  // Buscar cliente desde la seccion de "clientes" (donde se captura el NIT) de Ventas.
+  // Cuando se oprima una tecla ejecutara lo que contiene la función.
+  $('#nit_cliente').keyup(function(e)
+  {
+    e.preventDefault(); // Evitar que se autorecargue.
+    var cl = $(this).val(); // Extrae el valor del campo "nit_cliente"
+    var action = 'searchCliente';
+    $.ajax
+    ({
+      url:'ajax.php',
+      type:"POST",
+      async:true,
+      data:{action:action,cliente:cl},
+
+      // Lo que retorna el la ejecucion del archivo "Ajax.php"
+      success: function(response)
+      {
+        // console.log(response);
+        if (response == 0) // No existe cliente
+        {
+          $('#idcliente').val('');
+          $('#nom_cliente').val('');
+          $('#tel_cliente').val('');
+          $('#dir_cliente').val('');
+          // Mostrar boton Agregar
+          $('.btn_new_cliente').slideDown();          
+        }
+        else
+        {
+          var data = $.parseJSON(response); // esta convirtiendo a un formato JSON
+          $('#idcliente').val(data.idcliente);
+          $('#nom_cliente').val(data.nombre);
+          $('#tel_cliente').val(data.telefono);
+          $('#dir_cliente').val(data.direccion);
+          // Ocultar el boton de Agregar.
+          $('.btn_new_cliente').slideUp();
+          
+          // Inhabilitar Campos
+          $('#nom_cliente').attr('disabled','disabled');
+          $('#tel_cliente').attr('disabled','disabled');
+          $('#dir_cliente').attr('disabled','disabled');
+
+          // Ocultar el boton de Guardar
+          $('#div_registro_cliente').slideUp();
+        }
+
+
+      },
+      error:function(error)
+      {
+
+      }
+    });
+
+  }); // $('#nit_cliente').keyup(function(e)
+
+  // Crear Cliente desde el modulo de Ventas.
+  $('#form_new_cliente_venta').submit(function(e)
+  {
+    e.preventDefault();
+    $.ajax
+    ({
+      url:'ajax.php',
+      type:"POST",
+      async:true,
+      data:$('#form_new_cliente_venta').serialize(), // Se envian los input del formulario con una sola linea.
+
+
+      // Lo que retorna el la ejecucion del archivo "Ajax.php"
+      success: function(response)
+      {
+        if (response != 'error')
+        {
+          // Se utiliza para verificar que retorna.
+          // console.log(response);
+          $('#idcliente').val(response); // Obtiene el valor del "id" del Cliente
+          $('#nom_cliente').attr('disabled','disabled'); // inhabilita la etiqueta 
+          $('#tel_cliente').attr('disabled','disabled');
+          $('#dir_cliente').attr('disabled','disabled');
+
+          // Oculta el boton "Agregar"        
+          $('.btn_new_cliente').slideUp();
+          // Oculta el boton "Guardar"        
+          $('#div_registro_cliente').slideUp();
+        }
+      },
+      error: function(error)
+      {
+
+      }
+
+    });
+
+  });
+
 }); // $(document).ready(function(){
 
 // Obtiene la URL del Proyecto
