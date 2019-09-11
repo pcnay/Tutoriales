@@ -12,7 +12,7 @@
     {
       //Extraer los datos del producto, para que los despliegue en la ventana Modal.
       $producto_id = $_POST['producto'];
-      $query = mysqli_query($conexion,"SELECT codproducto,descripcion FROM producto WHERE codproducto = $producto_id AND estatus = 1");
+      $query = mysqli_query($conexion,"SELECT codproducto,descripcion,existencia,precio FROM producto WHERE codproducto = $producto_id AND estatus = 1");
       mysqli_close($conexion);
 
       $result = mysqli_num_rows($query);
@@ -20,10 +20,10 @@
       {
         $data = mysqli_fetch_assoc($query);
         // el arreglo "$data" se devuelve en formato JSON y los caracteres raros tildes los pasa a textos, 
-        echo json_encode($data,JSON_UNESCAPED_UNICODE);
+        echo json_encode($data,JSON_UNESCAPED_UNICODE); // Retorna a "Functions.js"  si no hay error
         exit;
       }
-      echo 'error';
+      echo 'error'; // Retorna a "Functions.js"  si hay error
       exit;
     }
 

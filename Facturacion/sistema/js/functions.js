@@ -277,7 +277,96 @@ $(document).ready(function(){
 
     });
 
+  }); // $('#form_new_cliente_venta').submit(function(e)
+
+  // Buscar producto desde la ventana de Ventas
+  // <td><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
+  $('#txt_cod_producto').keyup(function(e)
+  {
+    e.preventDefault();
+    // Este valor proviene de la etiqueta : <td><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td> del archivo "nueva_venta.php"
+    var producto = $(this).val();
+    var action = 'infoProducto';
+    if (producto != '')
+    {
+      $.ajax
+      ({
+        url:'ajax.php',
+        type:"POST",
+        async:true,
+        // action1:action (action1 = Variable, action = contenido)
+        // producto1:producto (producto1 = Variable, producto = contenido)
+        data:{action:action,producto:producto},
+  
+  
+        // Lo que retorna el la ejecucion del archivo "Ajax.php"
+        success: function(response)
+        {
+          // Se utiliza para retornar el mensaje a la console de "Inspeccionar" en el navegador.
+          // console.log(response);  
+          if (response != 'error')
+          {
+            var info = JSON.parse(response); // Parse el valor JSON a objeto.
+            // Estos campos se encuentran en la seccion de "Productos" de la pantalla "Ventas", se asigna el valor desde el objeto que se convirtio desde JSON.
+            $('#txt_descripcion').html(info.descripcion);
+            $('#txt_existencia').html(info.existencia);
+            $('#txt_cant_producto').val('1');
+            $('#txt_precio').html(info.precio);
+            $('#txt_precio_total').html(info.precio);
+            // Activar cantidad
+            $('#txt_cant_producto').removeAttr('disabled');
+            // Ocultar boton Agregar 
+            $('#add_product_venta').slideDown();
+          }
+          else
+          {
+            $('#txt_descripcion').html('-');
+            $('#txt_existencia').html('-');
+            $('#txt_cant_producto').val('0');
+            $('#txt_precio').html('0.00');
+            $('#txt_precio_total').html('0.00');
+            // Bloquear "Cantidad"
+            $('#txt_cant_producto').attr('disabled','disabled');
+            // Ocultar boton Agregar 
+            $('#add_product_venta').slideUp();
+
+          } // if (response != 'error')
+
+        },
+        error: function(error)
+        {
+  
+        }
+  
+      }); // $.ajax
+
+    } //  if (producto != '')
+
+  }); // $('#txt_cod_producto').keyup(function(e)
+
+  // Validar "Cantidad" del producto antes de agregar.
+  $('#txt_cant_producto').keyup(function(e)
+  {
+    e.preventDefault();
+    // $(this).val() = Etiqueta "Cant" de la pantalla de Venta
+    // #txt_precio.html() = El contenido de la etiqueta.
+    var precio_total = $(this).val()*$('#txt_precio').html();
+    $('#txt_precio_total').html(precio_total);
+
+    //Ocultar el boton agregar si la cantidad es menor que 1
+    // isNaN = No es un numero, y valida el campo "Cant"
+    if ($(this).val() < 1 || isNaN ($(this).val()))
+    {
+      // Oculta el boton de agregar.
+      $('#add_product_venta').slideUp();      
+    }
+    else
+    {
+      $('#add_product_venta').slideDown();
+    }
+
   });
+  
 
 }); // $(document).ready(function(){
 
