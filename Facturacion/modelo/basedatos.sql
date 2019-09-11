@@ -66,6 +66,7 @@ INSERT INTO `producto` (`codproducto`, `descripcion`, `proveedor`, `precio`, `ex
 =================================================================================
 PROCEDIMIENTOS ALMACENADOS
 Por defecto estos son asociados a la base de datos actual. 
+En una terminal de MySQL se ejecuta "proc_name (parametro1, parametro2, ...)
 CALL proc_name;
 DROP PROCEDURE IF EXISTS names;
 SHOW CREATE PROCEDURE proc_name;
@@ -174,7 +175,7 @@ CREATE TABLE `detalle_temp` (
   `token_user` varchar(50) NOT NULL,
   `codproducto` int(11) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `preciototal` decimal(10,2) NOT NULL
+  `precio_venta` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -536,7 +537,32 @@ INSERT INTO `producto` (`codproducto`, `descripcion`, `proveedor`, `precio`, `ex
 (2, 'Descripcion Producto 2',3,100,4,1,'foto-2.jpg'),
 (3, 'Descripcion Producto 3',2,90,6,3,'foto-3.jpg');
 
-/* ==============================================================================*/
+/* 
+
+=================================================================================
+PROCEDIMIENTOS ALMACENADOS
+Por defecto estos son asociados a la base de datos actual. 
+En una terminal de MySQL se ejecuta "proc_name (parametro1, parametro2, ...)"
+CALL proc_name (Parametro1, Parametro2, ....);
+DROP PROCEDURE IF EXISTS names;
+SHOW CREATE PROCEDURE proc_name;
+SHOW PROCEDURE STATUS LIKE 'actualizar_precio_producto' \G;
+*************************** 1. row ***************************
+                  Db: facturacion
+                Name: actualizar_precio_producto
+                Type: PROCEDURE
+             Definer: root@localhost
+            Modified: 2019-08-29 19:23:40
+             Created: 2019-08-29 19:23:40
+       Security_type: DEFINER
+             Comment:
+character_set_client: utf8
+collation_connection: utf8_general_ci
+  Database Collation: latin1_swedish_ci
+1 row in set (0.003 sec)
+
+ALTER PROCEDURE proc_name;
+*/
 
 DELIMITER $$
   CREATE PROCEDURE actualizar_precio_producto(n_cantidad int, n_precio decimal(10,2), codigo int)
@@ -561,6 +587,26 @@ DELIMITER $$
     SELECT nueva_existencia,nuevo_precio;
   END;$$
 DELIMITER ;
+
+/* Procedimiento Almacenado para grabar información de la tabla "detalle_temp" a la tabla "detallefactura"*/
+DELIMITER $$
+  CREATE PROCEDURE add_detalle_temp(codigo int, cantidad int, token_user varchar(50))
+  BEGIN
+    DECLARE precio_actual decimal(10,2);
+    
+    SELECT precio INTO precio_actual FROM producto WHERE codproducto = codigo;
+
+    INSERT INTO detalle_temp(token_user,codproducto,cantidad,precio_venta) VALUES (token_user,codigo,cantidad,precio_actual);
+
+    SELECT tmp.correlativo,tmp.codproducto,p.descripcion,tmp.cantidad,tmp.precio_venta FROM detalle_temp tmp
+    INNER JOIN producto p
+    ON tmp.codproducto = p.codproducto
+    WHERE tmp.token_user = token_user;
+    /* Con este "Where" solo seleccionara los usuarios del sistema(Administrador, Supervisor, Vendedor) que realizaron esta Venta.*/
+    
+  END;$$
+DELIMITER ;
+ 
 
 COMMIT;
 

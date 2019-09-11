@@ -351,11 +351,15 @@ $(document).ready(function(){
     // $(this).val() = Etiqueta "Cant" de la pantalla de Venta
     // #txt_precio.html() = El contenido de la etiqueta.
     var precio_total = $(this).val()*$('#txt_precio').html();
+    // Obtiene el valor de la celda de la tabla y la convierte a Entero.
+    var existencia = parseInt($('#txt_existencia').html());
     $('#txt_precio_total').html(precio_total);
+
 
     //Ocultar el boton agregar si la cantidad es menor que 1
     // isNaN = No es un numero, y valida el campo "Cant"
-    if ($(this).val() < 1 || isNaN ($(this).val()))
+    // Valida que no se venda mas de lo que se tiene en existencia.
+    if ( ($(this).val() < 1 || isNaN ($(this).val())) || ($(this).val() > existencia) ) 
     {
       // Oculta el boton de agregar.
       $('#add_product_venta').slideUp();      

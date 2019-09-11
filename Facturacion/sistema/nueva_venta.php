@@ -2,6 +2,7 @@
   // Para que solo se ve este archivo "nueva_venta.php" solo cuando este iniciada la session
   session_start();
   include "../conexion.php";
+  echo md5($_SESSION['idUser']);
 ?>
 
 <!DOCTYPE html>
