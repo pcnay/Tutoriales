@@ -433,8 +433,46 @@ $(document).ready(function(){
     } // if ($('#txt_cant_producto').val() > 0)
 
   }); // $('#add_product_venta').click(function(e)
-  
+ 
+  // Anular Venta.
+ // nueva_venta.php -> <div class="dato_venta"> -> #btn_anular_venta
+ $('#btn_anular_venta').click(function(e){
+  e.preventDefault();
 
+  //// Accesa a la Form "detalle_venta", nueva_venta.php -> <tbody id="detalle_venta">, accesa a los renglones "tr", lo que determina que si tiene registros el detalle de la venta, cuando es mayor a 0.
+  var rows = $('#detalle_venta tr').length;
+
+  if (rows > 0)
+  {
+    var action = 'anularVenta';
+    $.ajax
+    ({
+      url:'ajax.php',
+      type:"POST",
+      async:true,
+      data:{action:action},
+
+      success: function(response)
+      {
+        //console.log(response);
+        if (response != 'error')
+        {
+          // Recarga toda la página
+          location.reload();
+        }
+      },
+      error:function(error)
+      {
+       
+      }
+
+    }); // $.ajax
+
+  }
+
+}); // $('#btn_anular_venta').click(function(e){
+
+ 
 }); // $(document).ready(function(){
 
 

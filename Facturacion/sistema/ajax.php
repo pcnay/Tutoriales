@@ -510,7 +510,23 @@
 
 
     } // if ($_POST['action'] == 'delProductoDetalle')
-    
+   
+    // Anular Venta, ejecutado en el Ajax.
+    if ($_POST['action'] == 'anularVenta')
+    {
+      $token = md5($_SESSION['idUser']); // se encripta id usuario para determinar cual usuario esta actualmente.
+      $query_del = mysqli_query($conexion,"DELETE FROM detalle_temp WHERE token_user = '$token'");
+      mysqli_close($conexion);
+      if ($query_del)
+      {
+        echo 'ok';
+      }
+      else
+      {
+        echo 'error';
+      }
+      exit;
+    }
 
   } // if (!empty($_POST))
   exit;
