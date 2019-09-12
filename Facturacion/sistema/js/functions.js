@@ -419,6 +419,8 @@ $(document).ready(function(){
           {
             console.log('NO datos');
           }
+          // Para que cada vez que agrege un registro, se muestre el boton de "Procesar"
+          viewProcesar();
 
         },
         error: function(error)
@@ -569,6 +571,7 @@ function searchForDetalle(id)
       {
         console.log('NO datos');
       }
+      viewProcesar();
 
     },
     error: function(error)
@@ -580,6 +583,81 @@ function searchForDetalle(id)
 
 
 } // function searchForDetalle(id)
+
+// Esta funcion es llamada desdel el archivo "ajax.php"->$detalleTabla .=
+function del_product_detalle(correlativo)
+{
+  var action = 'delProductoDetalle';
+  var id_detalle = correlativo;
+
+  $.ajax
+  ({
+    url:'ajax.php',
+    type:"POST",
+    async:true,
+    data:{action:action,id_detalle:id_detalle},  
+    
+
+    success: function(response)
+    {
+      // Se utiliza para retornar el mensaje a la console de "Inspeccionar" en el navegador.
+      //console.log(response);  
+      if(response != 'error')
+      {
+        //Convirtiendo a formato JSON
+        var info = JSON.parse(response);        
+        // Asignando información del Objeto creado a las etiquetas de la "form"
+        //console.log(info); 
+        // Son del archivo "nueva_venta.php" 
+        // <tbody id="detalle_venta"> ...
+        // <tfoot id="detalle_totales">
+        $('#detalle_venta').html(info.detalle);
+        $('#detalle_totales').html(info.totales);
+        // Una vez que se agregan los productos al detalle de venta, se tienen que limpiar los campos donde se capturan los productos.
+        $('#txt_cod_producto').val(''); // Etiqueta "input"
+        $('#txt_descripcion').html('-'); // Etiqueta "Label"
+        $('#txt_existencia').html('-'); // Etiqueta "Label"
+        $('#txt_cant_producto').val('0'); // Etiqueta "input"
+        $('#txt_precio').html('0.00'); // Etiqueta "Label"
+        $('#txt_precio_total').html('0.00'); // Etiqueta "Label"
+        // Bloquear Cantidad
+        $('#txt_cant_producto').attr('disabled','disabled'); 
+        // Ocultar el boton Agregar
+        $('#add_product_venta').slideUp(); 
+      
+      }
+      else
+      {
+        $('#detalle_venta').html('');
+        $('#detalle_totales').html('');
+
+      } // if(response != 'error')
+      viewProcesar();
+       
+    },
+    error: function(error)
+    {
+
+    }
+
+  }); // $.ajax
+
+} // function del_product_detalle(correlativo)
+
+// Cuando no se tengan regitros en el detalle de la venta, se oculta el boton de "Procesar"
+function viewProcesar()
+{
+  //// Accesa a la Form "detalle_venta", nueva_venta.php -> <tbody id="detalle_venta">, accesa a los renglones "tr", lo que determina que si tiene registros el detalle de la venta, cuando es mayor a 0.
+
+  if($('#detalle_venta tr').length >0)
+  {
+    $('#btn_facturar_venta').show();
+  }
+  else
+  {
+    $('#btn_facturar_venta').hide();
+  }
+}
 
 // Cerrar la ventana Modal de Insertar Producto.
 function closeModal()

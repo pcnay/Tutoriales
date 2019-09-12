@@ -248,7 +248,7 @@
                   <td class="textright">'.$data['precio_venta'].'</td>
                   <td class="textright">'.$precioTotal.'</td>
                   <td class="">
-                    <a class ="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['codproducto'].');"><i class="far fa-trash-alt"></i></a>
+                    <a class ="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['correlativo'].');"><i class="far fa-trash-alt"></i></a>
                   </td>
                 </tr> ';
 
@@ -293,8 +293,7 @@
 
     } // if ($_POST['action'] == 'addProductoDetalle')
 
-
-    // Mostrando los detalles_temp de la venta actual
+    // Mostrando los detalles_temp de la venta actual, cuando el usuario cierre o se cambie de ventana.
     if ($_POST['action'] == 'searchForDetalle')
     {
         //print_r($_POST);
@@ -357,7 +356,7 @@
                   <td class="textright">'.$data['precio_venta'].'</td>
                   <td class="textright">'.$precioTotal.'</td>
                   <td class="">
-                    <a class ="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['codproducto'].');"><i class="far fa-trash-alt"></i></a>
+                    <a class ="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['correlativo'].');"><i class="far fa-trash-alt"></i></a>
                   </td>
                 </tr> ';
 
@@ -402,6 +401,116 @@
 
     } // if ($_POST['action'] == 'searchForDetalle')
 
+    // Borrar registros de la tabla de Detalle de las Ventas, esta archivo viene desde "functions.js" -> function del_product_detalle(correlativo)...
+    // Que es llamado  a través del Ajax.
+    if ($_POST['action'] == 'delProductoDetalle')
+    {
+        // print_r($_POST);exit;
+        /* Muestra los datos en Console del Navegador, en conjunto con esta instrucción 
+        Array
+          (
+            [action] => delProductoDetalle
+            [id_detalle] => 3
+          )
+        */
+
+        if (empty($_POST['id_detalle']))
+        {
+          // Se utiliza para validar en la seccion "successe" el valor que retorno
+          echo 'error';
+        }
+        else
+        {
+          $id_detalle = $_POST['id_detalle']; // Es el correlativo de detalle de venta.
+          $token = md5($_SESSION['idUser']); // encriptando el "Id" del usuario.
+
+          $query_iva = mysqli_query($conexion,"SELECT iva FROM configuracion");
+          $result_iva = mysqli_num_rows($query_iva);
+
+          $query_detalle_temp = mysqli_query($conexion,"CALL del_detalle_temp($id_detalle,'$token')");
+          $result = mysqli_num_rows($query_detalle_temp);
+
+
+          $detalleTabla = '';
+          $sub_total = 0;
+          $iva = 0;
+          $total = 0;
+          $arrayData = array();
+
+          if ($result > 0)
+          {
+            if ($result_iva > 0)
+            {
+              $info_iva = mysqli_fetch_assoc($query_iva);
+              $iva = $info_iva['iva'];
+
+            } // if ($result_iva > 0
+
+            // Calculando el precio total del detalle de cada fila que se esta agregando a la nota de venta.
+            // Este query "$query_detalle_temp" se creo con el Procedimiento Almacenado
+            while ($data = mysqli_fetch_assoc($query_detalle_temp))
+            {
+              $precioTotal = round($data['cantidad']*$data['precio_venta'],2);
+              $sub_total = round($sub_total+$precioTotal,2);
+              $total = round($total+$precioTotal,2);
+
+              // Para desplegar los renglones de los productos agregados al detalla de la venta se utilizará "Ajax". 
+              $detalleTabla .= ' 
+                <tr>
+                  <td>'.$data['codproducto'].'</td>
+                  <td colspan="2">'.$data['descripcion'].'</td>
+                  <td class="textcenter">'.$data['cantidad'].'</td>
+                  <td class="textright">'.$data['precio_venta'].'</td>
+                  <td class="textright">'.$precioTotal.'</td>
+                  <td class="">
+                    <a class ="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['correlativo'].');"><i class="far fa-trash-alt"></i></a>
+                  </td>
+                </tr> ';
+
+            } // while ($data = mysqli_fetch_assoc($query_detalle_temp))
+
+            // Se calcula el total de la Venta.
+            $impuesto = round($sub_total*($iva/100),2);
+            $tl_sniva = round($sub_total-$impuesto,2);
+            $total = round($tl_sniva+$impuesto,2);
+
+            $detalleTotales = '                     
+              <tr>
+                <td colspan="5" class="textright">SUBTOTAL $.</td>
+                <td class= "textright">'.$tl_sniva.'</td>
+              </tr>
+              <tr>
+                <td colspan="5" class="textright">IVA ('.$iva.' %)</td>
+                <td class= "textright">'.$impuesto.'</td>
+              </tr>
+              <tr>
+                <td colspan="5" class="textright">TOTAL $</td>
+                <td class= "textright">'.$total.'</td>
+              </tr>';
+               
+              $arrayData['detalle'] = $detalleTabla;
+              $arrayData['totales'] = $detalleTotales;
+
+              // Retornando el este arreglo para Ajax, en Function.js "$('#add_product_venta').click(function(e)" 
+              // Se retorna en formato "JSON" y con "JSON_UNESCAPED.." la convierta las tildes en forma normal, posteriormente se convierte a Objeto.       
+              echo json_encode($arrayData,JSON_UNESCAPED_UNICODE);
+              // Este valor es el que retorna a la llamada del Ajax y lo interpreta la seccion "successe" 
+
+          } // if ($result > 0)
+          else
+          {
+            echo "error";
+          }
+          mysqli_close($conexion);
+
+        } // if (empty($_POST['producto']) || empty($_POST['cantidad']))
+        exit;
+
+
+
+
+    } // if ($_POST['action'] == 'delProductoDetalle')
+    
 
   } // if (!empty($_POST))
   exit;

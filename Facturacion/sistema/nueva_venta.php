@@ -1,8 +1,7 @@
 <?php
   // Para que solo se ve este archivo "nueva_venta.php" solo cuando este iniciada la session
-  session_start();
   include "../conexion.php";
-  
+  session_start();
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +62,7 @@
               <label>Acciones</label>
               <div id="acciones_venta">
                 <a href="#" class="btn_ok textcenter" id="btn_anular_venta"><i class="fas fa-ban"></i> Anular</a>
-                <a href="#" class="btn_new textcenter" id="btn_facturar_venta"><i class="far fa-edit"></i> Procesar</a>
+                <a href="#" class="btn_new textcenter" id="btn_facturar_venta" style="display:none;"><i class="far fa-edit"></i> Procesar</a>
               </div>
             </div>
           </div>

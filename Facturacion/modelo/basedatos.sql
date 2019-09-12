@@ -588,7 +588,7 @@ DELIMITER $$
   END;$$
 DELIMITER ;
 
-/* Procedimiento Almacenado para grabar información de la tabla "detalle_temp" a la tabla "detallefactura"*/
+/* Procedimiento Almacenado para grabar información a la tabla "detalle_temp" e extraer información de la misma con relación de otra tabla"*/
 DELIMITER $$
   CREATE PROCEDURE add_detalle_temp(codigo int, cantidad int, token_user varchar(50))
   BEGIN
@@ -606,7 +606,24 @@ DELIMITER $$
     
   END;$$
 DELIMITER ;
- 
+
+/* Procedimiento Almacenado para borrar registro de la tabla "detalle_temp" 
+  Una vez que borra el registro, realiza una consulta para refrescar los registros del detalle de la venta ("detalle_temp")
+*/
+DELIMITER $$
+  CREATE PROCEDURE del_detalle_temp(id_detalle int, token varchar(50))
+  BEGIN
+    DELETE FROM detalle_temp WHERE correlativo = id_detalle;
+    
+    SELECT tmp.correlativo,tmp.codproducto,p.descripcion,tmp.cantidad,tmp.precio_venta FROM detalle_temp tmp
+    INNER JOIN producto p
+    ON tmp.codproducto = p.codproducto
+    WHERE tmp.token_user = token;
+    /* Con este "Where" solo seleccionara los usuarios del sistema(Administrador, Supervisor, Vendedor) que realizaron esta Venta.*/
+    
+  END;$$
+DELIMITER ;
+
 
 COMMIT;
 
