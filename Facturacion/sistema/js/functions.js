@@ -303,7 +303,7 @@ $(document).ready(function(){
         success: function(response)
         {
           // Se utiliza para retornar el mensaje a la console de "Inspeccionar" en el navegador.
-          // console.log(response);  
+           //console.log(response);  
           if (response != 'error')
           {
             var info = JSON.parse(response); // Parse el valor JSON a objeto.
@@ -371,8 +371,70 @@ $(document).ready(function(){
 
   });
   
+  // Se agregan productos a la tabla Detalle Temporal 
+  $('#add_product_venta').click(function(e)
+  {
+    e.preventDefault();
+    if ($('#txt_cant_producto').val() > 0)
+    {
+      var codproducto = $('#txt_cod_producto').val();
+      var cantidad = $('#txt_cant_producto').val();
+      var action = 'addProductoDetalle';
+
+      $.ajax
+      ({
+        url:'ajax.php',
+        type:"POST",
+        async:true,
+        data:{action:action,producto:codproducto,cantidad:cantidad},  
+        // Lo que retorna el la ejecucion del archivo "Ajax.php" en lo referente al evento "click" de "$('#add_product_venta').click(function(e)"
+        success: function(response)
+        {
+          // Se utiliza para retornar el mensaje a la console de "Inspeccionar" en el navegador.
+          // console.log(response);  
+          if (response != 'error')
+          {
+            // Convirtiendo el arreglo JSON que se retorno en "Ajax.php" para Objeto de JavaScript.
+            var info = JSON.parse(response);
+            // Asignando información del Objeto creado a las etiquetas de la "form"
+            //console.log(info); 
+            // Son del archivo "nueva_venta.php" 
+            // <tbody id="detalle_venta"> ...
+            // <tfoot id="detalle_totales">
+            $('#detalle_venta').html(info.detalle);
+            $('#detalle_totales').html(info.totales);
+            // Una vez que se agregan los productos al detalle de venta, se tienen que limpiar los campos donde se capturan los productos.
+            $('#txt_cod_producto').val(''); // Etiqueta "input"
+            $('#txt_descripcion').html('-'); // Etiqueta "Label"
+            $('#txt_existencia').html('-'); // Etiqueta "Label"
+            $('#txt_cant_producto').val('0'); // Etiqueta "input"
+            $('#txt_precio').html('0.00'); // Etiqueta "Label"
+            $('#txt_precio_total').html('0.00'); // Etiqueta "Label"
+            // Bloquear Cantidad
+            $('#txt_cant_producto').attr('disabled','disabled'); 
+            // Ocultar el boton Agregar
+            $('#add_product_venta').slideUp(); 
+          } 
+          else
+          {
+            console.log('NO datos');
+          }
+
+        },
+        error: function(error)
+        {
+  
+        }
+  
+      }); // $.ajax
+
+    } // if ($('#txt_cant_producto').val() > 0)
+
+  }); // $('#add_product_venta').click(function(e)
+  
 
 }); // $(document).ready(function(){
+
 
 // Obtiene la URL del Proyecto
 function getUrl()
@@ -473,9 +535,51 @@ function delProduct()
 
 }
 
+// Se utiliza para obtener los detalles de la Venta, utilizando el "Id" del Usuario del Sistema ("Admin, Supervisor, Vendedor, etc"), para cuando el vendedor se pasa a otra ventana, y después regresa se mantiene los productos en detalle de Venta, además se garantiza que el vendedor solo puede realizar una venta a la vez.
+function searchForDetalle(id)
+{
+  var action = 'searchForDetalle';
+  var user = id;
+
+  $.ajax
+  ({
+    url:'ajax.php',
+    type:"POST",
+    async:true,
+    data:{action:action,user:user},  
+    // Esta funcion es llamada desdel el archivo "nueva_venta.php"
+
+    success: function(response)
+    {
+      // Se utiliza para retornar el mensaje a la console de "Inspeccionar" en el navegador.
+      //console.log(response);  
+      if (response != 'error')
+      {
+        // Convirtiendo el arreglo JSON que se retorno en "Ajax.php" para Objeto de JavaScript.
+        var info = JSON.parse(response);
+        // Asignando información del Objeto creado a las etiquetas de la "form"
+        //console.log(info); 
+        // Son del archivo "nueva_venta.php" 
+        // <tbody id="detalle_venta"> ...
+        // <tfoot id="detalle_totales">
+        $('#detalle_venta').html(info.detalle);
+        $('#detalle_totales').html(info.totales);
+      }  
+      else
+      {
+        console.log('NO datos');
+      }
+
+    },
+    error: function(error)
+    {
+
+    }
+
+  }); // $.ajax
 
 
-
+} // function searchForDetalle(id)
 
 // Cerrar la ventana Modal de Insertar Producto.
 function closeModal()

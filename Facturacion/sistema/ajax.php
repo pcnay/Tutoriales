@@ -185,6 +185,224 @@
        
     }
 
+    // Agregando productos al detalle de la Venta.
+    if ($_POST['action'] == 'addProductoDetalle')
+    {
+        //print_r($_POST);
+        /* Muestra los datos en Console del Navegador 
+          [action] => addProductoDetalle
+          [producto] => 2
+          [cantidad] => 3
+        */
+        if (empty($_POST['producto']) || empty($_POST['cantidad']))
+        {
+          // Se utiliza para validar en la seccion "successe" el valor que retorno
+          echo 'error';
+        }
+        else
+        {
+          $codproducto = $_POST['producto'];
+          $cantidad = $_POST['cantidad'];
+          $token = md5($_SESSION['idUser']); // encriptando el "Id" del usuario.
+
+          $query_iva = mysqli_query($conexion,"SELECT iva FROM configuracion");
+          $result_iva = mysqli_num_rows($query_iva);
+
+          // Grabando registros a la tabla de "detelle_temp" con el Procedimiento Almacenado, ademas esta retornando los registros que tiene la tabla de "detalle_temp"
+          $query_detalle_temp = mysqli_query($conexion,"CALL add_detalle_temp($codproducto,$cantidad,'$token')");
+          $result = mysqli_num_rows($query_detalle_temp);
+
+          $detalleTabla = '';
+          $sub_total = 0;
+          $iva = 0;
+          $total = 0;
+          $arrayData = array();
+
+          // Verificar que si esta obteniendo el número de registros de la tabla "detalle_temp", en el archivo "functions.js" ->$('#add_product_venta').click(function(e)->Success -> console.log(response);  
+          // print_r ($result);
+          // exit;
+
+          if ($result > 0)
+          {
+            if ($result_iva > 0)
+            {
+              $info_iva = mysqli_fetch_assoc($query_iva);
+              $iva = $info_iva['iva'];
+
+            } // if ($result_iva > 0
+
+            // Calculando el precio total del detalle de cada fila que se esta agregando a la nota de venta.
+            // Este query "$query_detalle_temp" se creo con el Procedimiento Almacenado
+            while ($data = mysqli_fetch_assoc($query_detalle_temp))
+            {
+              $precioTotal = round($data['cantidad']*$data['precio_venta'],2);
+              $sub_total = round($sub_total+$precioTotal,2);
+              $total = round($total+$precioTotal,2);
+
+              // Para desplegar los renglones de los productos agregados al detalla de la venta se utilizará "Ajax". 
+              $detalleTabla .= ' 
+                <tr>
+                  <td>'.$data['codproducto'].'</td>
+                  <td colspan="2">'.$data['descripcion'].'</td>
+                  <td class="textcenter">'.$data['cantidad'].'</td>
+                  <td class="textright">'.$data['precio_venta'].'</td>
+                  <td class="textright">'.$precioTotal.'</td>
+                  <td class="">
+                    <a class ="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['codproducto'].');"><i class="far fa-trash-alt"></i></a>
+                  </td>
+                </tr> ';
+
+            } // while ($data = mysqli_fetch_assoc($query_detalle_temp))
+
+            // Se calcula el total de la Venta.
+            $impuesto = round($sub_total*($iva/100),2);
+            $tl_sniva = round($sub_total-$impuesto,2);
+            $total = round($tl_sniva+$impuesto,2);
+
+            $detalleTotales = '                     
+              <tr>
+                <td colspan="5" class="textright">SUBTOTAL $.</td>
+                <td class= "textright">'.$tl_sniva.'</td>
+              </tr>
+              <tr>
+                <td colspan="5" class="textright">IVA ('.$iva.' %)</td>
+                <td class= "textright">'.$impuesto.'</td>
+              </tr>
+              <tr>
+                <td colspan="5" class="textright">TOTAL $</td>
+                <td class= "textright">'.$total.'</td>
+              </tr>';
+               
+              $arrayData['detalle'] = $detalleTabla;
+              $arrayData['totales'] = $detalleTotales;
+
+              // Retornando el este arreglo para Ajax, en Function.js "$('#add_product_venta').click(function(e)" 
+              // Se retorna en formato "JSON" y con "JSON_UNESCAPED.." la convierta las tildes en forma normal, posteriormente se convierte a Objeto.       
+              echo json_encode($arrayData,JSON_UNESCAPED_UNICODE);
+              // Este valor es el que retorna a la llamada del Ajax y lo interpreta la seccion "successe" 
+
+          } // if ($result > 0)
+          else
+          {
+            echo "error";
+          }
+         mysqli_close($conexion);
+
+        } // if (empty($_POST['producto']) || empty($_POST['cantidad']))
+        exit;
+
+    } // if ($_POST['action'] == 'addProductoDetalle')
+
+
+    // Mostrando los detalles_temp de la venta actual
+    if ($_POST['action'] == 'searchForDetalle')
+    {
+        //print_r($_POST);
+        /* Muestra los datos en Console del Navegador 
+          [action] => addProductoDetalle
+          [producto] => 2
+          [cantidad] => 3
+        */
+
+        if (empty($_POST['user']))
+        {
+          // Se utiliza para validar en la seccion "successe" el valor que retorno
+          echo 'error';
+        }
+        else
+        {
+          $token = md5($_SESSION['idUser']); // encriptando el "Id" del usuario.
+
+          $query = mysqli_query($conexion,"SELECT tmp.correlativo,tmp.token_user,tmp.cantidad,tmp.precio_venta,p.codproducto,p.descripcion
+            FROM detalle_temp tmp
+            INNER JOIN producto p
+            ON tmp.codproducto = p.codproducto
+            WHERE token_user = '$token' ");
+
+          $result = mysqli_num_rows($query);
+
+          $query_iva = mysqli_query($conexion,"SELECT iva FROM configuracion");
+          $result_iva = mysqli_num_rows($query_iva);
+
+
+          $detalleTabla = '';
+          $sub_total = 0;
+          $iva = 0;
+          $total = 0;
+          $arrayData = array();
+
+          if ($result > 0)
+          {
+            if ($result_iva > 0)
+            {
+              $info_iva = mysqli_fetch_assoc($query_iva);
+              $iva = $info_iva['iva'];
+
+            } // if ($result_iva > 0
+
+            // Calculando el precio total del detalle de cada fila que se esta agregando a la nota de venta.
+            // Este query "$query_detalle_temp" se creo con el Procedimiento Almacenado
+            while ($data = mysqli_fetch_assoc($query))
+            {
+              $precioTotal = round($data['cantidad']*$data['precio_venta'],2);
+              $sub_total = round($sub_total+$precioTotal,2);
+              $total = round($total+$precioTotal,2);
+
+              // Para desplegar los renglones de los productos agregados al detalla de la venta se utilizará "Ajax". 
+              $detalleTabla .= ' 
+                <tr>
+                  <td>'.$data['codproducto'].'</td>
+                  <td colspan="2">'.$data['descripcion'].'</td>
+                  <td class="textcenter">'.$data['cantidad'].'</td>
+                  <td class="textright">'.$data['precio_venta'].'</td>
+                  <td class="textright">'.$precioTotal.'</td>
+                  <td class="">
+                    <a class ="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle('.$data['codproducto'].');"><i class="far fa-trash-alt"></i></a>
+                  </td>
+                </tr> ';
+
+            } // while ($data = mysqli_fetch_assoc($query_detalle_temp))
+
+            // Se calcula el total de la Venta.
+            $impuesto = round($sub_total*($iva/100),2);
+            $tl_sniva = round($sub_total-$impuesto,2);
+            $total = round($tl_sniva+$impuesto,2);
+
+            $detalleTotales = '                     
+              <tr>
+                <td colspan="5" class="textright">SUBTOTAL $.</td>
+                <td class= "textright">'.$tl_sniva.'</td>
+              </tr>
+              <tr>
+                <td colspan="5" class="textright">IVA ('.$iva.' %)</td>
+                <td class= "textright">'.$impuesto.'</td>
+              </tr>
+              <tr>
+                <td colspan="5" class="textright">TOTAL $</td>
+                <td class= "textright">'.$total.'</td>
+              </tr>';
+               
+              $arrayData['detalle'] = $detalleTabla;
+              $arrayData['totales'] = $detalleTotales;
+
+              // Retornando el este arreglo para Ajax, en Function.js "$('#add_product_venta').click(function(e)" 
+              // Se retorna en formato "JSON" y con "JSON_UNESCAPED.." la convierta las tildes en forma normal, posteriormente se convierte a Objeto.       
+              echo json_encode($arrayData,JSON_UNESCAPED_UNICODE);
+              // Este valor es el que retorna a la llamada del Ajax y lo interpreta la seccion "successe" 
+
+          } // if ($result > 0)
+          else
+          {
+            echo "error";
+          }
+          mysqli_close($conexion);
+
+        } // if (empty($_POST['producto']) || empty($_POST['cantidad']))
+        exit;
+
+    } // if ($_POST['action'] == 'searchForDetalle')
+
+
   } // if (!empty($_POST))
-  //exit;
+  exit;
 ?> 

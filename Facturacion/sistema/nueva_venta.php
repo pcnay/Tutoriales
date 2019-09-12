@@ -2,7 +2,7 @@
   // Para que solo se ve este archivo "nueva_venta.php" solo cuando este iniciada la session
   session_start();
   include "../conexion.php";
-  echo md5($_SESSION['idUser']);
+  
 ?>
 
 <!DOCTYPE html>
@@ -87,6 +87,7 @@
               <td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
               <td id="txt_precio" class="textright">0.00</td>
               <td id="txt_precio_total" class="textright">0.00</td>
+              <!-- Boton para agregar productos al detalle de Venta. -->
               <td><a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar</a></td>
             </tr>
             <tr>
@@ -101,42 +102,12 @@
 
           <!-- Detalle de Factura .-->
           <tbody id="detalle_venta">
-            <tr>
-              <td>1</td>
-              <td colspan="2">Mouse USB</td>
-              <td class="textcenter">1</td>
-              <td class="textright">100.00</td>
-              <td class="textright">100.00</td>
-              <td class="">
-                <a class ="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(1);"><i class="far fa-trash-alt"></i></a>
-              </td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td colspan="2">Teclado USB</td>
-              <td class="textcenter">1</td>
-              <td class="textright">150.00</td>
-              <td class="textright">150.00</td>
-              <td class="">
-                <a class ="link_delete" href="#" onclick="event.preventDefault(); del_product_detalle(1);"><i class="far fa-trash-alt"></i></a>
-              </td>
-            </tr>
-
+            <!-- Esta seccion se desplegara con Ajax. -->
           </tbody>
+
           <!-- Colocar los totales -->
-          <tfoot>
-            <tr>
-              <td colspan="5" class="textright">SUBTOTAL $.</td>
-              <td class= "textright">1000.00</td>
-            </tr>
-            <tr>
-              <td colspan="5" class="textright">IVA (12%)</td>
-              <td class= "textright">12</td>
-            </tr>
-            <tr>
-              <td colspan="5" class="textright">TOTAL $</td>
-              <td class= "textright">1130.00</td>
-            </tr>
+          <tfoot id="detalle_totales">
+            <!-- Contenido desplegado a través de Ajax --> 
 
           </tfoot>
         </table>
@@ -144,5 +115,15 @@
       </section>
     
     <?php include "includes/footer.php";?>
+    <!-- Para mostrar informacion de la Venta, por si el usuario se cambia de ventana recargue lo que lleva capturado. Se ejecuta cuando se haya cargado el archivo ".html"-->
+    
+    <script type ="text/javascript">
+      $(document).ready(function(){
+        var usuarioid = '<?php echo $_SESSION['idUser']; ?>';
+        searchForDetalle(usuarioid);
+
+      });
+    </script>
+
   </body>
 </html>
