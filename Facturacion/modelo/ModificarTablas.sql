@@ -113,7 +113,7 @@ DELIMITER ;
 
 /* Procedimiento Almacenado para borrar registro de la tabla "detalle_temp" 
   Una vez que borra el registro, realiza una consulta para refrescar los registros del detalle de la venta ("detalle_temp")
-*/
+
 DELIMITER $$
   CREATE PROCEDURE del_detalle_temp(id_detalle int, token varchar(50))
   BEGIN
@@ -123,9 +123,79 @@ DELIMITER $$
     INNER JOIN producto p
     ON tmp.codproducto = p.codproducto
     WHERE tmp.token_user = token;
-    /* Con este "Where" solo seleccionara los usuarios del sistema(Administrador, Supervisor, Vendedor) que realizaron esta Venta.*/
+    /* Con este "Where" solo seleccionara los usuarios del sistema(Administrador, Supervisor, Vendedor) que realizaron esta Venta.
     
   END;$$
 DELIMITER ;
+*/
+
+/* Procesar la Venta */ 
+DELIMITER $$
+  CREATE PROCEDURE procesar_venta(cod_usuario int, cod_cliente int, token varchar(50))
+  BEGIN
+    DECLARE factura INT;
+    DECLARE registros INT;
+    DECLARE total DECIMAL(10,2);
+    DECLARE nueva_existencia INT;
+    DECLARE existencia_actual INT;
+    DECLARE tmp_cod_producto INT;
+    DECLARE tmp_cant_producto INT;
+    DECLARE a INT;
+    SET a = 1;
+
+    CREATE TEMPORARY TABLE tbl_tmp_tokenuser
+    (
+      id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+      cod_prod BIGINT,
+      cant_prod INT);
+
+    SET registros = (SELECT COUNT(*) FROM detalle_temp WHERE token_user = token);
+    
+    IF registros > 0 THEN
+      /* Se inserta registros en la tabla temporal, los dos campos se obtienen de ejecutar el "SELECT" de dos campos que son los que se utilizan para insertalos */
+      INSERT INTO tbl_tmp_tokenuser(cod_prod,cant_prod) SELECT codproducto,cantidad FROM detalle_temp WHERE token_user=token;
+      /* Generando la factura, estos dos datos son los parametros de "procesar_venta" */
+      INSERT INTO factura(usuario,codcliente) VALUES (cod_usuario,cod_cliente);
+    
+      SET factura = LAST_INSERT_ID(); /* El "id" que le corresponde */
+
+      INSERT INTO detallefactura(nofactura,codproducto,cantidad,precio_venta) SELECT (factura) AS nofactura,codproducto,cantidad,precio_venta FROM detalle_temp WHERE token_user = token;
+
+      WHILE a <= registros DO 
+      /* el valor de "cod_prod" se asigna a "tmp_cod_producto", "cant_prod" se asigna a "tmp_cant_producto */
+        SELECT cod_prod,cant_prod INTO tmp_cod_producto,tmp_cant_producto FROM tbl_tmp_tokenuser WHERE id = a; 
+        /* Obtiene la existencia actual del producto */ 
+        SELECT existencia INTO existencia_actual FROM producto WHERE codproducto = tmp_cod_producto;
+        /* Esta obteniendo la existencia actual */
+        SET nueva_existencia = existencia_actual - tmp_cant_producto;
+
+        /*Actualizando la existencia*/
+        UPDATE producto SET existencia = nueva_existencia WHERE codproducto = tmp_cod_producto;
+        SET a=a+1;
+
+      END WHILE;
+      /* Obtiene el total de la factura que se actualizo anteriormente */
+      SET total = (SELECT SUM(cantidad*precio_venta) FROM detalle_temp WHERE token_user = token);
+      
+      UPDATE factura SET totalfactura=total WHERE nofactura = factura;
+
+      DELETE FROM detalle_temp WHERE token_user = token;
+
+      /* Limpiando todos los registros
+      TRUNCATE TABLE tbl_tmp_tokenuser; */
+      DROP TABLE tbl_tmp_tokenuser;
+
+      /* Esta es la información que retorna del Procedimiento Almacenado */
+      SELECT * FROM factura WHERE nofactura = factura;
+
+    ELSE
+      
+      SELECT 0;
+
+    END IF;
+
+  END;$$
+DELIMITER ;
+
 
 COMMIT;
