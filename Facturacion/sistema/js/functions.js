@@ -472,6 +472,56 @@ $(document).ready(function(){
 
 }); // $('#btn_anular_venta').click(function(e){
 
+// Factura Venta  
+// nueva_venta.php -> <div class="dato_venta"> -> <a href="#" class="btn_new textcenter" id="btn_facturar_venta" ...
+  $('#btn_facturar_venta').click(function(e){
+    e.preventDefault();
+
+    //// Accesa a la Form "detalle_venta", nueva_venta.php -> <tbody id="detalle_venta">, accesa a los renglones "tr", lo que determina que si tiene registros el detalle de la venta, cuando es mayor a 0.
+    var rows = $('#detalle_venta tr').length;
+
+    if (rows > 0)
+    {
+      var action = 'procesarVenta';
+      // nueva_venta.php
+      // <input type="hidden" id="idcliente" name ="idcliente" value="" required>
+      var codcliente = $('#idcliente').val();
+
+      $.ajax
+      ({
+        url:'ajax.php',
+        type:"POST",
+        async:true,
+        data:{action:action,codcliente:codcliente},
+
+        success: function(response)
+        {
+          // console.log(response);
+          
+          if (response != 'error')
+          {
+            // Solo para verificar si los datos de la factura son recibidos
+            var info = JSON.parse(response);
+            console.log(info);
+            // Recarga toda la página
+            //location.reload();
+          }
+          else
+          {
+            console.log('no data');
+          }          
+
+        },
+        error:function(error)
+        {
+        
+        }
+
+      }); // $.ajax
+
+    }
+
+  }); // $('#btn_anular_venta').click(function(e){
  
 }); // $(document).ready(function(){
 

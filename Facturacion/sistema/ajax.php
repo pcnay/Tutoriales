@@ -526,7 +526,58 @@
         echo 'error';
       }
       exit;
-    }
+    } // if ($_POST['action'] == 'anularVenta')
+
+    // Procesar Venta (Boton Procesar) 
+    if ($_POST['action'] == 'procesarVenta')
+    {
+      // Para mostrar lo que viene de "functions.js" y se envia por Ajax, al archivo "ajax.php"
+      /* 
+      print_r($_POST);exit;
+      
+      Array(
+
+          [action] => procesarVenta
+          Este valor se obtiene dinamicamente, es asignado por Ajax cuando se encuentra el cliente. en la "Venta"
+          [codcliente] => 6
+          )
+      */
+      // Este dato viene de la sección de Ajax, data=
+      if (empty($_POST['codcliente']))
+      {
+        $codcliente = 1;        
+      }
+      else
+      {
+        $codcliente = $_POST['codcliente'];        
+      }
+      $token = md5($_SESSION['idUser']); // Encriptando el "id" del usuario.
+      $usuario = $_SESSION['idUser'];
+      $query = mysqli_query ($conexion,"SELECT * FROM detalle_temp WHERE token_user =  '$token'");
+      $result = mysqli_num_rows($query);
+      // Se ejecuta el procedimiento Almacenado.
+      if ($result > 0)
+      {
+        $query_procesar = mysqli_query($conexion,"CALL procesar_venta($usuario,$codcliente,'$token')");
+        $result_detalle = mysqli_num_rows($query_procesar);
+        if ($result_detalle > 0)
+        {
+          $data = mysqli_fetch_assoc($query_procesar);
+          echo json_encode($data,JSON_UNESCAPED_UNICODE); // Lo convierte a formato JSON y las tildes la maneja como texto, para poder despues convertirlo a Objeto. Este valor es devuelto por "Ajax.php" a "Function.js"
+        }
+        else
+        {
+          echo "error"; // Este valor es devuelto por "Ajax.php" en "Functions.js"
+        }
+      }
+      else
+      {
+        echo "error"; // Este valor es devuelto por "Ajax.php" en "Functions.js"
+      }
+      mysqli_close($conexion);
+      exit;
+
+    } // if ($_POST['action'] == 'procesarVenta')
 
   } // if (!empty($_POST))
   exit;
