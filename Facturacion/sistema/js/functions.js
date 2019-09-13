@@ -502,9 +502,18 @@ $(document).ready(function(){
           {
             // Solo para verificar si los datos de la factura son recibidos
             var info = JSON.parse(response);
-            console.log(info);
+            //console.log(info);
+            /*
+            codcliente: "6"
+            estatus: "1"​
+            fecha: "2019-09-12 23:04:47"
+            nofactura: "4"
+            totalfactura: "150.00"
+            usuario: "1"
+            */            
+            generarPDF(info.codcliente,info.nofactura);
             // Recarga toda la página
-            //location.reload();
+            location.reload();
           }
           else
           {
@@ -521,7 +530,7 @@ $(document).ready(function(){
 
     }
 
-  }); // $('#btn_anular_venta').click(function(e){
+  }); // $('#btn_facturar_venta').click(function(e){
  
 }); // $(document).ready(function(){
 
@@ -746,6 +755,23 @@ function viewProcesar()
     $('#btn_facturar_venta').hide();
   }
 }
+
+// Generar la Factura en PDF
+function generarPDF(cliente,factura)
+{
+  // Son las dimensiones del PDF.
+  var ancho = 1000;
+  var alto = 800;
+  //Calcula posicion x,y para centrar la ventana
+  var x = parseInt((window.screen.width/2) - (ancho / 2));
+  var y = parseInt((window.screen.height/2) - (alto / 2));
+
+  $url = 'factura/generaFactura.php?cl='+cliente+'&f='+factura;
+
+  // Para mostrar la ventana.
+  window.open($url,"Factura","left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizable=si,menubar=no");
+}
+
 
 // Cerrar la ventana Modal de Insertar Producto.
 function closeModal()
