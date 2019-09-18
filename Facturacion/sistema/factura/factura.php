@@ -4,7 +4,8 @@
 	$impuesto 	= 0;
 	$tl_sniva   = 0;
 	$total 		= 0;
- //print_r($configuracion); ?>
+ //print_r($configuracion); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,13 +14,17 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+<!-- Se tiene acceso a las variables que se muestran, porque este archivo fue incluido "ob_start(); // Prepara en memoria el siguiente archivo "factura.php"
+				include(dirname('__FILE__').'/factura.php'); // Accede a la ruta completa y es la continuación en el archivo de "generarFactura"-->
+
 <?php echo $anulada; ?>
 <div id="page_pdf">
 	<table id="factura_head">
 		<tr>
 			<td class="logo_factura">
 				<div>
-					<img src="img/logo.png">
+					<img src="img/logo.png"> 
 				</div>
 			</td>
 			<td class="info_empresa">
@@ -28,24 +33,26 @@
 						$iva = $configuracion['iva'];
 				 ?>
 				<div>
-					<span class="h2"><?php echo strtoupper($configuracion['nombre']); ?></span>
+					<span class="h2"><?php echo strtoupper($configuracion['nombre']); ?></span>					
 					<p><?php echo $configuracion['razon_social']; ?></p>
 					<p><?php echo $configuracion['direccion']; ?></p>
 					<p>NIT: <?php echo $configuracion['nit']; ?></p>
-					<p>Teléfono: <?php echo $configuracion['telefono']; ?></p>
+					<p>Teléfono: <?php $configuracion['telefono']; ?></p>
 					<p>Email: <?php echo $configuracion['email']; ?></p>
 				</div>
 				<?php
 					}
 				 ?>
 			</td>
+
+			
 			<td class="info_factura">
-				<div class="round">
+				<div class="round">					
 					<span class="h3">Factura</span>
-					<p>No. Factura: <strong><?php echo $factura['nofactura']; ?></strong></p>
-					<p>Fecha: <?php echo $factura['fecha']; ?></p>
+					<p>No. Factura: <strong><?php echo $factura['nofactura']; ?></strong></p>					
+					<p>Fecha: <?php echo $factura['fecha']; ?></p>					
 					<p>Hora: <?php echo $factura['hora']; ?></p>
-					<p>Vendedor: <?php echo $factura['vendedor']; ?></p>
+					<p>Vendedor: <?php echo $factura['vendedor']; ?></p>					
 				</div>
 			</td>
 		</tr>
@@ -56,10 +63,12 @@
 				<div class="round">
 					<span class="h3">Cliente</span>
 					<table class="datos_cliente">
-						<tr>
-							<td><label>Nit:</label><p><?php echo $factura['nit']; ?></p></td>
-							<td><label>Teléfono:</label> <p><?php echo $factura['telefono']; ?></p></td>
+						
+						<tr>					
+							<td><label>Nit:</label><p><?php echo $factura['nit']; ?></p></td>				
+							<td><label>Telefono:</label> <p><?php echo $factura['telefono']; ?></p></td>
 						</tr>
+						
 						<tr>
 							<td><label>Nombre:</label> <p><?php echo $factura['nombre']; ?></p></td>
 							<td><label>Dirección:</label> <p><?php echo $factura['direccion']; ?></p></td>
@@ -74,6 +83,7 @@
 	<table id="factura_detalle">
 			<thead>
 				<tr>
+					<br/>
 					<th width="50px">Cant.</th>
 					<th class="textleft">Descripción</th>
 					<th class="textright" width="150px">Precio Unitario.</th>
@@ -84,21 +94,24 @@
 
 			<?php
 
-				if($result_detalle > 0){
+				if($result_detalle > 0)
+				{
 
-					while ($row = mysqli_fetch_assoc($query_productos)){
-			 ?>
-				<tr>
-					<td class="textcenter"><?php echo $row['cantidad']; ?></td>
-					<td><?php echo $row['descripcion']; ?></td>
-					<td class="textright"><?php echo $row['precio_venta']; ?></td>
-					<td class="textright"><?php echo $row['precio_total']; ?></td>
-				</tr>
+					while ($row = mysqli_fetch_assoc($query_productos))
+					{
+			?>
+						<tr>
+							<td class="textcenter"><?php echo $row['cantidad']; ?></td>
+							<td><?php echo $row['descripcion']; ?></td>
+							<td class="textright"><?php echo $row['precio_venta']; ?></td>
+							<td class="textright"><?php echo $row['precio_total']; ?></td>
+						</tr>
 			<?php
 						$precio_total = $row['precio_total'];
 						$subtotal = round($subtotal + $precio_total, 2);
-					}
-				}
+					} // while ($row = mysqli_fetch_assoc($query_productos))
+
+				} // if($result_detalle > 0)
 
 				$impuesto 	= round($subtotal * ($iva / 100), 2);
 				$tl_sniva 	= round($subtotal - $impuesto,2 );

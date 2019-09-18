@@ -127,7 +127,7 @@
         $nit = $_POST['cliente'];
         // LIKE = Se realiza una busqueda en base a la variable "nit" 
         $query = mysqli_query($conexion,"SELECT * FROM cliente WHERE nit LIKE '$nit' AND estatus = 1");
-        mysqli_close($conextion);
+        mysqli_close($conexion);
         $result = mysqli_num_rows($query);
 
         $data = '';

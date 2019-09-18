@@ -496,11 +496,12 @@ $(document).ready(function(){
 
         success: function(response)
         {
-          // console.log(response);
+          console.log(response);
           
           if (response != 'error')
           {
             // Solo para verificar si los datos de la factura son recibidos
+            // Convierta a formato JSON lo obtenido en el archivo "ajax.php" la funcion "procesarVenta" que llama a "generaFactura.php" que contiene todas las consultas para obtener los datos a mostrar en el PDF
             var info = JSON.parse(response);
             //console.log(info);
             /*
@@ -517,7 +518,7 @@ $(document).ready(function(){
           }
           else
           {
-            console.log('no data');
+            console.log('no data -> procesarVenta');
           }          
 
         },
@@ -756,10 +757,10 @@ function viewProcesar()
   }
 }
 
-// Generar la Factura en PDF
+// Este abre una ventana solamente para mostrar el PDF, en "generaFactura" es donde se agregan las consultas para obtener los datos a desplegar en el PDF.
 function generarPDF(cliente,factura)
 {
-  // Son las dimensiones del PDF.
+  // Son las dimensiones de la ventana donde se despliega el PDF.
   var ancho = 1000;
   var alto = 800;
   //Calcula posicion x,y para centrar la ventana

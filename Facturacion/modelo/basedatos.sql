@@ -535,9 +535,9 @@ END
 DELIMITER ;
 
 INSERT INTO `producto` (`codproducto`, `descripcion`, `proveedor`, `precio`, `existencia`,`usuario_id`,`foto`) VALUES
-(1, 'Descripcion Producto 1',1,150,10,1,'foto-1.jpg'),
-(2, 'Descripcion Producto 2',3,100,4,1,'foto-2.jpg'),
-(3, 'Descripcion Producto 3',2,90,6,3,'foto-3.jpg');
+(1, 'Descripcion Producto 1',1,150,100,1,'foto-1.jpg'),
+(2, 'Descripcion Producto 2',3,100,100,1,'foto-2.jpg'),
+(3, 'Descripcion Producto 3',2,90,100,3,'foto-3.jpg');
 
 /* 
 
