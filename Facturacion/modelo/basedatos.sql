@@ -694,6 +694,58 @@ DELIMITER $$
   END;$$
 DELIMITER ;
 
+/* Procedimiento Almacenado para "Anular" ventas, por lo que se actualiza la existencia de los articulos, ya que se regresan al Almacen y se coloca estatus = "2" Anulada a la Venta.
+estatus = 1 Activa
+estatus = 2 Anulada
+estatus = 10 Cancelada
+*/
+DELIMITER $$
+  CREATE PROCEDURE anular_factura(no_factura int)
+  BEGIN
+    DECLARE existe_factura int;
+    DECLARE registros int;
+    DECLARE a int;
+    DECLARE cod_producto int;
+    DECLARE cant_producto int;
+    DECLARE existencia_actual int;
+    DECLARE nueva_existencia int;
+
+    SET existe_factura = (SELECT COUNT(*) FROM factura WHERE nofactura = no_factura AND estatus = 1);
+    IF existe_factura > 0 THEN 
+      CREATE TEMPORARY TABLE tbl_tmp(
+        id BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        cod_prod BIGINT,
+        cant_prod INT);
+
+        SET a = 1;
+        SET registros = (SELECT COUNT(*) FROM detallefactura WHERE nofactura = no_factura);
+
+        IF registros > 0 THEN
+          INSERT INTO tbl_tmp(cod_prod,cant_prod) SELECT codproducto,cantidad FROM detallefactura WHERE nofactura = 
+          no_factura;
+
+          WHILE a <= registros DO
+            /* INTO asigna valor de SELECT */
+            SELECT cod_prod,cant_prod INTO cod_producto,cant_producto FROM tbl_tmp WHERE id = a;
+            SELECT existencia INTO existencia_actual FROM producto WHERE codproducto = cod_producto;
+            SET nueva_existencia = existencia_actual+cant_producto;
+            UPDATE producto SET existencia = nueva_existencia WHERE codproducto = cod_producto;
+            SET a = a+1;
+          END WHILE;
+
+          UPDATE factura SET estatus = 2 WHERE nofactura=no_factura;
+          DROP TABLE tbl_tmp;
+          /* Los datos que regresa el Procedimiento Almacenado*/ 
+          SELECT * FROM factura WHERE nofactura=no_factura;
+
+        END IF;
+    ELSE
+      SELECT 0 factura;
+    END IF;
+
+  END;$$
+DELIMITER ;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
