@@ -79,7 +79,8 @@ $(document).ready(function(){
             // header.php -> form(form_add_product) ->class (nameProducto) se le asigna "
             // $('.nameProducto').html(info.descripcion);
 
-             // Se agrega la "form" para Ingregar Producto, antes se encontraba en "Header.php", se agrega por renglon, por lo que se tiene que agregar linea por línea, utilizando JavaScript.
+             // Se agrega la "form" para Agregar Productos, antes se encontraba en "Header.php", se agrega por renglon, por lo que se tiene que agregar linea por línea, utilizando JavaScript.
+             // "bodyModal" -> Lo tiene integrado JQuery.
             $('.bodyModal').html('<form action ="" method="post" name="form_add_product" id="form_add_product" onsubmit="event.preventDefault();  sendDataProduct();">'+
             '<h1><i class="fas fa-cubes" style="font-size: 45pt;"></i><br> Agregar Producto</h1>'+
             '<h2 class="nameProducto">'+info.descripcion+'</h2><br>'+
@@ -137,6 +138,7 @@ $(document).ready(function(){
 
              // Se agrega la "form" para Borrar un Producto, antes se encontraba en "Header.php", se agrega por renglon, por lo que se tiene que agregar linea por línea, utilizando JavaScript.
              // Cuando se oprima el boton de "Submit" tiene un evento "sendDataProduct() para que se procese la form"
+             // "bodyModal" -> Lo tiene integrado JQuery.
             $('.bodyModal').html('<form action ="" method="post" name="form_del_product" id="form_del_product" onsubmit="event.preventDefault();  delProduct();">'+
             '<h1><i class="fas fa-cubes" style="font-size: 45pt;"></i><br> Eliminar Producto</h1>'+
             '<p>Estas Seguro de eliminar el Producto?</p>'+
@@ -532,7 +534,66 @@ $(document).ready(function(){
     }
 
   }); // $('#btn_facturar_venta').click(function(e){
+
+  // Ventana Modal para Anular Factura.
+  // Ventas.php -> <div class = "div_acciones">
+  $('.anular_factura').click(function(e)
+  {  
+    e.preventDefault(); // No recarga la ventana cuando se oprima el boton "Anular".
+    var nofactura = $(this).attr('fac'); 
+    // Es el nombre de la clase "<button class="btn_anular anular_factura" fac="<?php $data['nofactura']; ?>"><i class="fas fa-ban"></i></button>
+    
+    var action = 'infoFactura'; // Se utiliza para extraer la información de la venta.
+    // Se utiliza Ajax para obtener informacion de la Venta.
+      $.ajax
+      ({
+        url:'ajax.php',
+        type:'POST',
+        async:true,
+        data:{action:action,nofactura:nofactura},
+
+        // "response" = Es devuelto por "ajax.php"->     if ($_POST['action'] == 'infoFactura')
+        success: function(response) 
+        {
+          // Muestra que valor esta retornando de la ejecución del Ajax 
+          //console.log(response);
+          // Verifica si esta retornando un arreglo en formato JSon
+          if (response != 'error')
+          {
+            // Convertir el formato JSon(Texto) a un objeto
+            var info = JSON.parse(response);
+            //console.log(info); // Si no se parsea no se puede ver en pantalla.
+
+            // Se desppliega un formulario en la ventana Modal
+            // '.bodyModal' = Esta objeto lo tiene JQuery.
+            $('.bodyModal').html('<form action ="" method="post" name="form_anular_factura" id="form_anular_factura" onsubmit="event.preventDefault();  anularFactura();">'+
+            '<h1><i class="fas fa-cubes" style="font-size: 45pt;"></i><br> Anular Factura</h1><br/>'+
+            '<p>Estas Seguro De Anular Factura ?</p>'+
+            '<p><strong>No. '+info.nofactura+'</strong></p>'+
+            '<p><strong>Monto. $ '+info.totalfactura+'</strong></p>'+
+            '<p><strong>Fecha. '+info.fecha+'</strong></p>'+
+            '<input type="hidden" name="action" value="anularFactura">'+
+            '<input type="hidden" name="no_factura" id="no_factura" value="'+info.nofactura+'" required>'+
+            
+            '<div class="alert alertAddProduct"></div>'+
+            '<button type="submit" class ="btn_ok"><i class="far fa-trash-alt"></i>Anular</button>'+    
+            '<a href ="#" class="btn_cancel" onclick="closeModal();"><i class="fas fa-ban"></i>Cerrar</a>'+
+          '</form>');
+
+          }
+        },
+        error: function(error)
+        {
+          console.log(error);  
+        }
+    
+      });
  
+    $('.modal').fadeIn(); // Activando la ventana Modal para Anular Venta 
+
+  }); // $('.anular_factura').click(function(e)
+
+  
 }); // $(document).ready(function(){
 
 
@@ -771,6 +832,49 @@ function generarPDF(cliente,factura)
 
   // Para mostrar la ventana.
   window.open($url,"Factura","left="+x+",top="+y+",height="+alto+",width="+ancho+",scrollbar=si,location=no,resizable=si,menubar=no");
+}
+
+// Para Anular la Factura.
+function anularFactura()
+{
+  // Extrae el valor de la etiqueta 
+  //<form action ="" method="post" name="form_anular_factura" id="form_anular_factura" onsubmit="event.preventDefault();  anularFactura();"></form>
+  //'<input type="hidden" name="no_factura" id="no_factura" value="'+info.nofactura+'" required>'
+  var noFactura = $('#no_factura').val();
+  var action =  'anularFactura';// $('.anularFactura').val(); // Es utilizando el "Name" y no "Id"
+
+  $.ajax
+  ({
+    url:'ajax.php',
+    type: "POST",
+    async: true,
+    data: {action:action,noFactura:noFactura},
+
+    success: function(response)
+    {
+      // Para desplegar lo que retorna el "Ajax.php"
+      //console.log(response);
+      if (response == 'error')
+      {
+        // Se agrega texto al "<div>" donde despliega el texto
+        $('.alertAddProduct').html('<p style = "color:red;">Error Al Anular La Factura </p>');
+      }
+      else
+      {
+        // Le asigna a la clase "estado" de los renglones de Venta el nombre de "Anulada" y le asigna un estilo, esta es sin recargar la pagina, en tiempo de ejecución.
+        $('#row_'+noFactura+' .estado').html('<span class="anulada">Anulada</span>');
+        $('#form_anular_factura .btn_ok').remove(); // Remueve el boton "OK", de la ventana Modal.
+        // Se encuentra en "Ventas.php" -> ".div_factura", se deshabilita el boton de "Anular" de la columna de accciones.
+        $('#row_'+noFactura+' .div_factura').html('<button type="button" class="btn_anular inactive"><i class = "fas fa-ban"></i></button>');
+        $('.alertAddProduct').html('<p>Factura Anulada.</p>');
+      }
+      
+    },
+    error: function(error)
+    {
+
+    }
+  });
 }
 
 

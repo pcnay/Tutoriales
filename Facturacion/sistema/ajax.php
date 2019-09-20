@@ -579,6 +579,55 @@
 
     } // if ($_POST['action'] == 'procesarVenta')
 
+    // Obtiene el registro de la Factura a Anular
+    if ($_POST['action'] == 'infoFactura')
+    {
+      if (!empty($_POST['nofactura']))
+      {
+        $nofactura = $_POST['nofactura'];
+        $query = mysqli_query($conexion,"SELECT * FROM factura WHERE nofactura='$nofactura' AND estatus = 1");
+        mysqli_close($conexion);
+        $result = mysqli_num_rows($query);
+          
+        if ($result > 0)
+        {
+          
+          $data = mysqli_fetch_assoc($query);
+          echo json_encode($data,JSON_UNESCAPED_UNICODE);
+          exit;
+        }
+
+      } // if (!empty($_POST['nofactura']))
+      else
+      {
+        echo "error";
+        exit;
+      }
+
+    } // if ($_POST['action'] == 'infoFactura')
+
+    // Anular Factura
+    if($_POST['action'] == 'anularFactura')
+    {
+      if (!empty($_POST['noFactura']))
+      {
+        $noFactura = $_POST['noFactura'];
+        $query_anular = mysqli_query($conexion,"CALL anular_factura($noFactura)");
+        mysqli_close($conexion);
+        $result = mysqli_num_rows ($query_anular);
+        if ($result > 0)
+        {
+          $data = mysqli_fetch_assoc($query_anular);
+          // Lo convierte a un formato JSON
+          echo json_encode($data,JSON_UNESCAPED_UNICODE);
+          exit;
+        }
+      } // if (!empty($_POST['noFactura']))
+      echo "error";
+      exit;
+
+    } // if($_POST['action'] == 'anularFactura')
+
   } // if (!empty($_POST))
   exit;
 ?> 

@@ -115,7 +115,7 @@
               <td><?php echo $data['fecha']; ?></td>
               <td><?php echo $data['cliente']; ?></td>
               <td><?php echo $data['vendedor']; ?></td>
-              <td><?php echo $estado; ?></td>
+              <td class="estado"><?php echo $estado; ?></td>
               <td class = "textright totalfactura"><span>$</span><?php echo $data['totalfactura']; ?></td>
               <td>
                 <div class = "div_acciones">
@@ -130,7 +130,7 @@
                       {
                         ?>                    
                         <div class="div_factura">
-                          <button class="btn_anular anular_factura" fac="<?php $data['nofactura']; ?>"><i class="fas fa-ban"></i></button>
+                          <button class="btn_anular anular_factura" type="button" fac="<?php echo $data['nofactura']; ?>"><i class="fas fa-ban"></i></button>
                         </div>
                 <?php }
                       else
