@@ -593,6 +593,18 @@ $(document).ready(function(){
 
   }); // $('.anular_factura').click(function(e)
 
+  // Mostrar Factura en la Lista de Ventas, sección de "Acciones"
+  $('.view_factura').click(function(e)
+  {
+    e.preventDefault();
+    // "ventas.php" -> <div class = "div_acciones">
+    // Obtiene el número de Factura y Cliente.
+    var  codCliente = $(this).attr('cl');
+    var  noFactura = $(this).attr('f');
+    generarPDF(codCliente,noFactura);
+    
+
+  });
   
 }); // $(document).ready(function(){
 
