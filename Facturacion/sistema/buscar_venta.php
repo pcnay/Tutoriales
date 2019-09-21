@@ -9,7 +9,64 @@
   }
   */
 
-  include "../conexion.php" 
+  include "../conexion.php" ;
+  $busqueda = '';
+  $fecha_de = '';
+  $fecha_a = '';
+
+  // Validando cuando se alteran los valores desde la barra de direcciones.
+  if (isset($_REQUEST['busqueda']) && $_REQUEST['busqueda']=='')
+  {
+    header("location: ventas.php");
+  }
+
+  if (isset($_REQUEST['fecha_de']) || isset($_REQUEST['fecha_a']))
+  {
+    if ($_REQUEST['fecha_de'] == '' || $_REQUEST['fecha_a'] == '')
+    {
+      header("location: ventas.php");
+    }
+  }
+
+  // Validando el campo de Busqueda
+  if (!empty($_REQUEST['busqueda']))
+  {
+    if(!is_numeric($_REQUEST['busqueda'])) // Si no es número
+    {
+      header("location:venta.php");
+    }
+    $busqueda = strtolower($_REQUEST['busqueda']);
+    $where = "nofactura = $busqueda";
+    $buscar = "busqueda = $busqueda";
+
+  }
+
+  // Validando por rangos de fechas.
+  if (!empty($_REQUEST['fecha_de']) && !empty($_REQUEST['fecha_a']))
+  {
+    $fecha_de = $_REQUEST['fecha_de'];
+    $fecha_a = $_REQUEST['fecha_a'];
+    $buscar = '';
+
+    if($fecha_de > $fecha_a)
+    {
+      header("location: ventas.php");      
+    }
+    else if ($fecha_de == $fecha_a)
+    {
+      $where = "fecha LIKE '$fecha_de%'";
+      $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
+    }
+    else
+    {
+      // Es importante que se especifique la hora y con espacio en la variable, de lo contrario estaria funcionando de forma aleatoria.
+      $f_de = $fecha_de.' 00:00:00';
+      $f_a = $fecha_a.' 23:59:59';
+      $where = "fecha BETWEEN '$f_de' AND '$f_a'";           
+      $buscar = "fecha_de=$fecha_de&fecha_a=$fecha_a";
+    }
+  }
+
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +87,7 @@
     
     <!-- Se agrega el formulario para la busqueda una factura -->
     <form action="buscar_venta.php" method="get" class = "form_search">
-      <input type="text" name = "busqueda" id="busqueda" placeholder ="No. Factura">
+      <input type="text" name = "busqueda" id="busqueda" placeholder ="No. Factura" value ="<?php echo $busqueda;?>">
       <button type="submit" class = "btn_search"><i class="fas fa-search"></i></button>
     </form>
 
@@ -38,9 +95,9 @@
       <h5>Buscar por Fecha</h5>
       <form action="buscar_venta.php" method="get" class = "form_search_date">
         <label>De: </label>
-        <input type="date" name ="fecha_de" id="fecha_de" required>
+        <input type="date" name ="fecha_de" id="fecha_de" value = "<?php echo $fecha_de;?>"required>
         <label>A</label>
-        <input type="date" name ="fecha_a" id="fecha_a" required>
+        <input type="date" name ="fecha_a" id="fecha_a" value = "<?php echo $fecha_a;?>"required>
         <button type="submit" class = "btn_view"><i class="fas fa-search"></i></button>
       </form>
 
@@ -61,7 +118,7 @@
         // Extraer los registros que esten activos
         // estatus = 10 ; Son Canceladas
         // estatus = 2 ; Eliminadas
-        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM factura WHERE  estatus != 10");
+        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM factura WHERE $where");
         $result_register = mysqli_fetch_array($sql_registe);
         $total_registro = $result_register['total_registro'];
         $por_pagina = 5;
@@ -81,13 +138,14 @@
 
 
         // Se obtiene las facturas, con los usuarios y clientes.
+        // "estatus = 10" son facturas eliminadas.
         $query = mysqli_query($conexion,"SELECT f.nofactura,f.fecha,f.totalfactura,f.codcliente,f.estatus,u.nombre AS vendedor, cl.nombre AS cliente
         FROM factura f
         INNER JOIN usuario u
         ON f.usuario = u.idusuario
         INNER JOIN cliente cl
         ON f.codcliente = cl.idcliente
-        WHERE f.estatus != 10
+        WHERE ($where) AND (f.estatus != 10)
         ORDER BY f.fecha DESC LIMIT $desde,$por_pagina");
         
         mysqli_close($conexion);
@@ -161,8 +219,8 @@
           if ($pagina != 1)
           {          
         ?>  
-          <li><a href= "?pagina=<?php echo 1; ?>"><i class="fas fa-step-backward"></i></a></li>
-          <li><a href= "?pagina=<?php echo $pagina-1; ?>"><i class="fas fa-backward"></i></a></li>
+          <li><a href= "?pagina=<?php echo 1; ?>&<?php echo $buscar;?>"><i class="fas fa-step-backward"></i></a></li>
+          <li><a href= "?pagina=<?php echo $pagina-1; ?>&<?php echo $buscar;?>"><i class="fas fa-backward"></i></a></li>
         <?php 
           }
             for ($i=1;$i<=$total_paginas;$i++)
@@ -174,14 +232,14 @@
               }
               else
               {
-                echo '<li><a href="?pagina='.$i.'">'.$i.'</a></li>';
+                echo '<li><a href="?pagina='.$i.'&'.$buscar.'">'.$i.'</a></li>';
               }               
             }
             if ($pagina != $total_paginas)
             {
         ?>        
-          <li><a href= "?pagina=<?php echo $pagina+1; ?>"><i class="fas fa-forward"></i></a></li>
-          <li><a href= "?pagina=<?php echo $total_paginas; ?>"><i class="fas fa-step-forward"></i></a></li>
+          <li><a href= "?pagina=<?php echo $pagina+1; ?>&<?php echo $buscar;?>"><i class="fas fa-forward"></i></a></li>
+          <li><a href= "?pagina=<?php echo $total_paginas; ?>&<?php echo $buscar;?>"><i class="fas fa-step-forward"></i></a></li>
 
         <?php
             }
