@@ -639,6 +639,7 @@ z-index: 10;
 /* Columna de Acciones, "Total Factura", botones "Pagado", "Anulado" */
 .div_acciones
 {
+	/* Para que todo se coloque en línea. */
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -648,6 +649,7 @@ z-index: 10;
 }
 .totalfactura
 {
+	/* Para que todo se coloque en línea. */
 	display: -webkit-flex;
 	display: -moz-flex;
 	display: -ms-flex;
@@ -674,4 +676,51 @@ z-index: 10;
 	background-color:#AAAAAA;
 	color:#CCC;
 	cursor:default; 
+}
+
+/*  Estilos para la modificacion del "index.php" sección "Panel Control" */
+.titlePanelControl
+{
+	width:100%;
+	background: #FFF; /* Franja de color blanco*/
+	padding: 5px 15px;
+	margin-bottom: 10px;
+	font-size:18pt !important; /* Para que ignore definicion previa de h1 y asigne este nuevo valor */
+	color:#0A4661;
+}
+.dashboard
+{
+	/* Para que todo se coloque en línea. */
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display:- o-flex;
+	display: flex;
+	justify-content: space-around;
+	width:100%;
+	margin:auto;
+}
+
+/* Se agrandan los iconos, se asigna color de fondo  y se centran en la ancho de la ventana*/
+.dashboard a
+{
+	color:#898989;
+	/* Le asigna el ancho de acuerdo al calculo (El total entre 5) */
+	width:calc(100%/5);
+	padding: 20px;
+	background-color:#FFF;
+	font-size:25pt;
+	text-align:center;
+}
+
+.dashboard p
+{
+	color:#3279a7;	
+}
+
+/* Accesa a los <span> de los iconos del menu */ 
+.dashboard a span
+{
+	font-weight:bold;
+	font-size:18pt;
 }
