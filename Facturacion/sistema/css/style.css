@@ -688,6 +688,12 @@ z-index: 10;
 	font-size:18pt !important; /* Para que ignore definicion previa de h1 y asigne este nuevo valor */
 	color:#0A4661;
 }
+/* Se separa Texto "Configuracion" */
+.divContainer
+{
+	margin-bottom:20px;
+}
+
 .dashboard
 {
 	/* Para que todo se coloque en línea. */
@@ -723,4 +729,107 @@ z-index: 10;
 {
 	font-weight:bold;
 	font-size:18pt;
+}
+
+.containerPerfil
+{
+	/* Para que todo se coloque en línea. */
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display:- o-flex;
+	display: flex;
+	justify-content: space-around;
+	align-items:flex-start; /* Para que los elementos se posicionen hacia arriba */
+	flex-wrap:wrap; /* Coloca los elementos en columna cuando no quedan en forma de fila */ 
+} 
+.containerDataUser, .containerDataEmpresa
+{
+	width:500px;
+	background-color:#FFF;
+	padding:20px;
+}
+
+/* Aplicando Estilos Pantalla Inicio -> Configuracion*/
+.logoUser, .logoEmpresa
+{
+	/* Para que todo se coloque en línea. */
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display:- o-flex;
+	display: flex;
+	justify-content: center;
+	align-items:center;
+	width:200px;
+	height:200px;
+	border-radius:50%; /* Forma circular */
+	margin:20px auto; /* Margen a los lados Centrado*/
+	padding:25px;
+	background:#E9E9E9; /* Fondo Gris */
+} 
+.logoUser img, .logoEmpresa img
+{
+	width:100%;
+	height:100%;
+}
+.divDataUser
+{
+	padding:10px;
+	margin:auto;	
+}
+/* Son todos los "h4" del contenedor principal de la pantalla "Inicio", los cambia a franjas de color Azul*/ 
+.divInfoSistema h4
+{
+	background:#3279a7;
+	padding:5px 10px;
+	color:#FFF;
+	border-radius:3px;
+	text-align:center;
+	margin-bottom:10px;
+} 
+
+/*En los "<div>" de primer nivel solamente de la seccion "divDataUser", los que estan en la "form" no se contemplan.
+Si fuera de esta manera : ".divDataUser div" abarca todos los "div" de la seccion, sin importar que nivel se encuentren
+Ademas los coloca en un solo renglon cada contenido de "<div"
+*/
+
+.divDataUser > div 
+{
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display:- o-flex;
+	display: flex;
+
+}
+
+
+.divDataUser label
+{
+	width:150px;
+	margin:0;
+	margin-bottom:10px;
+	margin-top:10px; 
+} 
+
+.divDataUser span
+{
+	padding:5px;
+}
+.divInfoSistema form
+{
+	padding:20px;
+}
+
+/* Espacio entre cada "Input" */
+.divInfoSistema input
+{
+	margin-bottom:10px;
+}
+
+/* Para que abarque el ancho del recuadro cada boton  */ 
+.divInfoSistema button
+{
+	width:100%;
 }
