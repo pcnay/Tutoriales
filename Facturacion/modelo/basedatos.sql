@@ -746,6 +746,30 @@ DELIMITER $$
   END;$$
 DELIMITER ;
 
+/* Obtiene los totales de las diferentes tablas para ser desplegadas en la pantalla Inicio del Sistema. */
+DELIMITER $$
+  CREATE PROCEDURE dataDashboard()
+  BEGIN
+    DECLARE usuarios INT;
+    DECLARE clientes INT;
+    DECLARE proveedores INT;
+    DECLARE productos INT;
+    DECLARE ventas INT;
+
+    SELECT COUNT(*) INTO usuarios FROM usuario WHERE estatus != 10;
+    SELECT COUNT(*) INTO clientes FROM cliente WHERE estatus != 10;
+    SELECT COUNT(*) INTO proveedores FROM proveedor WHERE estatus != 10;
+    SELECT COUNT(*) INTO productos FROM producto WHERE estatus != 10;
+    /* CURDATE = Es la fecha del dia */
+    SELECT COUNT(*) INTO ventas FROM factura WHERE fecha > CURDATE() AND  estatus != 10;
+
+    /* Retorna los valores para el Procedimiento Almacenado */
+    SELECT usuarios,clientes,proveedores,productos,ventas;
+    
+  END;$$
+
+DELIMITER ;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

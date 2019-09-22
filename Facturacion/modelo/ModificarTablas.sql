@@ -127,7 +127,7 @@ DELIMITER $$
     
   END;$$
 DELIMITER ;
-*/
+
 
 DELIMITER $$
   CREATE PROCEDURE anular_factura(no_factura int)
@@ -155,7 +155,7 @@ DELIMITER $$
           no_factura;
 
           WHILE a <= registros DO
-            /* INTO asigna valor de SELECT */
+            /* INTO asigna valor de SELECT 
             SELECT cod_prod,cant_prod INTO cod_producto,cant_producto FROM tbl_tmp WHERE id = a;
             SELECT existencia INTO existencia_actual FROM producto WHERE codproducto = cod_producto;
             SET nueva_existencia = existencia_actual+cant_producto;
@@ -165,7 +165,7 @@ DELIMITER $$
 
           UPDATE factura SET estatus = 2 WHERE nofactura=no_factura;
           DROP TABLE tbl_tmp;
-          /* Los datos que regresa el Procedimiento Almacenado*/ 
+          /* Los datos que regresa el Procedimiento Almacenado
           SELECT * FROM factura WHERE nofactura=no_factura;
 
         END IF;
@@ -175,6 +175,28 @@ DELIMITER $$
 
   END;$$
 DELIMITER ;
- 
+ */
+
+DELIMITER $$
+  CREATE PROCEDURE dataDashboard()
+  BEGIN
+    DECLARE usuarios INT;
+    DECLARE clientes INT;
+    DECLARE proveedores INT;
+    DECLARE productos INT;
+    DECLARE ventas INT;
+
+    SELECT COUNT(*) INTO usuarios FROM usuario WHERE estatus != 10;
+    SELECT COUNT(*) INTO clientes FROM cliente WHERE estatus != 10;
+    SELECT COUNT(*) INTO proveedores FROM proveedor WHERE estatus != 10;
+    SELECT COUNT(*) INTO productos FROM producto WHERE estatus != 10;
+    SELECT COUNT(*) INTO ventas FROM factura WHERE estatus != 10;
+
+    /* Retorna los valores para el Procedimiento Almacenado */
+    SELECT usuarios,clientes,proveedores,productos,ventas;
+    
+  END;$$
+
+DELIMITER ;
 
 COMMIT;
