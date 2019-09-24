@@ -31,7 +31,12 @@
             exit;
 
         */
-        $query = mysqli_query ($conexion,"SELECT * FROM usuario WHERE usuario = '$user' AND clave = '$clave'");
+        // Se obtiene el nombre del "rol"
+        $query = mysqli_query ($conexion,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.idrol,r.rol FROM usuario u 
+        INNER JOIN rol r
+        ON u.rol = r.idrol
+        WHERE u.usuario = '$user' AND u.clave = '$clave'");
+
         mysqli_close($conexion);
         $result = mysqli_num_rows($query);
         if ($result>0)
@@ -44,7 +49,8 @@
           $_SESSION['nombre'] = $data['nombre'];
           $_SESSION['correo'] = $data['correo'];
           $_SESSION['usuario'] = $data['usuario'];
-          $_SESSION['rol'] = $data['rol'];
+          $_SESSION['rol'] = $data['idrol']; // Varios archivos ya manejan esta variable de SESSION.
+          $_SESSION['rol_name'] = $data['rol'];
           header ('location: sistema/');
         } 
         else

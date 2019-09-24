@@ -604,8 +604,17 @@ $(document).ready(function(){
     generarPDF(codCliente,noFactura);
     
 
+  }); // $('.view_factura').click(function(e)
+
+  // Seccion para cambiar el Password.
+  $('.newPass').keyup(function(e)
+  {
+    // Mostrar en el inspector de elementos cuando se oprime las teclea(s)
+    // console.log($(this).val());
+    ValidPass();
   });
   
+
 }); // $(document).ready(function(){
 
 
@@ -889,6 +898,32 @@ function anularFactura()
   });
 }
 
+function ValidPass()
+{
+  var passNuevo = $('#txtNewPassUser').val();
+  var confirmPassNuevo = $('#txtPassConfirm').val();
+
+
+  if (passNuevo != confirmPassNuevo)
+  {
+    // <div class="alertChangePass" style="display:none;">
+    $('.alertChangePass').html('<p>Las Contraseñas NO Son Iguales</p>');
+    $('.alertChangePass').slideDown(); // Mostart el DIV.
+    return false;
+  }
+
+  if (passNuevo.length < 6)
+  {
+    // <div class="alertChangePass" style="display:none;">
+    $('.alertChangePass').html('<p>La nueva contraseña debe ser de 6 caracteres como mínimo </p>');
+    $('.alertChangePass').slideDown(); // Mostart el DIV.
+    return false;
+  }
+
+  $('.alertChangePass').html('');
+  $('.alertChangePass').slideUp(); // Desaparecer el DIV.
+
+}
 
 // Cerrar la ventana Modal de Insertar Producto.
 function closeModal()

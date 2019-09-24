@@ -57,7 +57,7 @@
 					if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)
 					{
 		?>
-				<a href="lista_proveedor.php">
+<				<a href="lista_proveedor.php">
 					<i class = "far fa-building"></i>
 					<p>
 						<strong>Proveedores</strong><br/>
@@ -96,17 +96,17 @@
 					<div class="divDataUser">
 						<h4>Informacion Personal</h4>
 							<div>
-								<label>Nombre:</label><span>Abel OS</span>								
+								<label>Nombre:</label><span><?= $_SESSION['nombre']; ?></span>								
 							</div>
 							<div>
-								<label>Correo:</label><span>nombreCorreo@correo.com</span>	
+								<label>Correo:</label><span><?= $_SESSION['correo']; ?></span>	
 							</div>
 							<h4>Datos Usuarios</h4>
 							<div>
-								<label>Rol:</label><span>Administrador</span>								
+								<label>Rol:</label><span><?php echo $_SESSION['rol_name']; ?></span>								
 							</div>
 							<div>
-								<label>Usario:</label><span>Admin</span>	
+								<label>Usuario:</label><span><?php echo $_SESSION['usuario']; ?></span>	
 							</div>
 
 							<h4>Cambiar Contraseña</h4>
@@ -115,11 +115,16 @@
 									<input type="password" name="txtPassUser" id="txtPassUser" placeholder="Contraseña Actual " required>
 								</div>
 								<div>
-									<input type="password" name="txtNewPassUser" id="txtNewPassUser" placeholder="Nueva Contraseña" required>									
+									<input type="password" class="newPass" name="txtNewPassUser" id="txtNewPassUser" placeholder="Nueva Contraseña" required>									
 								</div>
 								<div>
-									<input type="password" name="txtPassConfirm" id="txtPassConfirm" placeholder="Confirmar Contraseña" required>									
+									<input type="password" class="newPass" name="txtPassConfirm" id="txtPassConfirm" placeholder="Confirmar Contraseña" required>									
 								</div>
+
+								<!-- Aqui se coloca el mensaje, cuando las contraseña nueva y confirmación no coeinciden -->
+								<div class="alertChangePass" style="display:none;">
+								</div>
+
 								<div>
 									<button type="submit" class="btn_save btnChangePass"><i class="fas fa-key"></i> Cambiar Contraseña</button>									
 								</div>
