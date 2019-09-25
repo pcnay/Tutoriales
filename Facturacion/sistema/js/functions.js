@@ -680,6 +680,72 @@ $(document).ready(function(){
 
   });
   
+  // Actualizar los datos de la empresa desde el menu de Inicio.
+
+  $('#frmEmpresa').submit(function(e)
+  {
+    e.preventDefault(); // Evita que se recargue la página.
+    //Obtiene los valores de los Input del formulario de la sección Empresa del Menú Inicio.
+    var initNit = $('.txtNit').val();
+    var strNombreEmp = $('.txtNombre').val();
+    var strRSocialEmp = $('.txtRSocial').val();
+    var intTelEmp = $('.txtTelEmpresa').val();
+    var strEmailEmp = $('.txtEmailEmpresa').val();
+    var strDirEmp = $('.txtDirEmpresa').val();
+    var intIva = $('.txtIva').val();
+    if (initNit == '' || strNombreEmp == '' || intTelEmp == '' || strEmailEmp == '' || strDirEmp == '' || intIva == '' )
+    {
+      // Se asigna este aviso al DIV.
+      $('.alertFormEmpresa').html('<p>Todos los campos son obligatorios</p>');
+      $('.alertFormEmpresa').slideDown(); // Muestra el texto de aviso.
+      return false; // Ya no ejecuta el resto del código.
+    }
+
+    $.ajax
+    ({
+      url:'ajax.php',
+      type:"POST",
+      async:true,
+      data:$('#frmEmpresa').serialize(), // Obtiene todos los valore de las etiquetas del Formulario
+      beforeSend:function()
+      // . = name, # = id
+      // Mientras se estan enviando los datos realiza los siguiente, se puede colocar un mensaje de "Cargando...."
+      {
+        $('.alertFormEmpresa').slideUp(); // Oculta el texto del DIV
+        $('.alertFormEmpresa').html('');
+        $('#frmEmpresa input').attr('disabled','disabled'); // Todos los "input" se desactivan 
+      },
+      success: function(response)
+      {
+        console.log(response);
+
+          // Convierte el JSON retornado a un Objeto de JavaScript
+          var info = JSON.parse(response);
+          if (info.cod == '00')
+          {
+            // Es ".html" porque es una etiqueta
+            $('.alertformEmpresa').html('<p style="color:#23922d;">'+info.msg+'</p>');
+            $('.alertformEmpresa').slideDown(); // Muestra el texto de aviso.            
+          }
+          else
+          {
+            $('.alertformEmpresa').html('<p style="color:red;">'+info.msg+'</p>');
+          }
+          // Mostrando el texto de aviso.
+          $('.alertformEmpresa').slideDown();
+          $('#frmEmpresa input').removeAttr('disabled'); // Habilita los "input"
+      },
+      error:function(error)
+      {
+      
+      }
+
+    }); // $.ajax
+
+
+
+
+  });
 
 }); // $(document).ready(function(){
 

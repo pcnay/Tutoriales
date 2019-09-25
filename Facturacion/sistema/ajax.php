@@ -666,7 +666,7 @@
           $code = 1;
           $msg = "La contraseña actual es incorrecta";
         }
-        
+
         // Retornada este valor a la llamada de "Ajax.php"
         $arrData = array('cod' => $code, 'msg' => $msg);
         echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
@@ -678,6 +678,52 @@
       }
       exit;
     }
+
+    // Validar la actualización para los datos de la Empresa.
+    // index.php (Sistemas) <form action="" method = "post" name="frmEmpresa" id="frmEmpresa">
+    //    <input type="hidden" name="action" value="updateDataEmpresa"> 
+
+    if ($_POST['action'] == 'updateDataEmpresa')
+    {
+      //print_r($_POST);exit; // Para Determinar si esta ingresando a esta opción.
+
+      if (empty($_POST['txtNit']) || empty($_POST['txtNombre']) || empty($_POST['txtTelEmpresa']) || empty($_POST['txtEmailEmpresa']) || empty($_POST['txtDirEmpresa']) || empty($_POST['txtIva']))
+      {
+        $code = '1';
+        $msg = "Todos Los Campos Son Obligatorios"; 
+      }
+      else
+      {
+        $intNit = intval($_POST['txtNit']);
+        $strNombre = $_POST['txtNombre'];
+        $strRSocial = $_POST['txtRSocial'];
+        $intTel = intval($_POST['txtTelEmpresa']);
+        $strEmail = $_POST['txtEmailEmpresa'];
+        $strDir = $_POST['txtDirEmpresa'];
+        $intIva = intval($_POST['txtIva']);
+     
+        $queryUpd = mysqli_query($conexion,"UPDATE configuracion SET nit = $intNit, nombre='$strNombre',razon_social='$strRSocial',telefono=$intTel,email='$strEmail',direccion='$strDir',iva=$intIva WHERE id = 1");
+        mysqli_close($conexion);
+        if ($queryUpd)
+        {
+          $code = '00';
+          $msg = 'Datos Actualizados Correctamente';          
+        }
+        else
+        {
+          $code = '2';
+          $msg = 'Error Al Actualizar Los Datos';
+        }
+
+      } // if (empty($_POST['txtNit']) ||  .....
+
+      // Se retorna al Ajax este arreglo.
+      $arrData = array('cod' => $code, 'msg' => $msg);
+      echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+      exit;
+
+    } // if ($_POST['action'] == 'updateDataEmpresa')
+
 
   } // if (!empty($_POST))
   exit;

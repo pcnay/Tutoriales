@@ -15,6 +15,32 @@
 		include "includes/header.php"; 
 		include "../conexion.php";
 
+		// Obteniendo los datos de la Empresa
+		$init = '';
+		$nombreEmpresa = '';
+		$razonSocial = '';
+		$telEmpresa = '';
+		$emailEmpresa = '';
+		$dirEmpresa = '';
+		$iva = '';
+
+		$query_empresa = mysqli_query($conexion,"SELECT * FROM configuracion");
+		$row_empresa = mysqli_num_rows($query_empresa);
+		if ($row_empresa > 0)
+		{
+			while ($arrInfoEmpresa = mysqli_fetch_assoc($query_empresa))
+			{
+				$nit = $arrInfoEmpresa['nit'];
+				$nombreEmpresa = $arrInfoEmpresa['nombre'];
+				$razonSocial = $arrInfoEmpresa['razon_social'];
+				$telEmpresa = $arrInfoEmpresa['telefono'];
+				$emailEmpresa = $arrInfoEmpresa['email'];
+				$dirEmpresa = $arrInfoEmpresa['direccion'];
+				$iva = $arrInfoEmpresa['iva'];
+			}
+		}
+
+
 		$query_dash = mysqli_query($conexion, "CALL dataDashboard();");
 		$result_dash = mysqli_num_rows($query_dash);
 		if($result_dash >0)
@@ -135,53 +161,56 @@
 
 				</div> <!-- <div class="containerDataUser"> -->
 
-				<div class="containerDataEmpresa">
-					<div class="logoEmpresa">
-						<img src="img/logoEmpresa.png">
-					</div>
+				<?php if ($_SESSION['rol'] == 1 )
+							{ ?>
+								<div class="containerDataEmpresa">
+									<div class="logoEmpresa">
+										<img src="img/logoEmpresa.png">
+									</div>
 
-					<h4>Datos De La Empresa</h4>
+									<h4>Datos De La Empresa</h4>
 
-					<form action="" method = "post" name="frmEmpresa" id="frmEmpresa">
-						<input type="hidden" name="action" value="updateDataEmpresa"> 
+									<form action="" method = "post" name="frmEmpresa" id="frmEmpresa">
+										<input type="hidden" name="action" value="updateDataEmpresa"> 
 
-						<div>
-							<label>Nit:</label>
-							<input type="text" name="txtNit" id="txtNit" placeholder="Nit De La Empresa " value="" required>
-						</div>
-						<div>
-						<label>Nombre:</label>
-							<input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre De La Empresa" value="" required>
-						</div>
-						<div>
-						<label>Razon Social:</label>
-							<input type="text" name="txtRSocial" id="txtRSocial" placeholder="Razon Social De La Empresa" value="" >
-						</div>
-						<div>
-						<label>Telefono:</label>
-							<input type="text" name="txtTelEmpresa" id="txtTelEmpresa" placeholder="Número Teléfonico" value="" required>
-						</div>
-						<div>
-						<label>Correo Electrónico:</label>
-							<input type="email" name="txtEmailEmpresa" id="txtEmailEmpresa" placeholder="Correo Electrónico" value="" required>
-						</div>
-						<div>
-						<label>Dirección :</label>
-							<input type="text" name="txtDirEmpresa" id="txtDirEmpresa" placeholder="Direccion De La Empresa" value="" required>
-						</div>
-						<div>
-						<label>IVA (%) :</label>
-							<input type="text" name="txtIva" id="txtIva" placeholder="Impuesto Al Valor Agregado (IVA)" value="" required>
-						</div>
+										<div>
+											<label>Nit:</label>
+											<input type="text" name="txtNit" id="txtNit" placeholder="Nit De La Empresa " value="<?php echo $nit; ?>" required>
+										</div>
+										<div>
+										<label>Nombre:</label>
+											<input type="text" name="txtNombre" id="txtNombre" placeholder="Nombre De La Empresa" value="<?php echo $nombreEmpresa; ?>" required>
+										</div>
+										<div>
+										<label>Razon Social:</label>
+											<input type="text" name="txtRSocial" id="txtRSocial" placeholder="Razon Social De La Empresa" value="<?= $razonSocial; ?>" >
+										</div>
+										<div>
+										<label>Telefono:</label>
+											<input type="text" name="txtTelEmpresa" id="txtTelEmpresa" placeholder="Número Teléfonico" value="<?= $telEmpresa; ?>" required>
+										</div>
+										<div>
+										<label>Correo Electrónico:</label>
+											<input type="email" name="txtEmailEmpresa" id="txtEmailEmpresa" placeholder="Correo Electrónico" value="<?php echo $emailEmpresa; ?>" required>
+										</div>
+										<div>
+										<label>Dirección :</label>
+											<input type="text" name="txtDirEmpresa" id="txtDirEmpresa" placeholder="Direccion De La Empresa" value="<?= $dirEmpresa; ?>" required>
+										</div>
+										<div>
+										<label>IVA (%) :</label>
+											<input type="text" name="txtIva" id="txtIva" placeholder="Impuesto Al Valor Agregado (IVA)" value="<?php echo $iva; ?>" required>
+										</div>
 
-						<div class="alertFormEmpresa" style="display:none;"></div>
+										<div class="alertFormEmpresa" style="display:none;"></div>
 
-						<div>
-							<button type="submit" class="btn_save btnChangePass"><i class="far fa-save fa-lg"></i> Guardar Datos</button>									
-						</div>								
-					</form>
+										<div>
+											<button type="submit" class="btn_save btnChangePass"><i class="far fa-save fa-lg"></i> Guardar Datos</button>									
+										</div>								
+									</form>
 
-				</div> <!-- <div class="containerDataEmpresa"> -->
+								</div> <!-- <div class="containerDataEmpresa"> -->
+				<?php  } ?>
 				
 			</div> <!-- <div class="containerPerfil"> -->
 
