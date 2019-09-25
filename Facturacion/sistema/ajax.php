@@ -628,6 +628,57 @@
 
     } // if($_POST['action'] == 'anularFactura')
 
+    // Cambiar contraseña de la pantalla de Inicio del sistema.
+    if($_POST['action'] == 'changePassword')
+    {
+      // Verificando que los datos que envian sean correctos, se utiliza el inspector de elementos.
+      // print_r($_POST);
+      if (!empty($_POST['passActual']) && !empty($_POST['passNuevo']))
+      {
+        $password = md5($_POST['passActual']);
+        $newPass = md5($_POST['passNuevo']);
+        $idUser = $_SESSION['idUser'];
+        $code = '';
+        $msg = '';
+
+        $query_user = mysqli_query($conexion,"SELECT * FROM usuario WHERE clave = '$password' AND idusuario = $idUser");
+        $result = mysqli_num_rows($query_user);
+
+        // Actualizando la constraseña.
+        if ($result > 0)
+        {
+          $query_update = mysqli_query($conexion,"UPDATE usuario SET clave = '$newPass' WHERE idusuario = $idUser ");
+          mysqli_close($conexion);          
+        
+          if ($query_update)
+          {
+            $code = '00';
+            $msg = "Se actualizo correctamente la contraseña";
+          }
+          else
+          {
+            $code = '2';
+            $msg = "No es posible cambiar la contraseña";
+          }
+        }
+        else
+        {
+          $code = 1;
+          $msg = "La contraseña actual es incorrecta";
+        }
+        
+        // Retornada este valor a la llamada de "Ajax.php"
+        $arrData = array('cod' => $code, 'msg' => $msg);
+        echo json_encode($arrData,JSON_UNESCAPED_UNICODE);
+
+      } // if (!empty($_POST['passActual']) && !empty($_POST['passNuevo']))
+      else
+      {
+        echo "error";
+      }
+      exit;
+    }
+
   } // if (!empty($_POST))
   exit;
 ?> 

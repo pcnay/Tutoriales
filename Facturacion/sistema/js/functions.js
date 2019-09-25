@@ -614,6 +614,72 @@ $(document).ready(function(){
     ValidPass();
   });
   
+  // Grabar los datos del cambio de contraseña, desde la forma  : "Sistema/index.php" <form action="" method = "post" name="frmChangePass" id="frmChangePass">
+  // Se asigna el evento "submit"
+  $('#frmChangePass').submit(function(e)
+  {
+    e.preventDefault(); // Evita que se recargue la página.
+    // Obtiene los valores de los input 
+    var passActual = $('#txtPassUser').val();
+    var passNuevo = $('#txtNewPassUser').val();
+    var confirmPassNuevo = $('#txtPassConfirm').val();
+    action = "changePassword";
+
+    // Medida de protección adicional, ya que se puede cambiar la etiqueta "required" usando el inspector de elementos.
+    if (passNuevo != confirmPassNuevo)
+    {
+      // <div class="alertChangePass" style="display:none;">
+      $('.alertChangePass').html('<p style="color:red;">Las Contraseñas NO Son Iguales</p>');
+      $('.alertChangePass').slideDown(); // Mostart el DIV.
+      return false;
+    }
+  
+    if (passNuevo.length < 6)
+    {
+      // <div class="alertChangePass" style="display:none;">
+      $('.alertChangePass').html('<p style="color:red;">La nueva contraseña debe ser de 6 caracteres como mínimo </p>');
+      $('.alertChangePass').slideDown(); // Mostart el DIV.
+      return false;
+    }
+
+    $.ajax
+    ({
+      url:'ajax.php',
+      type:"POST",
+      async:true,
+      data:{action:action,passActual:passActual,passNuevo:passNuevo},
+
+      success: function(response)
+      {
+        //console.log(response);
+        if (response != 'error')
+        {
+          // Convierte el JSON retornado a un Objeto de JavaScript
+          var info = JSON.parse(response);
+          if (info.cod == '00')
+          {
+            // Es ".html" porque es una etiqueta
+            $('.alertChangePass').html('<p style="color:green;">'+info.msg+'</p>');
+            $('#frmChangePass')[0].reset() // Se limpian los input de la "form" donde se cambia la Contraseña
+          }
+          else
+          {
+            $('.alertChangePass').html('<p style="color:red;">'+info.msg+'</p>');
+          }
+          // Mostrando el texto de aviso.
+          $('.alertChangePass').slideDown();
+
+        }
+      },
+      error:function(error)
+      {
+      
+      }
+
+    }); // $.ajax
+
+  });
+  
 
 }); // $(document).ready(function(){
 
@@ -907,7 +973,7 @@ function ValidPass()
   if (passNuevo != confirmPassNuevo)
   {
     // <div class="alertChangePass" style="display:none;">
-    $('.alertChangePass').html('<p>Las Contraseñas NO Son Iguales</p>');
+    $('.alertChangePass').html('<p style="color:red;">Las Contraseñas NO Son Iguales</p>');
     $('.alertChangePass').slideDown(); // Mostart el DIV.
     return false;
   }
@@ -915,7 +981,7 @@ function ValidPass()
   if (passNuevo.length < 6)
   {
     // <div class="alertChangePass" style="display:none;">
-    $('.alertChangePass').html('<p>La nueva contraseña debe ser de 6 caracteres como mínimo </p>');
+    $('.alertChangePass').html('<p style="color:red;">La nueva contraseña debe ser de 6 caracteres como mínimo </p>');
     $('.alertChangePass').slideDown(); // Mostart el DIV.
     return false;
   }

@@ -833,3 +833,13 @@ Ademas los coloca en un solo renglon cada contenido de "<div"
 {
 	width:100%;
 }
+
+/* Aplicando estilos al texto que despliega cuando concuerdan las contraseñas 
+(sistema/index.php) , <div class="alertChangePass" style="display:none;">
+								</div>
+*/ 
+.alertChangePass
+{
+	text-align:center;
+	font-weight:bold;
+}
