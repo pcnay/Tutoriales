@@ -32,73 +32,77 @@
       <!-- <input type="submit" value = "Buscar" class = "btn_search"> -->
     </form>
     
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Proveedor</th>
-        <th>Contacto</th>
-        <th>Telefono</th>
-        <th>Direccion</th>
-        <th>Fecha</th>
-        <th>Acciones</th>
-      </tr>
-      <?php
-        // Seccion para el paginador (Barra donde despliega las páginas)
-        // Extraer los registros que esten activos
-        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM proveedor WHERE  estatus = 1");
-        $result_register = mysqli_fetch_array($sql_registe);
-        $total_registro = $result_register['total_registro'];
-        $por_pagina = 8;
-        if(empty($_GET['pagina']))
-        {
-          $pagina = 1;
-
-        }
-        else
-        {
-          $pagina = $_GET['pagina'];
-        }
-
-        $desde = ($pagina-1)*$por_pagina;
-        // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
-        $total_paginas = ceil($total_registro/$por_pagina);
-
-
-        // Se obtiene los proveedores y que tengan en la columna "estatus = 1(Borrado logico)"
-        $query = mysqli_query($conexion,"SELECT * FROM proveedor WHERE estatus = 1  ORDER BY proveedor ASC LIMIT $desde,$por_pagina");
-        
-        mysqli_close($conexion);
-
-        $result = mysqli_num_rows($query);
-        if ($result > 0)
-        {
-          while ($data= mysqli_fetch_array($query))
+    <!-- Se agrega este "<div>" para poder utilizar el mediaquery de 760 px la pantalla. -->
+    <div class="containerTable">    
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Proveedor</th>
+          <th>Contacto</th>
+          <th>Telefono</th>
+          <th>Direccion</th>
+          <th>Fecha</th>
+          <th>Acciones</th>
+        </tr>
+        <?php
+          // Seccion para el paginador (Barra donde despliega las páginas)
+          // Extraer los registros que esten activos
+          $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM proveedor WHERE  estatus = 1");
+          $result_register = mysqli_fetch_array($sql_registe);
+          $total_registro = $result_register['total_registro'];
+          $por_pagina = 8;
+          if(empty($_GET['pagina']))
           {
-            // Para solo mostrar la fecha sin la hora.
-            $formato = 'Y-m-d H:i:s';
-            $fecha = DateTime::createFromFormat($formato,$data['date_add']);
+            $pagina = 1;
 
-      ?>
-          <tr>
-            <td><?php echo $data['codproveedor']; ?></td>
-            <td><?php echo $data['proveedor']; ?></td>
-            <td><?php echo $data['contacto']; ?></td>
-            <td><?php echo $data['telefono']; ?></td>
-            <td><?php echo $data['direccion']; ?></td>
-            <td><?php echo $fecha->format('d-m-Y'); ?></td>
-            <td>
-              <a class ="link_edit" href = "editar_proveedor.php?id=<?php echo $data['codproveedor']; ?>">Editar</a>
-              |
-              <a class = "link_delete"  href = "eliminar_confirmar_proveedor.php?id=<?php echo $data['codproveedor']; ?>">Eliminar</a>            
-            </td>
-          </tr>
-      <?php        
-          } // while ($data = mysqli_fetch_array($query))
+          }
+          else
+          {
+            $pagina = $_GET['pagina'];
+          }
 
-        } // ($result = 0)
-      ?>
- 
-    </table>
+          $desde = ($pagina-1)*$por_pagina;
+          // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
+          $total_paginas = ceil($total_registro/$por_pagina);
+
+
+          // Se obtiene los proveedores y que tengan en la columna "estatus = 1(Borrado logico)"
+          $query = mysqli_query($conexion,"SELECT * FROM proveedor WHERE estatus = 1  ORDER BY proveedor ASC LIMIT $desde,$por_pagina");
+          
+          mysqli_close($conexion);
+
+          $result = mysqli_num_rows($query);
+          if ($result > 0)
+          {
+            while ($data= mysqli_fetch_array($query))
+            {
+              // Para solo mostrar la fecha sin la hora.
+              $formato = 'Y-m-d H:i:s';
+              $fecha = DateTime::createFromFormat($formato,$data['date_add']);
+
+        ?>
+            <tr>
+              <td><?php echo $data['codproveedor']; ?></td>
+              <td><?php echo $data['proveedor']; ?></td>
+              <td><?php echo $data['contacto']; ?></td>
+              <td><?php echo $data['telefono']; ?></td>
+              <td><?php echo $data['direccion']; ?></td>
+              <td><?php echo $fecha->format('d-m-Y'); ?></td>
+              <td>
+                <a class ="link_edit" href = "editar_proveedor.php?id=<?php echo $data['codproveedor']; ?>">Editar</a>
+                |
+                <a class = "link_delete"  href = "eliminar_confirmar_proveedor.php?id=<?php echo $data['codproveedor']; ?>">Eliminar</a>            
+              </td>
+            </tr>
+        <?php        
+            } // while ($data = mysqli_fetch_array($query))
+
+          } // ($result = 0)
+        ?>
+  
+      </table>
+    </div>
+  
     <div class = "paginador">
         <ul>
         <?php 

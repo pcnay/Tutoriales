@@ -106,6 +106,7 @@
     margin-top:10px;
     border:0;  
   }
+  
   .contanierTable
   {
     width:100%;
@@ -121,6 +122,43 @@
     padding:5px;
     font-size:13pt; /* Tamaño de letra de las celdas de las tablas.*/
   }
+
+  /* Pantalla de Captura De Clientes Se modifica esta anchura de porcentaje para que se ajuste al ancho que vaya teniendo la pantalla, si esta fija se cortan los input 
+    <div class = "form_register">
+      <h1><i class="fas fa-user-plus"></i> Registro Usuarios</h1>
+      <hr>
+      <div class="alert"><?php echo isset($alert) ? $alert: ''; ?></div>
+      <form action ="" method="POST">  
+  */
+  .form_register
+  {
+    width:100%
+  }
+  form 
+  {
+    padding:10px;
+  }
+  .btn_save
+  {
+    width:100%;
+    margin:20px auto 15px auto;
+  }
+  .bodyModal
+  {
+    padding:10px;
+  }
+  .btn_new
+  {
+    width:124px;
+    font-size:12px;
+    border:0;
+  }
+  .btnNewProducto, .btnNewVenta, .btn_new_cliente
+  {
+    width:140px;
+    font-size:12px;
+  }
+
 } /* @media screen and (max-width:768px) */
 
 /* Tamaños para celular */ 
@@ -142,5 +180,6 @@
  {
    width:80px;
  }
+
 }
 

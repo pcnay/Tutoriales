@@ -83,7 +83,7 @@
 	<section id="container">
 
     <h1><i class="far fa-newspaper"></i>Lista De Ventas </h1>
-    <a href = "nueva_venta.php" class = "btn_new"><i class="fas fa-plus"></i>Nueva Venta</a>
+    <a href = "nueva_venta.php" class = "btn_new btnNewVenta"><i class="fas fa-plus"></i>Nueva Venta</a>
     
     <!-- Se agrega el formulario para la busqueda una factura -->
     <form action="buscar_venta.php" method="get" class = "form_search">
@@ -102,117 +102,121 @@
       </form>
 
     </div>
-
-    <table>
-      <tr>
-        <th>Num</th>
-        <th>Fecha/Hora</th>
-        <th>Cliente</th>
-        <th>Vendedor</th>
-        <th>Estado</th>
-        <th class="textright">Total Factura </th>
-        <th class="textright">Acciones</th>
-      </tr>
-      <?php
-        // Seccion para el paginador (Barra donde despliega las páginas)
-        // Extraer los registros que esten activos
-        // estatus = 10 ; Son Canceladas
-        // estatus = 2 ; Eliminadas
-        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM factura WHERE $where");
-        $result_register = mysqli_fetch_array($sql_registe);
-        $total_registro = $result_register['total_registro'];
-        $por_pagina = 5;
-        if(empty($_GET['pagina']))
-        {
-          $pagina = 1;
-
-        }
-        else
-        {
-          $pagina = $_GET['pagina'];
-        }
-
-        $desde = ($pagina-1)*$por_pagina;
-        // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
-        $total_paginas = ceil($total_registro/$por_pagina);
-
-
-        // Se obtiene las facturas, con los usuarios y clientes.
-        // "estatus = 10" son facturas eliminadas.
-        $query = mysqli_query($conexion,"SELECT f.nofactura,f.fecha,f.totalfactura,f.codcliente,f.estatus,u.nombre AS vendedor, cl.nombre AS cliente
-        FROM factura f
-        INNER JOIN usuario u
-        ON f.usuario = u.idusuario
-        INNER JOIN cliente cl
-        ON f.codcliente = cl.idcliente
-        WHERE ($where) AND (f.estatus != 10)
-        ORDER BY f.fecha DESC LIMIT $desde,$por_pagina");
-        
-        mysqli_close($conexion);
-
-        // Se prepara para mostrar todas las facturas en una tabla.
-        $result = mysqli_num_rows($query);
-        if ($result > 0)
-        {
-          while ($data = mysqli_fetch_array($query))
+    
+    <!-- Se agrega este "<div>" para poder utilizar el mediaquery de 760 px la pantalla. -->
+    <div class="containerTable">     
+      <table>
+        <tr>
+          <th>Num</th>
+          <th>Fecha/Hora</th>
+          <th>Cliente</th>
+          <th>Vendedor</th>
+          <th>Estado</th>
+          <th class="textright">Total Factura </th>
+          <th class="textright">Acciones</th>
+        </tr>
+        <?php
+          // Seccion para el paginador (Barra donde despliega las páginas)
+          // Extraer los registros que esten activos
+          // estatus = 10 ; Son Canceladas
+          // estatus = 2 ; Eliminadas
+          $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM factura WHERE $where");
+          $result_register = mysqli_fetch_array($sql_registe);
+          $total_registro = $result_register['total_registro'];
+          $por_pagina = 5;
+          if(empty($_GET['pagina']))
           {
-            // Muestra el recuadro el estado de color, utilizando un "<span>" con clase de la factura 
-            if ($data['estatus'] == 1)
+            $pagina = 1;
+
+          }
+          else
+          {
+            $pagina = $_GET['pagina'];
+          }
+
+          $desde = ($pagina-1)*$por_pagina;
+          // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
+          $total_paginas = ceil($total_registro/$por_pagina);
+
+
+          // Se obtiene las facturas, con los usuarios y clientes.
+          // "estatus = 10" son facturas eliminadas.
+          $query = mysqli_query($conexion,"SELECT f.nofactura,f.fecha,f.totalfactura,f.codcliente,f.estatus,u.nombre AS vendedor, cl.nombre AS cliente
+          FROM factura f
+          INNER JOIN usuario u
+          ON f.usuario = u.idusuario
+          INNER JOIN cliente cl
+          ON f.codcliente = cl.idcliente
+          WHERE ($where) AND (f.estatus != 10)
+          ORDER BY f.fecha DESC LIMIT $desde,$por_pagina");
+          
+          mysqli_close($conexion);
+
+          // Se prepara para mostrar todas las facturas en una tabla.
+          $result = mysqli_num_rows($query);
+          if ($result > 0)
+          {
+            while ($data = mysqli_fetch_array($query))
             {
-              $estado = '<span class="pagada">Pagada</span>';            
-            }
-            else
-            {
-              $estado = '<span class="anulada">Anulada</span>';
-            }
-        
-      ?>  
-            <!-- Este "id" se utilizan para la columna de "acciones" -->
-            <tr id="row_<?php echo $data['nofactura']; ?>">
-              <td><?php echo $data['nofactura']; ?></td>
-              <td><?php echo $data['fecha']; ?></td>
-              <td><?php echo $data['cliente']; ?></td>
-              <td><?php echo $data['vendedor']; ?></td>
-              <td class="estado"><?php echo $estado; ?></td>
-              <td class = "textright totalfactura"><span>$</span><?php echo $data['totalfactura']; ?></td>
-              <td>
-                <div class = "div_acciones">
-                  <div>
-                    <button class= "btn_view view_factura " type="button" cl = "<?php echo $data['codcliente']; ?>" f="<?php echo $data['nofactura']; ?>"><i class="fas fa-eye"></i></button>
-                  </div>
-                  <!-- Solo se muestra este boton a "Administradores" y "Supervisores" -->
-                  <?php
-                    if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)
-                    {
-                      if ($data["estatus"] == 1)
+              // Muestra el recuadro el estado de color, utilizando un "<span>" con clase de la factura 
+              if ($data['estatus'] == 1)
+              {
+                $estado = '<span class="pagada">Pagada</span>';            
+              }
+              else
+              {
+                $estado = '<span class="anulada">Anulada</span>';
+              }
+          
+        ?>  
+              <!-- Este "id" se utilizan para la columna de "acciones" -->
+              <tr id="row_<?php echo $data['nofactura']; ?>">
+                <td><?php echo $data['nofactura']; ?></td>
+                <td><?php echo $data['fecha']; ?></td>
+                <td><?php echo $data['cliente']; ?></td>
+                <td><?php echo $data['vendedor']; ?></td>
+                <td class="estado"><?php echo $estado; ?></td>
+                <td class = "textright totalfactura"><span>$</span><?php echo $data['totalfactura']; ?></td>
+                <td>
+                  <div class = "div_acciones">
+                    <div>
+                      <button class= "btn_view view_factura " type="button" cl = "<?php echo $data['codcliente']; ?>" f="<?php echo $data['nofactura']; ?>"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <!-- Solo se muestra este boton a "Administradores" y "Supervisores" -->
+                    <?php
+                      if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)
                       {
-                        ?>                    
-                        <div class="div_factura">
-                          <button class="btn_anular anular_factura" type="button" fac="<?php echo $data['nofactura']; ?>"><i class="fas fa-ban"></i></button>
-                        </div>
-                <?php }
-                      else
-                      { ?>
-                        <div class="div_factura">
-                        <button type = "button" class="btn_anular inactive"><i class="fas fa-ban"></i></button>
-                        </div>
-                <?php } ?>
+                        if ($data["estatus"] == 1)
+                        {
+                          ?>                    
+                          <div class="div_factura">
+                            <button class="btn_anular anular_factura" type="button" fac="<?php echo $data['nofactura']; ?>"><i class="fas fa-ban"></i></button>
+                          </div>
+                  <?php }
+                        else
+                        { ?>
+                          <div class="div_factura">
+                          <button type = "button" class="btn_anular inactive"><i class="fas fa-ban"></i></button>
+                          </div>
+                  <?php } ?>
 
-              <?php } // if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)  ?>
+                <?php } // if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)  ?>
 
-                </div> <!-- <div class = "div_acciones"> -->
+                  </div> <!-- <div class = "div_acciones"> -->
 
-              </td>
+                </td>
 
-            </tr>
-      <?php        
+              </tr>
+        <?php        
 
-          } // while ($data = mysqli_fetch_array($query))
+            } // while ($data = mysqli_fetch_array($query))
 
-        } // if ($result > 0)
-      ?>
+          } // if ($result > 0)
+        ?>
 
-    </table>
+      </table>
+    </div> <!-- <div class="containerTable"> -->  
+
     <div class = "paginador">
         <ul>
         <?php 

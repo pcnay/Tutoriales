@@ -38,103 +38,107 @@
       <input type="text" name = "busqueda" id="busqueda" placeholder ="Buscar" value = "<?php echo $busqueda; ?>">
       <input type="submit" value = "Buscar" class = "btn_search">
     </form>
-    
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Correo</th>
-        <th>Usuario</th>
-        <th>Rol</th>
-        <th>Acciones</th>
-      </tr>
-      <?php
-        $rol = '';
-        if ($busqueda == 'administrador')
-        {
-          $rol = " OR rol LIKE '%1%' ";          
-        }
-        else if ($busqueda == 'supervisor')
-        {
-          $rol = " OR rol LIKE '%2%' ";
-        }
-        else if ($busqueda == 'vendedor')
-        {
-          $rol = " OR rol LIKE '%3%' ";
-        }
 
-
-
-        // Seccion para el paginador (Barra donde despliega las páginas)
-        // Extraer los registros que esten activos
-        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro 
-                                                FROM usuario WHERE  
-                                                (idusuario LIKE '%$busqueda%' OR 
-                                                nombre LIKE '%$busqueda%' OR
-                                                correo LIKE '%$busqueda%' OR
-                                                usuario LIKE '%$busqueda%' $rol) AND 
-                                                estatus = 1");
-        
-        $result_register = mysqli_fetch_array($sql_registe);
-        $total_registro = $result_register['total_registro'];
-        $por_pagina = 5;
-        if(empty($_GET['pagina']))
-        {
-          $pagina = 1;
-
-        }
-        else
-        {
-          $pagina = $_GET['pagina'];
-        }
-
-        $desde = ($pagina-1)*$por_pagina;
-        // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
-        $total_paginas = ceil($total_registro/$por_pagina);
-
-
-        // Se obtiene los usuarios con su correspondiente nombre de "Rol" y que tengan en la columna "estatus = 1(Borrado logico)"
-        // Se puede suprimir los campos que no se requiere buscar.
-        $query = mysqli_query($conexion,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE 
-                                          (u.idusuario LIKE '%$busqueda%' OR 
-                                          u.nombre LIKE '%$busqueda%' OR
-                                          u.correo LIKE '%$busqueda%' OR
-                                          u.usuario LIKE '%$busqueda%' OR 
-                                          r.rol LIKE '%$busqueda%') AND 
-                                          u.estatus = 1  ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
-
-        $result = mysqli_num_rows($query);
-        // Desplegara los datos con la busqueda indicada.
-        
-        if ($result > 0)
-        {
-          while ($data = mysqli_fetch_array($query))
+    <!-- Se agrega este "<div>" para poder utilizar el mediaquery de 760 px la pantalla. -->
+    <div class="containerTable">
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Usuario</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+        <?php
+          $rol = '';
+          if ($busqueda == 'administrador')
           {
-      ?>
-            <tr>
-              <td><?php echo $data['idusuario']; ?></td>
-              <td><?php echo $data['nombre']; ?></td>
-              <td><?php echo $data['correo']; ?></td>
-              <td><?php echo $data['usuario']; ?></td>
-              <td><?php echo $data['rol']; ?></td>
-              <td>
-                <a class ="link_edit" href = "editar_usuario.php?id=<?php echo $data['idusuario']; ?>">Editar</a>
-                <?php
-                 if ($data['idusuario'] != 1) 
-                 {
-                ?>
-                |
-                <!-- Si es el usuario = 1 (SuperUsuario) no se puede borrar -->
-                <a class = "link_delete"  href = "eliminar_confirmar_usuario.php?id=<?php echo $data['idusuario']; ?>">Eliminar</a>
-            <?php } ?>
-            
-              </td>
-            </tr>
-      <?php        
+            $rol = " OR rol LIKE '%1%' ";          
           }
-        }
-      ?>
-    </table>
+          else if ($busqueda == 'supervisor')
+          {
+            $rol = " OR rol LIKE '%2%' ";
+          }
+          else if ($busqueda == 'vendedor')
+          {
+            $rol = " OR rol LIKE '%3%' ";
+          }
+
+
+
+          // Seccion para el paginador (Barra donde despliega las páginas)
+          // Extraer los registros que esten activos
+          $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro 
+                                                  FROM usuario WHERE  
+                                                  (idusuario LIKE '%$busqueda%' OR 
+                                                  nombre LIKE '%$busqueda%' OR
+                                                  correo LIKE '%$busqueda%' OR
+                                                  usuario LIKE '%$busqueda%' $rol) AND 
+                                                  estatus = 1");
+          
+          $result_register = mysqli_fetch_array($sql_registe);
+          $total_registro = $result_register['total_registro'];
+          $por_pagina = 5;
+          if(empty($_GET['pagina']))
+          {
+            $pagina = 1;
+
+          }
+          else
+          {
+            $pagina = $_GET['pagina'];
+          }
+
+          $desde = ($pagina-1)*$por_pagina;
+          // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
+          $total_paginas = ceil($total_registro/$por_pagina);
+
+
+          // Se obtiene los usuarios con su correspondiente nombre de "Rol" y que tengan en la columna "estatus = 1(Borrado logico)"
+          // Se puede suprimir los campos que no se requiere buscar.
+          $query = mysqli_query($conexion,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u INNER JOIN rol r ON u.rol = r.idrol WHERE 
+                                            (u.idusuario LIKE '%$busqueda%' OR 
+                                            u.nombre LIKE '%$busqueda%' OR
+                                            u.correo LIKE '%$busqueda%' OR
+                                            u.usuario LIKE '%$busqueda%' OR 
+                                            r.rol LIKE '%$busqueda%') AND 
+                                            u.estatus = 1  ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
+
+          $result = mysqli_num_rows($query);
+          // Desplegara los datos con la busqueda indicada.
+          
+          if ($result > 0)
+          {
+            while ($data = mysqli_fetch_array($query))
+            {
+        ?>
+              <tr>
+                <td><?php echo $data['idusuario']; ?></td>
+                <td><?php echo $data['nombre']; ?></td>
+                <td><?php echo $data['correo']; ?></td>
+                <td><?php echo $data['usuario']; ?></td>
+                <td><?php echo $data['rol']; ?></td>
+                <td>
+                  <a class ="link_edit" href = "editar_usuario.php?id=<?php echo $data['idusuario']; ?>">Editar</a>
+                  <?php
+                  if ($data['idusuario'] != 1) 
+                  {
+                  ?>
+                  |
+                  <!-- Si es el usuario = 1 (SuperUsuario) no se puede borrar -->
+                  <a class = "link_delete"  href = "eliminar_confirmar_usuario.php?id=<?php echo $data['idusuario']; ?>">Eliminar</a>
+              <?php } ?>
+              
+                </td>
+              </tr>
+        <?php        
+            }
+          }
+        ?>
+      </table>
+    </div><!--- <div class="containerTabla"> -->
+    
     <!-- Si en la busqueda no tiene registros. -->
     <?php
       if ($total_registro != 0)

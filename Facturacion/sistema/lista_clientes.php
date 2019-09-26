@@ -34,77 +34,81 @@
       <input type="submit" value = "Buscar" class = "btn_search">
     </form>
     
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>NIT</th>
-        <th>Nombre</th>
-        <th>Telefono</th>
-        <th>Direccion</th>
-        <th>Acciones</th>
-      </tr>
-      <?php
-        // Seccion para el paginador (Barra donde despliega las páginas)
-        // Extraer los registros que esten activos
-        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM cliente WHERE  estatus = 1");
-        $result_register = mysqli_fetch_array($sql_registe);
-        $total_registro = $result_register['total_registro'];
-        $por_pagina = 8;
-        if(empty($_GET['pagina']))
-        {
-          $pagina = 1;
-
-        }
-        else
-        {
-          $pagina = $_GET['pagina'];
-        }
-
-        $desde = ($pagina-1)*$por_pagina;
-        // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
-        $total_paginas = ceil($total_registro/$por_pagina);
-
-
-        // Se obtiene los usuarios con su correspondiente nombre de "Rol" y que tengan en la columna "estatus = 1(Borrado logico)"
-        $query = mysqli_query($conexion,"SELECT * FROM cliente WHERE estatus = 1  ORDER BY nombre ASC LIMIT $desde,$por_pagina");
-        
-        mysqli_close($conexion);
-
-        $result = mysqli_num_rows($query);
-        if ($result > 0)
-        {
-          while ($data = mysqli_fetch_array($query))
+    <!-- Se agrega este "<div>" para poder utilizar el mediaquery de 760 px la pantalla. -->
+    <div class="containerTable">
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>NIT</th>
+          <th>Nombre</th>
+          <th>Telefono</th>
+          <th>Direccion</th>
+          <th>Acciones</th>
+        </tr>
+        <?php
+          // Seccion para el paginador (Barra donde despliega las páginas)
+          // Extraer los registros que esten activos
+          $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM cliente WHERE  estatus = 1");
+          $result_register = mysqli_fetch_array($sql_registe);
+          $total_registro = $result_register['total_registro'];
+          $por_pagina = 8;
+          if(empty($_GET['pagina']))
           {
-            if ($data["nit"] == 0)
-            {
-              $nit = 'C/F';              
-            }
-            else
-            {
-              $nit = $data["nit"];
-            }
-      ?>
-            <tr>
-              <td><?php echo $data['idcliente']; ?></td>
-              <td><?php echo $nit; ?></td>
-              <td><?php echo $data['nombre']; ?></td>
-              <td><?php echo $data['telefono']; ?></td>
-              <td><?php echo $data['direccion']; ?></td>
-              <td>
-                <a class ="link_edit" href = "editar_cliente.php?id=<?php echo $data['idcliente']; ?>">Editar</a>
-                |
-                <?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)  { ?>
-                  <a class = "link_delete"  href = "eliminar_confirmar_cliente.php?id=<?php echo $data['idcliente']; ?>">Eliminar</a>            
-                <?php } ?>
+            $pagina = 1;
 
-              </td>
-            </tr>
-      <?php        
           }
-        }
-      ?>
+          else
+          {
+            $pagina = $_GET['pagina'];
+          }
 
-    </table>
+          $desde = ($pagina-1)*$por_pagina;
+          // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
+          $total_paginas = ceil($total_registro/$por_pagina);
+
+
+          // Se obtiene los usuarios con su correspondiente nombre de "Rol" y que tengan en la columna "estatus = 1(Borrado logico)"
+          $query = mysqli_query($conexion,"SELECT * FROM cliente WHERE estatus = 1  ORDER BY nombre ASC LIMIT $desde,$por_pagina");
+          
+          mysqli_close($conexion);
+
+          $result = mysqli_num_rows($query);
+          if ($result > 0)
+          {
+            while ($data = mysqli_fetch_array($query))
+            {
+              if ($data["nit"] == 0)
+              {
+                $nit = 'C/F';              
+              }
+              else
+              {
+                $nit = $data["nit"];
+              }
+        ?>
+              <tr>
+                <td><?php echo $data['idcliente']; ?></td>
+                <td><?php echo $nit; ?></td>
+                <td><?php echo $data['nombre']; ?></td>
+                <td><?php echo $data['telefono']; ?></td>
+                <td><?php echo $data['direccion']; ?></td>
+                <td>
+                  <a class ="link_edit" href = "editar_cliente.php?id=<?php echo $data['idcliente']; ?>">Editar</a>
+                  |
+                  <?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)  { ?>
+                    <a class = "link_delete"  href = "eliminar_confirmar_cliente.php?id=<?php echo $data['idcliente']; ?>">Eliminar</a>            
+                  <?php } ?>
+
+                </td>
+              </tr>
+        <?php        
+            }
+          }
+        ?>
+
+      </table>
+    </div>
+
     <div class = "paginador">
         <ul>
         <?php 

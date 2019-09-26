@@ -63,142 +63,146 @@
       <!-- <input type="submit" value = "Buscar" class = "btn_search"> -->
     </form>
     
-    <table>
-      <tr>
-        <th>Código</th>
-        <th>Descripcion</th>
-        <th>Precio</th>
-        <th>Existencia</th>
+    <!-- Se agrega este "<div>" para poder utilizar el mediaquery de 760 px la pantalla. -->
+    <div class="containerTable">    
+      <table>
+        <tr>
+          <th>Código</th>
+          <th>Descripcion</th>
+          <th>Precio</th>
+          <th>Existencia</th>
 
-        <th>
-          <!-- Se agrega la opción de buscar por proveedor. -->
-          <?php 
-            $pro = 0;
-            if (!empty($_REQUEST['proveedor']))
-            {
-              $pro = $_REQUEST['proveedor'];
-            }
-            $query_proveedor = mysqli_query($conexion,"SELECT codproveedor,proveedor FROM proveedor WHERE estatus=1 ORDER BY proveedor ASC");
-            $result_proveedor = mysqli_num_rows($query_proveedor);            
-          ?>
-
-          <select name="proveedor" id="search_proveedor">
-            <option value = ""selected >Proveedor</option>
-          <?php 
-            if ($result_proveedor > 0)
-            {
-              while ($proveedor = mysqli_fetch_array($query_proveedor))
+          <th>
+            <!-- Se agrega la opción de buscar por proveedor. -->
+            <?php 
+              $pro = 0;
+              if (!empty($_REQUEST['proveedor']))
               {
-                if($pro == $proveedor['codproveedor'])
-                {
-          ?>
-                <option value = "<?php echo $proveedor['codproveedor']; ?>" selected><?php echo $proveedor['proveedor']; ?></option>
-          <?php
-                } // if($pro == $proveedor['codproveedor'])
-                else
-                {
-          ?>
-                <option value = "<?php echo $proveedor['codproveedor']; ?>"><?php echo $proveedor['proveedor']; ?></option>
+                $pro = $_REQUEST['proveedor'];
+              }
+              $query_proveedor = mysqli_query($conexion,"SELECT codproveedor,proveedor FROM proveedor WHERE estatus=1 ORDER BY proveedor ASC");
+              $result_proveedor = mysqli_num_rows($query_proveedor);            
+            ?>
 
-          <?php
+            <select name="proveedor" id="search_proveedor">
+              <option value = ""selected >Proveedor</option>
+            <?php 
+              if ($result_proveedor > 0)
+              {
+                while ($proveedor = mysqli_fetch_array($query_proveedor))
+                {
+                  if($pro == $proveedor['codproveedor'])
+                  {
+            ?>
+                  <option value = "<?php echo $proveedor['codproveedor']; ?>" selected><?php echo $proveedor['proveedor']; ?></option>
+            <?php
+                  } // if($pro == $proveedor['codproveedor'])
+                  else
+                  {
+            ?>
+                  <option value = "<?php echo $proveedor['codproveedor']; ?>"><?php echo $proveedor['proveedor']; ?></option>
+
+            <?php
+
+                  }
 
                 }
-
               }
-            }
-          ?>
-            
-          </select>
+            ?>
+              
+            </select>
 
-        </th>
-        
-        <th>Foto</th>
-        <th>Acciones</th>
-      </tr>
-      <?php
-        // Seccion para el paginador (Barra donde despliega las páginas)
-        // Extraer los registros que esten activos
-        // "search_proveedor" es numerico, no se agregan las % y ''
-        // "$where" se define en la validacion de que se buscará por "proveedor" o "descripcion"
-        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM producto AS p WHERE $where ");        
-        
-        $result_register = mysqli_fetch_array($sql_registe);
-        $total_registro = $result_register['total_registro'];
-        //echo $total_registro;
-        //exit;
+          </th>
+          
+          <th>Foto</th>
+          <th>Acciones</th>
+        </tr>
+        <?php
+          // Seccion para el paginador (Barra donde despliega las páginas)
+          // Extraer los registros que esten activos
+          // "search_proveedor" es numerico, no se agregan las % y ''
+          // "$where" se define en la validacion de que se buscará por "proveedor" o "descripcion"
+          $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM producto AS p WHERE $where ");        
+          
+          $result_register = mysqli_fetch_array($sql_registe);
+          $total_registro = $result_register['total_registro'];
+          //echo $total_registro;
+          //exit;
 
-        $por_pagina = 1;
+          $por_pagina = 1;
 
-        if(empty($_GET['pagina']))
-        {
-          $pagina = 1;
-
-        }
-        else
-        {
-          $pagina = $_GET['pagina'];
-        }
-
-        $desde = ($pagina-1)*$por_pagina;
-        // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
-        $total_paginas = ceil($total_registro/$por_pagina);
-
-
-        // Se obtiene los productos con el estatus = 1(NO Borrado logico)
-        // Se agrega la variable "$where" para que funcione cuando se busque por la caja de "buscar"
-        $query = mysqli_query($conexion,"SELECT p.codproducto,p.descripcion,p.precio,p.existencia,pr.proveedor,p.foto 
-        FROM producto p 
-        INNER JOIN proveedor pr 
-        ON p.proveedor = pr.codproveedor
-        WHERE $where
-        ORDER BY p.descripcion ASC LIMIT $desde,$por_pagina");
-        
-        mysqli_close($conexion);
-
-        $result = mysqli_num_rows($query);
-        if ($result > 0)
-        {
-          while ($data = mysqli_fetch_array($query))
+          if(empty($_GET['pagina']))
           {
-            if ($data['foto'] != 'img_producto.png')
-            {
-              $foto = 'img/uploads/'.$data['foto'];
-            }
-            else
-            {
-              $foto = 'img/uploads/'.$data['foto'];
-            }
-      ?>
-            <!-- Cambiar a cada renglon un color-->
-            <tr class="row<?php echo $data['codproducto']; ?>">
-              <td><?php echo $data['codproducto']; ?></td>
-              <td><?php echo $data['descripcion']; ?></td>
-              <td class="celPrecio"><?php echo $data['precio']; ?></td>
-              <td class="celExistencia"><?php echo $data['existencia']; ?></td>
-              <td><?php echo $data['proveedor']; ?></td>
+            $pagina = 1;
 
-              <!-- Para mostrar la foto, se asigna clase para definir un tamaño constante. -->
-              <td class="img_producto"><img src="<?php echo $foto; ?>" alt = "<?php echo $data['descripcion']; ?>"></td>
-
-              <?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)  { ?>         
-
-              <td> 
-                <a class ="link_add add_product" product = "<?php echo $data['codproducto']; ?>" href = "#"><i class="fas fa-plus"></i> Agregar</a>
-                |
-                <a class ="link_edit" href = "editar_producto.php?id=<?php echo $data['codproducto']; ?>"><i class="fas fa-edit"></i> Editar</a>
-                |                
-                <a class = "link_delete del_product" product = "<?php echo $data['codproducto']; ?>" href = "#"><i class="fas fa-trash-alt"></i> Eliminar</a>            
-              </td>
-
-              <?php } ?>
-
-            </tr>
-      <?php        
           }
-        }
-      ?>
+          else
+          {
+            $pagina = $_GET['pagina'];
+          }
 
-    </table>
+          $desde = ($pagina-1)*$por_pagina;
+          // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
+          $total_paginas = ceil($total_registro/$por_pagina);
+
+
+          // Se obtiene los productos con el estatus = 1(NO Borrado logico)
+          // Se agrega la variable "$where" para que funcione cuando se busque por la caja de "buscar"
+          $query = mysqli_query($conexion,"SELECT p.codproducto,p.descripcion,p.precio,p.existencia,pr.proveedor,p.foto 
+          FROM producto p 
+          INNER JOIN proveedor pr 
+          ON p.proveedor = pr.codproveedor
+          WHERE $where
+          ORDER BY p.descripcion ASC LIMIT $desde,$por_pagina");
+          
+          mysqli_close($conexion);
+
+          $result = mysqli_num_rows($query);
+          if ($result > 0)
+          {
+            while ($data = mysqli_fetch_array($query))
+            {
+              if ($data['foto'] != 'img_producto.png')
+              {
+                $foto = 'img/uploads/'.$data['foto'];
+              }
+              else
+              {
+                $foto = 'img/uploads/'.$data['foto'];
+              }
+        ?>
+              <!-- Cambiar a cada renglon un color-->
+              <tr class="row<?php echo $data['codproducto']; ?>">
+                <td><?php echo $data['codproducto']; ?></td>
+                <td><?php echo $data['descripcion']; ?></td>
+                <td class="celPrecio"><?php echo $data['precio']; ?></td>
+                <td class="celExistencia"><?php echo $data['existencia']; ?></td>
+                <td><?php echo $data['proveedor']; ?></td>
+
+                <!-- Para mostrar la foto, se asigna clase para definir un tamaño constante. -->
+                <td class="img_producto"><img src="<?php echo $foto; ?>" alt = "<?php echo $data['descripcion']; ?>"></td>
+
+                <?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)  { ?>         
+
+                <td> 
+                  <a class ="link_add add_product" product = "<?php echo $data['codproducto']; ?>" href = "#"><i class="fas fa-plus"></i> Agregar</a>
+                  |
+                  <a class ="link_edit" href = "editar_producto.php?id=<?php echo $data['codproducto']; ?>"><i class="fas fa-edit"></i> Editar</a>
+                  |                
+                  <a class = "link_delete del_product" product = "<?php echo $data['codproducto']; ?>" href = "#"><i class="fas fa-trash-alt"></i> Eliminar</a>            
+                </td>
+
+                <?php } ?>
+
+              </tr>
+        <?php        
+            }
+          }
+        ?>
+
+      </table>
+    </div>  <!-- <div class="containerTable">  -->
+
     <!-- Se elimina los botones del paginador cuando no se tengan registros  -->
     <?php 
       if ($total_pagina != 0)

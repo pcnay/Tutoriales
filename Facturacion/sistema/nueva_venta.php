@@ -68,48 +68,52 @@
           </div>
 
         </div>
-        <table class="tbl_venta">
-          <thead>
-            <tr>
-              <th width="100px">Codigo</th>
-              <th>Descripcion</th>
-              <th>Existencias</th>
-              <th width="100px">Cantidad</th>
-              <th class="textright">Precio</th>
-              <th class="textright">Precio Total</th>
-              <th>Accion</th>
-            </tr>
-            <tr>
-              <td><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
-              <td id="txt_descripcion">-</td>
-              <td id="txt_existencia">-</td>
-              <td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
-              <td id="txt_precio" class="textright">0.00</td>
-              <td id="txt_precio_total" class="textright">0.00</td>
-              <!-- Boton para agregar productos al detalle de Venta. -->
-              <td><a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar</a></td>
-            </tr>
-            <tr>
-              <th>Codigo</th>
-              <th colspan="2">Descripcion</th>
-              <th>Cantidad</th>
-              <th class="textright">Precio</th>
-              <th class="textright">Precio Total</th>
-              <th>Accion</th>
-            </tr>  
-          </thead>
 
-          <!-- Detalle de Factura .-->
-          <tbody id="detalle_venta">
-            <!-- Esta seccion se desplegara con Ajax. -->
-          </tbody>
+        <!-- Se agrega este "<div>" para poder utilizar el mediaquery de 760 px la pantalla. -->
+        <div class="containerTable">     
+          <table class="tbl_venta">
+            <thead>
+              <tr>
+                <th width="100px">Codigo</th>
+                <th>Descripcion</th>
+                <th>Existencias</th>
+                <th width="100px">Cantidad</th>
+                <th class="textright">Precio</th>
+                <th class="textright">Precio Total</th>
+                <th>Accion</th>
+              </tr>
+              <tr>
+                <td><input type="text" name="txt_cod_producto" id="txt_cod_producto"></td>
+                <td id="txt_descripcion">-</td>
+                <td id="txt_existencia">-</td>
+                <td><input type="text" name="txt_cant_producto" id="txt_cant_producto" value="0" min="1" disabled></td>
+                <td id="txt_precio" class="textright">0.00</td>
+                <td id="txt_precio_total" class="textright">0.00</td>
+                <!-- Boton para agregar productos al detalle de Venta. -->
+                <td><a href="#" id="add_product_venta" class="link_add"><i class="fas fa-plus"></i> Agregar</a></td>
+              </tr>
+              <tr>
+                <th>Codigo</th>
+                <th colspan="2">Descripcion</th>
+                <th>Cantidad</th>
+                <th class="textright">Precio</th>
+                <th class="textright">Precio Total</th>
+                <th>Accion</th>
+              </tr>  
+            </thead>
 
-          <!-- Colocar los totales -->
-          <tfoot id="detalle_totales">
-            <!-- Contenido desplegado a través de Ajax --> 
+            <!-- Detalle de Factura .-->
+            <tbody id="detalle_venta">
+              <!-- Esta seccion se desplegara con Ajax. -->
+            </tbody>
 
-          </tfoot>
-        </table>
+            <!-- Colocar los totales -->
+            <tfoot id="detalle_totales">
+              <!-- Contenido desplegado a través de Ajax --> 
+
+            </tfoot>
+          </table>
+        </div> <!-- <div class="containerTable">   -->  
 
       </section>
     
