@@ -71,6 +71,8 @@
   <html lang="en">
   <head>
     <meta charset="UTF-8">
+    <!-- Para usarlo de forma de Responsive Web-->
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximun-scale=1.0, minimum-scale=1.0">
     <title>Login  Sistema De Facturacion</title>
     <link rel = "stylesheet" type = "text/css" href = "css/style.css">
   </head>

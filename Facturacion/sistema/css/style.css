@@ -52,6 +52,21 @@ header{
 	position: fixed;
 	width: 100%;
 }
+
+/* Para que no se muestr cuando esta en la vista de computadora Escritorio, pero se activara cuando este en vista para Mobil */
+.btnMenu
+{
+	color:#fff;
+	font-size:20px;
+	margin-right:10px;
+	display:none;
+}
+.viewMenu
+{
+	left:0;
+	transition:0.5s all;
+}
+
 .header{
 	color: #FFF;
 	background: #0a4661;

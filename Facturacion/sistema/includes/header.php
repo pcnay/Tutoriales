@@ -12,7 +12,9 @@ if (empty($_SESSION['active']))
 
 <header>
 		<div class="header">
-			
+		<!-- Para que muestre el menu al oprimir este icono-->
+			 <a href="#" class="btnMenu"><i class="fas fa-bars"></i></a>	
+
 			<h1>Sistema Facturación</h1>
 			<div class="optionsBar">
 				<p>Tijuana, <?php echo fechaC();?></p>

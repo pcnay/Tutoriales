@@ -742,11 +742,32 @@ $(document).ready(function(){
 
     }); // $.ajax
 
+  }); // $('#frmEmpresa').submit(function(e)
 
-
-
+  // Agregando funcionalidad a las opciones del submenu, para version Mobil
+  $('nav ul li').click(function(){
+      // Son los submenus.
+     $('nav ul li ul').slideUp(); // Oculta el menu 
+     // Es el elemento que estamos dando click, y lo muestra. 
+     $(this).children('ul').slideToggle();
   });
 
+  // <a href="#" class="btnMenu"><i class="fas fa-bars"></i></a>	
+  $('.btnMenu').click(function(e){
+    e.preventDefault(); // Evita que se recarge la página. 
+    // hasClass = Si tiene la clase "viewMenu"
+    // cuando se vuelve a oprimir el simbolo de los libros (menú) se oculta, se oprime de nuevo se muestra.
+    if($('nav').hasClass('viewMenu'))
+    {
+      $('nav').removeClass('viewMenu');
+    }
+    else
+    {
+      $('nav').addClass('viewMenu');
+    }
+
+  });
+  
 }); // $(document).ready(function(){
 
 

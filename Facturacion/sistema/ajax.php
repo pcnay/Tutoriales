@@ -724,7 +724,6 @@
 
     } // if ($_POST['action'] == 'updateDataEmpresa')
 
-
   } // if (!empty($_POST))
   exit;
 ?> 

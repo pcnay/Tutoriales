@@ -1,0 +1,70 @@
+/* Todos estos estilos se van aplicar a partir de los 1000px*/
+@media screen and (max-width:1000px)
+{
+  #container
+  {
+    padding: 45px 10px 10px;
+  }
+
+  .btnMenu
+  {
+    display:block; /* Se muestra en forma de bloque, uno después de otro, solo en este caso solo son 1*/ 
+  }
+  nav
+  {
+    /* Para poder mover el menu donde se quiera */
+    position:absolute;
+    width:100%;
+    left:-100%; /* Para que cuando inicia en este tamaño de ventana este oculto, es decir totalmente a la Izquierda */
+    transition:0.5s all;
+  } 
+  nav ul
+  {
+    /* Colocar todos los elementos en columna, cuando se baja de 1000px*/ 
+    flex-direction:column;
+  }
+  /*Desactiva el efecto de deslizamiento, ya que en version para mobil no debe realizarlo */
+  nav ul li:hover ul
+  {
+    display:none;
+  }
+
+  nav ul li
+  {
+    width:100%; /* Ocupan el 100% de la pantalla partiendo de la media arriba mencionada */
+    border-bottom:1px solid #CCC;  
+  }
+  nav ul li a 
+  {
+    text-align:left;
+    width:100%;
+  }
+  /* Para que se puedan mostrar los submenus, con las modificaciones anteriores */ 
+  nav li ul 
+  {
+    position:relative; /*Para que se desplacen las opciones del menú y se muestren los submenus */
+    border-radius:0px;
+  }
+  /* Ingresando a los "SubMenus"
+  "last-child" se accesa a la última opción del submenu.
+  */ 
+  nav li ul li:last-child
+  {
+    border-radius:0;
+  }
+
+  /* <li class="principal">
+					<a href="#"><i class="fas fa-user"></i>Clientes<span class="arrow"><i */
+  nav .principal .arrow
+  {
+    float:right; /* Flota a la Derecha */
+  }
+
+  header h1 
+  {
+    font-size:14px;
+  }
+
+
+
+}

@@ -6,6 +6,13 @@
   box-sizing:border-box;
 
 }
+body
+{
+  /*  Asignar un fondo de pantalla  */
+  background-image:url(../img/fondoLogin.jpg);
+  background-size:cover; /* Abarca todo el tamaño de la pantalla , ya que cuando se reduce la pantalla se duplican. */
+  background-repeat:no-repeat; /* Para que no se repita la imagen.*/  
+}
 
 /*  Solo es del letrero "Iniciar Sesion" */
 h3
@@ -24,7 +31,8 @@ h3
 /* Es un identificador, se agrega "#" , contiene la ventana del "Login" */
 #container
 {
-  background:#5D6D7E;
+  /* Se aplica degradado para que se puede notar el fondo de la imgen en la pantalla Login */
+  background: rgba(0,0,0,0.32);
   width:100%;
   height:100vh;
   display: -webkit-flex;
@@ -39,7 +47,8 @@ h3
 /* Se aplican estilos solamente al formulario */
 #container form
 {
-   background:#FFF;
+  /* Se aplica transparencia para que baje el color del Login.*/
+   background:rgba(255,255,255,0.3);
    width:400px;
    padding:10px;
 }
@@ -78,4 +87,13 @@ h3
   font-family:'Arial';
   font-size:16px;
   text-align:center;
+}
+
+/* Se aplica los estilos para pantallas de 460px y hacia abajo*/ 
+@media screen and (max-width:460px)
+{
+  #container form 
+  {
+    width:90%;
+  }
 }

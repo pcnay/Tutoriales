@@ -8,7 +8,7 @@
 	<meta charset="UTF-8">
 	<?php include "includes/script.php"; ?>
 
-	<title>Sisteme Ventas</title>
+	<title>Sistema Ventas</title>
 </head>
 <body>
 	<?php 
