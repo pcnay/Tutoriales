@@ -22,7 +22,7 @@
 				?>
 
 				<li class="principal">
-					<a href="#"><i class="fas fa-user"></i>Clientes<span class="arrow"><i class="fas fa-angle-down"></i></span></a>
+					<a href="#"><i class="fas fa-user"></i>Clientes <span class="arrow"><i class="fas fa-angle-down"></i></span></a>
 					<ul>
 						<li><a href="registro_cliente.php"><i class="fas fa-plus"></i> Nuevo Clientes</a></li>
 						<li><a href="lista_clientes.php"><i class="fas fa-alt"></i> Lista Clientes</a></li>
@@ -32,7 +32,7 @@
 				<!-- Solo es visible para usuarios "Administrador" y "Supervisor"-->
 				<?php if ($_SESSION['rol'] == 1 || $_SESSION['rol'] == 2)	{?>
 				<li class="principal">
-					<a href="#"><i class="far fa-building"></i>Proveedores <span class="arrow"><i class="fas fa-angle-down"></i></span></a>
+					<a href="#"><i class="far fa-building"></i> Proveedores <span class="arrow"><i class="fas fa-angle-down"></i></span></a>
 					<ul>
 						<li><a href="registro_proveedor.php"><i class="far fa-building"></i> Nuevo Proveedor </a></li>
 						<li><a href="lista_proveedor.php"><i class="far fa-list-alt"></i> Lista de Proveedores</a></li>

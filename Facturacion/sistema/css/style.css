@@ -716,10 +716,10 @@ z-index: 10;
 	display: -moz-flex;
 	display: -ms-flex;
 	display:- o-flex;
-	display: flex;
+	display: flex; /* Se coloca uno despues de otro.*/
 	justify-content: space-around;
 	width:100%;
-	margin:auto;
+	margin:auto;	
 }
 
 /* Se agrandan los iconos, se asigna color de fondo  y se centran en la ancho de la ventana*/

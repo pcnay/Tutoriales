@@ -34,72 +34,77 @@
       <button type="submit" class = "btn_search"><i class="fas fa-search fa-2x"></i></button>
     </form>
     
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Correo</th>
-        <th>Usuario</th>
-        <th>Rol</th>
-        <th>Acciones</th>
-      </tr>
-      <?php
-        // Seccion para el paginador (Barra donde despliega las páginas)
-        // Extraer los registros que esten activos
-        $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM usuario WHERE  estatus = 1");
-        $result_register = mysqli_fetch_array($sql_registe);
-        $total_registro = $result_register['total_registro'];
-        $por_pagina = 3;
-        if(empty($_GET['pagina']))
-        {
-          $pagina = 1;
-
-        }
-        else
-        {
-          $pagina = $_GET['pagina'];
-        }
-
-        $desde = ($pagina-1)*$por_pagina;
-        // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
-        $total_paginas = ceil($total_registro/$por_pagina);
-
-
-        // Se obtiene los usuarios con su correspondiente nombre de "Rol" y que tengan en la columna "estatus = 1(Borrado logico)"
-        $query = mysqli_query($conexion,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u  INNER JOIN rol r ON u.rol = r.idrol WHERE estatus = 1  ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
-        
-        mysqli_close($conexion);
-
-        $result = mysqli_num_rows($query);
-        if ($result > 0)
-        {
-          while ($data = mysqli_fetch_array($query))
+    <!-- Se agrega este "<div>" para poder utilizar el mediaquery de 760 px la pantalla. -->
+    <div class="containerTable">
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Usuario</th>
+          <th>Rol</th>
+          <th>Acciones</th>
+        </tr>
+        <?php
+          // Seccion para el paginador (Barra donde despliega las páginas)
+          // Extraer los registros que esten activos
+          $sql_registe = mysqli_query($conexion,"SELECT COUNT(*) AS total_registro FROM usuario WHERE  estatus = 1");
+          $result_register = mysqli_fetch_array($sql_registe);
+          $total_registro = $result_register['total_registro'];
+          $por_pagina = 3;
+          if(empty($_GET['pagina']))
           {
-      ?>
-            <tr>
-              <td><?php echo $data['idusuario']; ?></td>
-              <td><?php echo $data['nombre']; ?></td>
-              <td><?php echo $data['correo']; ?></td>
-              <td><?php echo $data['usuario']; ?></td>
-              <td><?php echo $data['rol']; ?></td>
-              <td>
-                <a class ="link_edit" href = "editar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i class="far fa-edit "></i> Editar</a>
-                <?php
-                 if ($data['idusuario'] != 1) 
-                 {
-                ?>
-                |
-                <!-- Si es el usuario = 1 (SuperUsuario) no se puede borrar -->
-                <a class = "link_delete"  href = "eliminar_confirmar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i class="far fa-trash-alt"></i>Eliminar</a>
-            <?php } ?>
-            
-              </td>
-            </tr>
-      <?php        
+            $pagina = 1;
+
           }
-        }
-      ?>
-    </table>
+          else
+          {
+            $pagina = $_GET['pagina'];
+          }
+
+          $desde = ($pagina-1)*$por_pagina;
+          // Se coloca -1 porque en la parametro de "LIMIT" utiliza desde 0 a X.
+          $total_paginas = ceil($total_registro/$por_pagina);
+
+
+          // Se obtiene los usuarios con su correspondiente nombre de "Rol" y que tengan en la columna "estatus = 1(Borrado logico)"
+          $query = mysqli_query($conexion,"SELECT u.idusuario,u.nombre,u.correo,u.usuario,r.rol FROM usuario u  INNER JOIN rol r ON u.rol = r.idrol WHERE estatus = 1  ORDER BY u.nombre ASC LIMIT $desde,$por_pagina");
+          
+          mysqli_close($conexion);
+
+          $result = mysqli_num_rows($query);
+          if ($result > 0)
+          {
+            while ($data = mysqli_fetch_array($query))
+            {
+        ?>
+              <tr>
+                <td><?php echo $data['idusuario']; ?></td>
+                <td><?php echo $data['nombre']; ?></td>
+                <td><?php echo $data['correo']; ?></td>
+                <td><?php echo $data['usuario']; ?></td>
+                <td><?php echo $data['rol']; ?></td>
+                <td>
+                  <a class ="link_edit" href = "editar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i class="far fa-edit "></i> Editar</a>
+                  <?php
+                  if ($data['idusuario'] != 1) 
+                  {
+                  ?>
+                  |
+                  <!-- Si es el usuario = 1 (SuperUsuario) no se puede borrar -->
+                  <a class = "link_delete"  href = "eliminar_confirmar_usuario.php?id=<?php echo $data['idusuario']; ?>"><i class="far fa-trash-alt"></i>Eliminar</a>
+              <?php } ?>
+              
+                </td>
+              </tr>
+        <?php        
+            }
+          }
+        ?>
+      </table>
+
+    </div> <!--     <div class="containerTable"> -->
+
     <div class = "paginador">
         <ul>
         <?php 

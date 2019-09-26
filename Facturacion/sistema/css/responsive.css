@@ -65,6 +65,82 @@
     font-size:14px;
   }
 
-
-
 }
+/* Tamaños para Tablets */ 
+@media screen and (max-width:768px)
+{
+  .dashboard
+  {
+    flex-wrap:wrap; /* Baja los elementos cuando no quepan en la pantalla.*/    
+  }
+  .dashboard a
+  {
+    width:50%;
+    border:1px solid #CCC;
+  }
+  .containerDataUser, .containerDataEmpresa
+  {
+    width:100%;
+    margin-botton:20px;
+  }
+  #container h1 
+  {
+    font-size:12pt !important;  /* Para que ignore las definiciones de h1 anteiriores .*/     
+  }
+  .logoUser, .logoEmpresa
+  {
+    width:150px;
+    height:150px; 
+  }
+  /* Estilo para lista de usuarios*/
+  .btn_new 
+  {
+    margin:0;
+    margin-right:10px;
+    padding: 5px 10px;
+    font-size:8pt;     
+  } 
+  .form_search
+  {
+    width:100%;
+    margin-top:10px;
+    border:0;  
+  }
+  .contanierTable
+  {
+    width:100%;
+    border:5px solid #CCC;
+    overflow:scroll; /* Se habilita el Scroll cuando no haya espacio en el contenido */ 
+  }
+  table 
+  {
+    width:850px;    
+  }
+  table td, table th 
+  {
+    padding:5px;
+    font-size:13pt; /* Tamaño de letra de las celdas de las tablas.*/
+  }
+} /* @media screen and (max-width:768px) */
+
+/* Tamaños para celular */ 
+@media screen and (max-width:460px)
+{
+ .dashboard a
+ {
+   padding:5px 2px;
+ }
+ .dashboard p 
+ {
+   font-size:9pt;   
+ }
+ .dashboard span 
+ {
+   font-size:10pt;
+ }
+ .divDataUser label 
+ {
+   width:80px;
+ }
+}
+
